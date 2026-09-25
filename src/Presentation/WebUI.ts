@@ -330,7 +330,7 @@ export const WebUIHtml = `<!DOCTYPE html>
     <div class="flex items-center gap-5 overflow-x-auto no-scrollbar pb-3 pt-1">
       
       <!-- Story 1: Juliana -->
-      <button onclick="openStoryModal('Juliana VIP', 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=85', 'Boa tarde amores! Já estou atendendo no Bosque em suíte climatizada com elevador privativo. ☕✨')" class="flex flex-col items-center gap-1.5 flex-shrink-0 group focus:outline-none transition-transform hover:-translate-y-1.5 active:scale-95">
+      <button onclick="openStoryIndex(0)" class="flex flex-col items-center gap-1.5 flex-shrink-0 group focus:outline-none transition-transform hover:-translate-y-1.5 active:scale-95">
         <div class="relative w-16 h-16 sm:w-18 sm:h-18 rounded-full p-[2.5px] bg-gradient-to-tr from-brand-gold via-brand-crimson to-amber-400 group-hover:scale-105 group-hover:shadow-lg group-hover:shadow-brand-gold/40 transition-all shadow-md">
           <div class="w-full h-full rounded-full overflow-hidden border-2 border-white dark:border-rose-950">
             <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80" alt="Juliana VIP" class="w-full h-full object-cover group-hover:scale-115 transition-transform duration-500">
@@ -347,7 +347,7 @@ export const WebUIHtml = `<!DOCTYPE html>
       </button>
 
       <!-- Story 2: Valentina -->
-      <button onclick="openStoryModal('Valentina Rossi', 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=800&q=85', 'Sessões de massagem tântrica disponíveis hoje à tarde no Jardim Europa. Espaço térreo e acolhedor! 🌸')" class="flex flex-col items-center gap-1.5 flex-shrink-0 group focus:outline-none transition-transform hover:-translate-y-1.5 active:scale-95">
+      <button onclick="openStoryIndex(1)" class="flex flex-col items-center gap-1.5 flex-shrink-0 group focus:outline-none transition-transform hover:-translate-y-1.5 active:scale-95">
         <div class="relative w-16 h-16 sm:w-18 sm:h-18 rounded-full p-[2.5px] bg-gradient-to-tr from-brand-crimson via-rose-500 to-amber-300 group-hover:scale-105 group-hover:shadow-lg group-hover:shadow-brand-crimson/40 transition-all shadow-md">
           <div class="w-full h-full rounded-full overflow-hidden border-2 border-white dark:border-rose-950">
             <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=200&q=80" alt="Valentina Rossi" class="w-full h-full object-cover group-hover:scale-115 transition-transform duration-500">
@@ -364,7 +364,7 @@ export const WebUIHtml = `<!DOCTYPE html>
       </button>
 
       <!-- Story 3: Lucas -->
-      <button onclick="openStoryModal('Lucas Moreno', 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=85', 'Espaço com iluminação suave e isolamento acústico no Centro. Momentos tranquilos e sem pressa. ✨')" class="flex flex-col items-center gap-1.5 flex-shrink-0 group focus:outline-none transition-transform hover:-translate-y-1.5 active:scale-95">
+      <button onclick="openStoryIndex(2)" class="flex flex-col items-center gap-1.5 flex-shrink-0 group focus:outline-none transition-transform hover:-translate-y-1.5 active:scale-95">
         <div class="relative w-16 h-16 sm:w-18 sm:h-18 rounded-full p-[2.5px] bg-gradient-to-tr from-amber-400 via-brand-wine to-emerald-500 group-hover:scale-105 group-hover:shadow-lg group-hover:shadow-amber-500/40 transition-all shadow-md">
           <div class="w-full h-full rounded-full overflow-hidden border-2 border-white dark:border-rose-950">
             <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80" alt="Lucas Moreno" class="w-full h-full object-cover group-hover:scale-115 transition-transform duration-500">
@@ -381,7 +381,7 @@ export const WebUIHtml = `<!DOCTYPE html>
       </button>
 
       <!-- Story 4: Camila -->
-      <button onclick="openStoryModal('Camila Ferraz', 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=800&q=85', 'Atendimento com total paciência e carinho no Aviário. Espaço térreo preparado e cão-guia muito bem-vindo! 🐕💛')" class="flex flex-col items-center gap-1.5 flex-shrink-0 group focus:outline-none transition-transform hover:-translate-y-1.5 active:scale-95">
+      <button onclick="openStoryIndex(3)" class="flex flex-col items-center gap-1.5 flex-shrink-0 group focus:outline-none transition-transform hover:-translate-y-1.5 active:scale-95">
         <div class="relative w-16 h-16 sm:w-18 sm:h-18 rounded-full p-[2.5px] bg-gradient-to-tr from-rose-400 via-brand-gold to-brand-crimson group-hover:scale-105 group-hover:shadow-lg group-hover:shadow-purple-500/40 transition-all shadow-md">
           <div class="w-full h-full rounded-full overflow-hidden border-2 border-white dark:border-rose-950">
             <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=200&q=80" alt="Camila Ferraz" class="w-full h-full object-cover group-hover:scale-115 transition-transform duration-500">
@@ -398,7 +398,7 @@ export const WebUIHtml = `<!DOCTYPE html>
       </button>
 
       <!-- Story 5: Rafaella -->
-      <button onclick="openStoryModal('Rafaella Santos', 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=800&q=85', 'Suíte privativa climatizada com banheira de hidromassagem na Cerâmica. Atendimento VIP e discreto. 🛁🥂')" class="flex flex-col items-center gap-1.5 flex-shrink-0 group focus:outline-none transition-transform hover:-translate-y-1.5 active:scale-95">
+      <button onclick="openStoryIndex(4)" class="flex flex-col items-center gap-1.5 flex-shrink-0 group focus:outline-none transition-transform hover:-translate-y-1.5 active:scale-95">
         <div class="relative w-16 h-16 sm:w-18 sm:h-18 rounded-full p-[2.5px] bg-gradient-to-tr from-brand-gold via-brand-crimson to-rose-400 group-hover:scale-105 group-hover:shadow-lg group-hover:shadow-brand-crimson/40 transition-all shadow-md">
           <div class="w-full h-full rounded-full overflow-hidden border-2 border-white dark:border-rose-950">
             <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=200&q=80" alt="Rafaella Santos" class="w-full h-full object-cover group-hover:scale-115 transition-transform duration-500">
@@ -723,37 +723,50 @@ export const WebUIHtml = `<!DOCTYPE html>
   <!-- ====================================================================== -->
   <!-- MODAL: VISUALIZADOR DE STORY (ESTILO INSTAGRAM / FATAL MODEL) -->
   <!-- ====================================================================== -->
-  <div id="modal-story" class="fixed inset-0 bg-black/90 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
-    <div class="relative max-w-sm w-full h-[620px] rounded-3xl overflow-hidden border border-white/20 shadow-2xl flex flex-col justify-between animate-modal-pop">
+  <div id="modal-story" onclick="if(event.target === this) closeStoryModal()" class="fixed inset-0 bg-black/95 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+    <div class="relative max-w-sm w-full h-[620px] rounded-3xl overflow-hidden border border-white/20 shadow-2xl flex flex-col justify-between animate-modal-pop select-none group/story">
       <!-- Imagem de Fundo do Story -->
-      <img id="story-bg" src="" alt="Story" class="absolute inset-0 w-full h-full object-cover">
-      <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/80"></div>
+      <img id="story-bg" src="" alt="Story" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-300">
+      <div class="absolute inset-0 bg-gradient-to-b from-black/75 via-transparent to-black/85 pointer-events-none"></div>
 
-      <!-- Barra de Progresso no Topo -->
-      <div class="relative z-10 p-4 space-y-3">
-        <div class="w-full h-1 bg-white/30 rounded-full overflow-hidden">
-          <div class="h-full bg-white rounded-full w-3/4 animate-pulse"></div>
-        </div>
+      <!-- Botões de Navegação Desktop (Esquerda / Direita) -->
+      <button onclick="prevStory(event)" class="hidden sm:flex absolute -left-14 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/15 hover:bg-white/30 backdrop-blur-md items-center justify-center text-white transition-all hover:scale-110 active:scale-95 z-30 shadow-lg border border-white/20" title="Perfil anterior (←)">
+        <i data-lucide="chevron-left" class="w-6 h-6"></i>
+      </button>
+      <button onclick="nextStory(event)" class="hidden sm:flex absolute -right-14 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/15 hover:bg-white/30 backdrop-blur-md items-center justify-center text-white transition-all hover:scale-110 active:scale-95 z-30 shadow-lg border border-white/20" title="Próximo perfil (→)">
+        <i data-lucide="chevron-right" class="w-6 h-6"></i>
+      </button>
+
+      <!-- Áreas de Toque Direita/Esquerda para Navegar (Padrão Instagram com Hold to Pause) -->
+      <div class="absolute inset-y-20 left-0 w-1/3 z-20 cursor-pointer" onmousedown="handleStoryPointerDown(event)" onmouseup="handleStoryPointerUp(event, 'prev')" onmouseleave="resumeStory()" ontouchstart="handleStoryPointerDown(event)" ontouchend="handleStoryPointerUp(event, 'prev')" title="Voltar (ou segure para pausar)"></div>
+      <div class="absolute inset-y-20 right-0 w-2/3 z-20 cursor-pointer" onmousedown="handleStoryPointerDown(event)" onmouseup="handleStoryPointerUp(event, 'next')" onmouseleave="resumeStory()" ontouchstart="handleStoryPointerDown(event)" ontouchend="handleStoryPointerUp(event, 'next')" title="Avançar (ou segure para pausar)"></div>
+
+      <!-- Barra de Progresso no Topo (Segmentos estilo Instagram) -->
+      <div class="relative z-30 p-4 space-y-3">
+        <div id="story-progress-bars" class="flex items-center gap-1.5 w-full"></div>
         
         <div class="flex items-center justify-between">
           <div class="flex items-center gap-2.5">
-            <div class="w-9 h-9 min-w-[36px] min-h-[36px] max-w-[36px] max-h-[36px] rounded-full overflow-hidden border-2 border-brand-gold shrink-0">
+            <div class="w-9 h-9 min-w-[36px] min-h-[36px] max-w-[36px] max-h-[36px] rounded-full overflow-hidden border-2 border-brand-gold shrink-0 shadow-md">
               <img id="story-avatar" src="" alt="Avatar" class="w-full h-full object-cover">
             </div>
             <div>
-              <div id="story-name" class="text-white text-xs font-bold">Nome</div>
-              <div class="text-[10px] text-gray-300">Publicado há 2 horas • Rio Branco</div>
+              <div class="flex items-center gap-1.5">
+                <span id="story-name" class="text-white text-xs font-bold">Nome</span>
+                <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+              </div>
+              <div id="story-meta" class="text-[10px] text-gray-300">Publicado há 2 horas • Rio Branco</div>
             </div>
           </div>
-          <button onclick="closeModal('modal-story')" class="text-white p-1 hover:text-brand-crimson hover:rotate-90 transition-all">
+          <button onclick="closeStoryModal()" class="text-white p-1.5 hover:text-brand-crimson hover:rotate-90 transition-all rounded-full hover:bg-white/10" title="Fechar story (Esc)">
             <i data-lucide="x" class="w-5 h-5"></i>
           </button>
         </div>
       </div>
 
       <!-- Legenda do Story e CTA WhatsApp -->
-      <div class="relative z-10 p-5 space-y-3">
-        <p id="story-caption" class="text-white text-xs leading-relaxed font-medium bg-black/40 backdrop-blur-sm p-3.5 rounded-2xl border border-white/10">
+      <div class="relative z-30 p-5 space-y-3">
+        <p id="story-caption" class="text-white text-xs leading-relaxed font-medium bg-black/50 backdrop-blur-md p-3.5 rounded-2xl border border-white/10 shadow-lg">
           Legenda do story...
         </p>
 
@@ -1013,6 +1026,9 @@ export const WebUIHtml = `<!DOCTYPE html>
     }
 
     function closeModal(id) {
+      if (id === 'modal-story' && typeof stopStoryTimer === 'function') {
+        stopStoryTimer();
+      }
       document.getElementById(id).classList.add('hidden');
     }
 
@@ -1322,22 +1338,249 @@ export const WebUIHtml = `<!DOCTYPE html>
       window.open(waUrl, '_blank');
     }
 
-    function openStoryModal(name, photoUrl, caption) {
-      currentSelectedStory = { name, photoUrl, caption };
-      document.getElementById('story-bg').src = photoUrl;
-      document.getElementById('story-avatar').src = photoUrl;
-      document.getElementById('story-name').innerText = name;
-      document.getElementById('story-caption').innerText = caption;
+    // ======================================================================
+    // MOTOR DE STORIES AO VIVO (PADRÃO INSTAGRAM STORIES)
+    // ======================================================================
+    const storiesCatalog = [
+      {
+        name: 'Juliana VIP',
+        avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80',
+        photoUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=85',
+        caption: 'Boa tarde amores! Já estou atendendo no Bosque em suíte climatizada com elevador privativo. ☕✨',
+        meta: 'Publicado há 1 hora • Bosque'
+      },
+      {
+        name: 'Valentina Rossi',
+        avatar: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=200&q=80',
+        photoUrl: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=800&q=85',
+        caption: 'Sessões de massagem tântrica disponíveis hoje à tarde no Jardim Europa. Espaço térreo e acolhedor! 🌸',
+        meta: 'Publicado há 2 horas • Jardim Europa'
+      },
+      {
+        name: 'Lucas Moreno',
+        avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80',
+        photoUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=85',
+        caption: 'Espaço com iluminação suave e isolamento acústico no Centro. Momentos tranquilos e sem pressa. ✨',
+        meta: 'Publicado há 3 horas • Centro'
+      },
+      {
+        name: 'Camila Ferraz',
+        avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=200&q=80',
+        photoUrl: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=800&q=85',
+        caption: 'Atendimento com total paciência e carinho no Aviário. Espaço térreo preparado e cão-guia muito bem-vindo! 🐕💛',
+        meta: 'Publicado há 3 horas • Aviário'
+      },
+      {
+        name: 'Rafaella Santos',
+        avatar: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=200&q=80',
+        photoUrl: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=800&q=85',
+        caption: 'Suíte privativa climatizada com banheira de hidromassagem na Cerâmica. Atendimento VIP e discreto. 🛁🥂',
+        meta: 'Publicado há 4 horas • Cerâmica'
+      }
+    ];
+
+    let currentStoryIndex = 0;
+    const storyDurationMs = 5000;
+    let storyStartTime = 0;
+    let storyElapsed = 0;
+    let storyAnimFrame = null;
+    let isStoryPaused = false;
+    let storyPointerDownTime = 0;
+
+    function renderStoryProgressBars() {
+      const container = document.getElementById('story-progress-bars');
+      if (!container) return;
+      container.innerHTML = storiesCatalog.map((s, idx) => \`
+        <div class="flex-1 h-1 bg-white/25 rounded-full overflow-hidden">
+          <div id="story-progress-fill-\${idx}" class="h-full bg-white rounded-full" style="width: \${idx < currentStoryIndex ? '100%' : '0%'}"></div>
+        </div>
+      \`).join('');
+    }
+
+    function openStoryIndex(index) {
+      if (index < 0 || index >= storiesCatalog.length) index = 0;
+      currentStoryIndex = index;
       openModal('modal-story');
+      renderStoryProgressBars();
+      showStory(currentStoryIndex);
+    }
+
+    function openStoryModal(name, photoUrl, caption) {
+      const foundIdx = storiesCatalog.findIndex(s => s.name === name);
+      openStoryIndex(foundIdx >= 0 ? foundIdx : 0);
+    }
+
+    function showStory(index) {
+      stopStoryTimer();
+      currentStoryIndex = index;
+      const story = storiesCatalog[index];
+      currentSelectedStory = story;
+
+      const bgImg = document.getElementById('story-bg');
+      if (bgImg) {
+        bgImg.style.opacity = '0.35';
+        bgImg.src = story.photoUrl;
+        setTimeout(() => { bgImg.style.opacity = '1'; }, 80);
+      }
+
+      const avatarImg = document.getElementById('story-avatar');
+      if (avatarImg) avatarImg.src = story.avatar;
+
+      const nameEl = document.getElementById('story-name');
+      if (nameEl) nameEl.innerText = story.name;
+
+      const metaEl = document.getElementById('story-meta');
+      if (metaEl) metaEl.innerText = story.meta;
+
+      const captionEl = document.getElementById('story-caption');
+      if (captionEl) captionEl.innerText = story.caption;
+
+      storiesCatalog.forEach((_, idx) => {
+        const fill = document.getElementById('story-progress-fill-' + idx);
+        if (fill) {
+          fill.style.width = idx < currentStoryIndex ? '100%' : '0%';
+        }
+      });
+
+      startStoryTimer();
+      if (window.lucide) lucide.createIcons();
+    }
+
+    function startStoryTimer() {
+      stopStoryTimer();
+      storyStartTime = performance.now();
+      storyElapsed = 0;
+      isStoryPaused = false;
+
+      function step(now) {
+        if (!isStoryPaused) {
+          const totalElapsed = (now - storyStartTime) + storyElapsed;
+          const pct = Math.min(100, (totalElapsed / storyDurationMs) * 100);
+          const currentFill = document.getElementById('story-progress-fill-' + currentStoryIndex);
+          if (currentFill) {
+            currentFill.style.width = pct + '%';
+          }
+          if (pct >= 100) {
+            nextStory();
+            return;
+          }
+        }
+        storyAnimFrame = requestAnimationFrame(step);
+      }
+      storyAnimFrame = requestAnimationFrame(step);
+    }
+
+    function stopStoryTimer() {
+      if (storyAnimFrame) {
+        cancelAnimationFrame(storyAnimFrame);
+        storyAnimFrame = null;
+      }
+    }
+
+    function pauseStory() {
+      if (isStoryPaused) return;
+      isStoryPaused = true;
+      storyElapsed += (performance.now() - storyStartTime);
+      stopStoryTimer();
+    }
+
+    function resumeStory() {
+      if (!isStoryPaused) return;
+      isStoryPaused = false;
+      storyStartTime = performance.now();
+      function step(now) {
+        if (!isStoryPaused) {
+          const totalElapsed = (now - storyStartTime) + storyElapsed;
+          const pct = Math.min(100, (totalElapsed / storyDurationMs) * 100);
+          const currentFill = document.getElementById('story-progress-fill-' + currentStoryIndex);
+          if (currentFill) {
+            currentFill.style.width = pct + '%';
+          }
+          if (pct >= 100) {
+            nextStory();
+            return;
+          }
+        }
+        storyAnimFrame = requestAnimationFrame(step);
+      }
+      storyAnimFrame = requestAnimationFrame(step);
+    }
+
+    function handleStoryPointerDown(e) {
+      storyPointerDownTime = Date.now();
+      pauseStory();
+    }
+
+    function handleStoryPointerUp(e, direction) {
+      resumeStory();
+      const holdTime = Date.now() - storyPointerDownTime;
+      if (holdTime < 300) {
+        if (direction === 'prev') {
+          prevStory(e);
+        } else {
+          nextStory(e);
+        }
+      }
+    }
+
+    function nextStory(event) {
+      if (event) event.stopPropagation();
+      stopStoryTimer();
+      const currentFill = document.getElementById('story-progress-fill-' + currentStoryIndex);
+      if (currentFill) currentFill.style.width = '100%';
+
+      if (currentStoryIndex < storiesCatalog.length - 1) {
+        showStory(currentStoryIndex + 1);
+      } else {
+        closeStoryModal();
+      }
+    }
+
+    function prevStory(event) {
+      if (event) event.stopPropagation();
+      stopStoryTimer();
+      const currentFill = document.getElementById('story-progress-fill-' + currentStoryIndex);
+      if (currentFill) currentFill.style.width = '0%';
+
+      const currentProgress = (performance.now() - storyStartTime) + storyElapsed;
+      if (currentProgress > 1200) {
+        showStory(currentStoryIndex);
+      } else if (currentStoryIndex > 0) {
+        showStory(currentStoryIndex - 1);
+      } else {
+        showStory(0);
+      }
+    }
+
+    function closeStoryModal() {
+      stopStoryTimer();
+      closeModal('modal-story');
     }
 
     function replyStoryOnWhatsApp() {
       if (!currentSelectedStory) return;
-      closeModal('modal-story');
+      closeStoryModal();
       const human = providerHumanProfiles[currentSelectedStory.name] || { phone: '5568999881122' };
       const msg = \`Olá \${currentSelectedStory.name}! Vi seu Story no Enlace ("\${currentSelectedStory.caption.slice(0, 30)}...") e gostaria de saber se tem horário disponível hoje! 🥰\`;
       window.open('https://wa.me/' + human.phone + '?text=' + encodeURIComponent(msg), '_blank');
     }
+
+    // Atalhos Globais de Teclado (Padrão Web Stories: Setas e Esc)
+    document.addEventListener('keydown', (e) => {
+      const modalStory = document.getElementById('modal-story');
+      if (modalStory && !modalStory.classList.contains('hidden')) {
+        if (e.key === 'Escape') {
+          closeStoryModal();
+        } else if (e.key === 'ArrowRight') {
+          nextStory();
+        } else if (e.key === 'ArrowLeft') {
+          prevStory();
+        } else if (e.key === ' ' || e.code === 'Space') {
+          e.preventDefault();
+          if (isStoryPaused) resumeStory(); else pauseStory();
+        }
+      }
+    });
 
     let activePaywallProvider = null;
     function openEnsaioPaywall(providerId, providerName) {
