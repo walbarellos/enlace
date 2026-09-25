@@ -307,8 +307,8 @@ export const WebUIHtml = `<!DOCTYPE html>
         </button>
 
         <!-- CTA Principal: Anuncie Aqui com Brilho Vivo -->
-        <a href="#anunciar" class="shimmer-fx group/cta inline-flex items-center gap-1.5 px-4.5 py-2 rounded-full text-xs font-bold text-white bg-gradient-to-r from-brand-crimson via-rose-600 to-amber-600 hover:opacity-95 shadow-md shadow-brand-crimson/25 hover:shadow-xl hover:shadow-brand-crimson/40 hover:-translate-y-0.5 active:translate-y-0 active:scale-95 transition-all">
-          <i data-lucide="plus-circle" class="w-3.5 h-3.5 group-hover/cta:rotate-90 transition-transform"></i>
+        <a href="#anunciar" class="shimmer-fx group/cta inline-flex items-center justify-center gap-2 px-5 py-2 rounded-full text-xs font-bold text-white bg-gradient-to-r from-brand-crimson via-rose-600 to-amber-600 hover:opacity-95 shadow-md shadow-brand-crimson/25 hover:shadow-xl hover:shadow-brand-crimson/40 hover:-translate-y-0.5 active:translate-y-0 active:scale-95 transition-all shrink-0 whitespace-nowrap">
+          <i data-lucide="plus-circle" class="w-4 h-4 shrink-0 group-hover/cta:rotate-90 transition-transform"></i>
           <span>Anuncie Aqui</span>
         </a>
       </div>
@@ -429,7 +429,7 @@ export const WebUIHtml = `<!DOCTYPE html>
           <input id="search-keyword" type="text" onkeyup="filterByKeyword()" placeholder="Buscar por nome, bairro (Bosque, Centro...), massagem, acessibilidade..." style="background-color: var(--bg-pill); border-color: var(--border-subtle); color: var(--text-heading);" class="w-full pl-11 pr-4 py-3 rounded-2xl text-xs sm:text-sm border focus:outline-none focus:border-brand-crimson focus:ring-4 focus:ring-brand-crimson/15 font-medium transition-all shadow-inner">
         </div>
 
-        <button onclick="toggleAdvancedFilters()" style="background-color: var(--bg-pill); border-color: var(--border-subtle); color: var(--text-heading);" class="group/filter inline-flex items-center justify-center gap-2 px-4.5 py-3 rounded-2xl border text-xs font-bold hover:border-brand-crimson hover:-translate-y-0.5 active:translate-y-0 transition-all flex-shrink-0 shadow-xs">
+        <button onclick="toggleAdvancedFilters()" style="background-color: var(--bg-pill); border-color: var(--border-subtle); color: var(--text-heading);" class="group/filter inline-flex items-center justify-center gap-2 px-5 py-3 rounded-2xl border text-xs font-bold hover:border-brand-crimson hover:-translate-y-0.5 active:translate-y-0 transition-all flex-shrink-0 shadow-xs">
           <i data-lucide="sliders-horizontal" class="w-3.5 h-3.5 text-brand-crimson group-hover/filter:rotate-90 transition-transform duration-300"></i>
           <span>Filtros Especiais</span>
           <span id="active-filters-badge" class="hidden w-2 h-2 rounded-full bg-brand-crimson"></span>
