@@ -248,18 +248,18 @@ export const WebUIHtml = `<!DOCTYPE html>
       </div>
 
       <!-- Links de Navegação Principal com Underline Fluido -->
-      <nav class="hidden md:flex items-center gap-7 text-xs font-semibold">
-        <a href="#catalogo" style="color: var(--text-heading);" class="nav-link text-brand-crimson font-bold flex items-center gap-1">
+      <nav class="hidden md:flex items-center gap-6 text-xs font-semibold shrink-0 whitespace-nowrap">
+        <a href="#catalogo" style="color: var(--text-heading);" class="nav-link text-brand-crimson font-bold flex items-center gap-1 shrink-0">
           <span>Acompanhantes</span>
         </a>
-        <a href="#stories" style="color: var(--text-body);" class="nav-link hover:text-brand-crimson flex items-center gap-1.5">
+        <a href="#stories" style="color: var(--text-body); white-space: nowrap;" class="nav-link hover:text-brand-crimson inline-flex items-center gap-1.5 shrink-0 group/navstories">
           <span>Stories & Vídeos</span>
-          <span class="px-1.5 py-0.5 text-[9px] font-extrabold rounded-full bg-rose-100 text-rose-800 dark:bg-rose-900/50 dark:text-rose-200 uppercase animate-pulse">Novo</span>
+          <span style="background-color: #A81D45; color: #FFFFFF; font-size: 8.5px; font-weight: 800; padding: 2px 6px; border-radius: 9999px; letter-spacing: 0.04em; line-height: 1; vertical-align: middle;" class="uppercase shadow-2xs group-hover/navstories:scale-105 transition-transform shrink-0">Novo</span>
         </a>
-        <a href="#como-funciona" style="color: var(--text-body);" class="nav-link hover:text-brand-crimson">
+        <a href="#como-funciona" style="color: var(--text-body);" class="nav-link hover:text-brand-crimson shrink-0">
           Como Funciona
         </a>
-        <a href="#acessibilidade" style="color: var(--text-body);" class="nav-link hover:text-brand-crimson flex items-center gap-1">
+        <a href="#acessibilidade" style="color: var(--text-body);" class="nav-link hover:text-brand-crimson flex items-center gap-1 shrink-0">
           <i data-lucide="accessibility" class="w-3.5 h-3.5 text-brand-gold"></i>
           Acessibilidade & Inclusão
         </a>
