@@ -42,9 +42,11 @@ export const WebUIHtml = `<!DOCTYPE html>
   </script>
 
   <style>
-    /* Transições suaves e naturais */
-    * {
-      transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+    /* Transições suaves e naturais em toda a interface */
+    *, *::before, *::after {
+      transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
+      transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+      transition-duration: 220ms;
     }
 
     /* TEMA LUMINOSO SENSUAL (Padrão: Acolhedor, Quente, Tons de Seda e Champagne) */
@@ -58,8 +60,8 @@ export const WebUIHtml = `<!DOCTYPE html>
       --text-heading: #1C0913;
       --text-body: #523140;
       --text-muted: #855F70;
-      --card-shadow: 0 10px 30px -4px rgba(139, 21, 56, 0.06), 0 4px 12px -2px rgba(0, 0, 0, 0.03);
-      --card-hover-shadow: 0 20px 35px -5px rgba(139, 21, 56, 0.12), 0 8px 16px -4px rgba(0, 0, 0, 0.06);
+      --card-shadow: 0 8px 24px -4px rgba(139, 21, 56, 0.05), 0 2px 8px -2px rgba(0, 0, 0, 0.03);
+      --card-hover-shadow: 0 24px 48px -10px rgba(139, 21, 56, 0.14), 0 8px 16px -4px rgba(0, 0, 0, 0.04);
     }
 
     /* TEMA NOTURNO CABERNET (Intimista, Nobre, Veludo Noir) */
@@ -74,7 +76,7 @@ export const WebUIHtml = `<!DOCTYPE html>
       --text-body: #E5BCCF;
       --text-muted: #A3758B;
       --card-shadow: 0 12px 35px -5px rgba(0, 0, 0, 0.7);
-      --card-hover-shadow: 0 20px 45px -5px rgba(0, 0, 0, 0.9);
+      --card-hover-shadow: 0 24px 50px -5px rgba(0, 0, 0, 0.9);
     }
 
     /* MODO ALTO CONTRASTE (WCAG 2.1 AA) */
@@ -93,7 +95,7 @@ export const WebUIHtml = `<!DOCTYPE html>
       font-weight: 800 !important;
     }
 
-    /* Esconde barra de scroll mantendo funcionalidade */
+    /* Scrollbar invisível */
     .no-scrollbar::-webkit-scrollbar {
       display: none;
     }
@@ -102,14 +104,103 @@ export const WebUIHtml = `<!DOCTYPE html>
       scrollbar-width: none;
     }
 
-    /* Efeito de pulso suave e vivo para o status Online */
-    @keyframes pulse-dot {
-      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
-      70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(37, 211, 102, 0); }
-      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+    /* Animação Orgânica de Radar para Status Online */
+    @keyframes radar-ripple {
+      0% { transform: scale(0.95); opacity: 0.9; }
+      50% { transform: scale(2.3); opacity: 0.25; }
+      100% { transform: scale(3.0); opacity: 0; }
     }
-    .online-indicator {
-      animation: pulse-dot 2s infinite cubic-bezier(0.45, 0, 0.55, 1);
+    .radar-pulse-ring {
+      position: absolute;
+      inset: 0;
+      border-radius: 9999px;
+      background-color: #25D366;
+      animation: radar-ripple 2.2s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
+    }
+
+    /* Animação de Shimmer Luminoso para Botões Nobres */
+    @keyframes shimmer-pass {
+      0% { transform: translateX(-120%); }
+      100% { transform: translateX(250%); }
+    }
+    .shimmer-fx {
+      position: relative;
+      overflow: hidden;
+    }
+    .shimmer-fx::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 45%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.22), transparent);
+      transform: translateX(-120%);
+    }
+    .shimmer-fx:hover::after {
+      animation: shimmer-pass 1.3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    }
+
+    /* Wiggle Divertido e Amigável do WhatsApp ao Passar o Mouse */
+    @keyframes wa-wiggle {
+      0%, 100% { transform: rotate(0deg) scale(1); }
+      20% { transform: rotate(-12deg) scale(1.15); }
+      40% { transform: rotate(10deg) scale(1.18); }
+      60% { transform: rotate(-6deg) scale(1.12); }
+      80% { transform: rotate(4deg) scale(1.08); }
+    }
+    .btn-whatsapp:hover .wa-icon {
+      animation: wa-wiggle 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    /* Pop Elástico de Coração nos Favoritos */
+    @keyframes heart-pop {
+      0% { transform: scale(1); }
+      35% { transform: scale(1.45); }
+      60% { transform: scale(0.9); }
+      100% { transform: scale(1); }
+    }
+    .heart-active svg, .heart-active i {
+      animation: heart-pop 0.4s cubic-bezier(0.17, 0.89, 0.32, 1.49) forwards;
+      color: #E11D48 !important;
+      fill: #E11D48 !important;
+    }
+
+    /* Entrada Elástica com Spring para Modais e Menus */
+    @keyframes spring-down {
+      0% { opacity: 0; transform: translateY(-10px) scale(0.96); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .animate-spring-down {
+      animation: spring-down 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes modal-pop {
+      0% { opacity: 0; transform: scale(0.92) translateY(14px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .animate-modal-pop {
+      animation: modal-pop 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    /* Efeito de Underline Animado nos Links de Navegação */
+    .nav-link {
+      position: relative;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #A81D45, #D4AF37);
+      border-radius: 9999px;
+      transition: all 0.26s ease-out;
+      transform: translateX(-50%);
+    }
+    .nav-link:hover::after {
+      width: 100%;
     }
   </style>
 </head>
@@ -124,30 +215,30 @@ export const WebUIHtml = `<!DOCTYPE html>
       <!-- Marca & Seletor de Cidade -->
       <div class="flex items-center gap-5">
         <a href="/" class="flex flex-col group text-decoration-none">
-          <span class="font-serif text-2xl md:text-3xl font-bold tracking-tight text-brand-wine dark:text-rose-100 flex items-center gap-1.5">
+          <span class="font-serif text-2xl md:text-3xl font-bold tracking-tight text-brand-wine dark:text-rose-100 flex items-center gap-1.5 group-hover:opacity-90">
             enlace
-            <span class="inline-block w-2 h-2 rounded-full bg-brand-crimson"></span>
+            <span class="inline-block w-2 h-2 rounded-full bg-brand-crimson group-hover:scale-130 transition-transform"></span>
           </span>
-          <span style="color: var(--text-muted);" class="text-[9px] uppercase tracking-widest font-semibold font-sans -mt-1">
+          <span style="color: var(--text-muted);" class="text-[9px] uppercase tracking-widest font-semibold font-sans -mt-1 group-hover:text-brand-crimson">
             Acompanhantes & Experiências
           </span>
         </a>
 
         <!-- Seletor de Cidade Humanizado -->
         <div class="relative hidden sm:block">
-          <button onclick="toggleCityDropdown()" style="background-color: var(--bg-pill); border-color: var(--border-subtle); color: var(--text-heading);" class="flex items-center gap-2 px-3 py-1.5 rounded-full border text-xs font-semibold hover:border-brand-crimson transition shadow-2xs">
-            <i data-lucide="map-pin" class="w-3.5 h-3.5 text-brand-crimson"></i>
+          <button onclick="toggleCityDropdown()" style="background-color: var(--bg-pill); border-color: var(--border-subtle); color: var(--text-heading);" class="group/city flex items-center gap-2 px-3.5 py-1.5 rounded-full border text-xs font-semibold hover:border-brand-crimson hover:shadow-md transition-all">
+            <i data-lucide="map-pin" class="w-3.5 h-3.5 text-brand-crimson group-hover/city:scale-115 transition-transform"></i>
             <span id="current-location-text">Rio Branco, AC</span>
-            <i data-lucide="chevron-down" class="w-3 h-3 opacity-60"></i>
+            <i data-lucide="chevron-down" class="w-3 h-3 opacity-60 group-hover/city:translate-y-0.5 transition-transform"></i>
           </button>
           
-          <div id="city-dropdown" style="background-color: var(--bg-surface); border-color: var(--border-accent);" class="hidden absolute left-0 mt-2 w-56 rounded-2xl border shadow-xl p-2 z-50">
+          <div id="city-dropdown" style="background-color: var(--bg-surface); border-color: var(--border-accent);" class="hidden absolute left-0 mt-2 w-56 rounded-2xl border shadow-xl p-2 z-50 animate-spring-down">
             <div class="text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 text-brand-crimson">Cidades Ativas</div>
-            <button onclick="selectCity('Rio Branco', 'AC')" class="w-full text-left px-3 py-2 rounded-xl text-xs font-medium hover:bg-rose-50 dark:hover:bg-rose-950/40 flex items-center justify-between">
+            <button onclick="selectCity('Rio Branco', 'AC')" class="group/item w-full text-left px-3 py-2 rounded-xl text-xs font-medium hover:bg-rose-50 dark:hover:bg-rose-950/40 flex items-center justify-between hover:translate-x-1 transition-transform">
               <span>Rio Branco (AC)</span>
-              <span class="text-[10px] bg-emerald-100 text-emerald-800 dark:bg-emerald-900/60 dark:text-emerald-200 px-1.5 py-0.5 rounded-md font-bold">Piloto Ativo</span>
+              <span class="text-[10px] bg-emerald-100 text-emerald-800 dark:bg-emerald-900/60 dark:text-emerald-200 px-2 py-0.5 rounded-md font-bold">Piloto Ativo</span>
             </button>
-            <button onclick="selectCity('Cruzeiro do Sul', 'AC')" class="w-full text-left px-3 py-2 rounded-xl text-xs font-medium hover:bg-rose-50 dark:hover:bg-rose-950/40 flex items-center justify-between">
+            <button onclick="selectCity('Cruzeiro do Sul', 'AC')" class="group/item w-full text-left px-3 py-2 rounded-xl text-xs font-medium hover:bg-rose-50 dark:hover:bg-rose-950/40 flex items-center justify-between hover:translate-x-1 transition-transform">
               <span>Cruzeiro do Sul (AC)</span>
             </button>
             <div class="border-t my-1" style="border-color: var(--border-subtle);"></div>
@@ -156,68 +247,68 @@ export const WebUIHtml = `<!DOCTYPE html>
         </div>
       </div>
 
-      <!-- Links de Navegação Principal -->
-      <nav class="hidden md:flex items-center gap-6 text-xs font-semibold">
-        <a href="#catalogo" style="color: var(--text-heading);" class="text-brand-crimson font-bold flex items-center gap-1 border-b-2 border-brand-crimson pb-0.5">
+      <!-- Links de Navegação Principal com Underline Fluido -->
+      <nav class="hidden md:flex items-center gap-7 text-xs font-semibold">
+        <a href="#catalogo" style="color: var(--text-heading);" class="nav-link text-brand-crimson font-bold flex items-center gap-1">
           <span>Acompanhantes</span>
         </a>
-        <a href="#stories" style="color: var(--text-body);" class="hover:text-brand-crimson flex items-center gap-1.5 transition">
+        <a href="#stories" style="color: var(--text-body);" class="nav-link hover:text-brand-crimson flex items-center gap-1.5">
           <span>Stories & Vídeos</span>
-          <span class="px-1.5 py-0.5 text-[9px] font-extrabold rounded-full bg-rose-100 text-rose-800 dark:bg-rose-900/50 dark:text-rose-200 uppercase">Novo</span>
+          <span class="px-1.5 py-0.5 text-[9px] font-extrabold rounded-full bg-rose-100 text-rose-800 dark:bg-rose-900/50 dark:text-rose-200 uppercase animate-pulse">Novo</span>
         </a>
-        <a href="#como-funciona" style="color: var(--text-body);" class="hover:text-brand-crimson transition">
+        <a href="#como-funciona" style="color: var(--text-body);" class="nav-link hover:text-brand-crimson">
           Como Funciona
         </a>
-        <a href="#acessibilidade" style="color: var(--text-body);" class="hover:text-brand-crimson transition flex items-center gap-1">
+        <a href="#acessibilidade" style="color: var(--text-body);" class="nav-link hover:text-brand-crimson flex items-center gap-1">
           <i data-lucide="accessibility" class="w-3.5 h-3.5 text-brand-gold"></i>
           Acessibilidade & Inclusão
         </a>
       </nav>
 
-      <!-- Ações do Topo: Atmosfera, Acessibilidade & Anunciar -->
+      <!-- Ações do Topo: Atmosfera, Acessibilidade & Anuncie -->
       <div class="flex items-center gap-2.5">
         
-        <!-- Alternador Discreto de Atmosfera (Dia / Noite) -->
-        <button id="btn-theme-toggle" onclick="toggleAtmosphere()" title="Alternar Ambiente Noturno / Luminoso" style="background-color: var(--bg-pill); border-color: var(--border-subtle); color: var(--text-body);" class="w-9 h-9 rounded-full border flex items-center justify-center hover:border-brand-crimson transition shadow-2xs">
+        <!-- Alternador Discreto de Atmosfera (Dia / Noite) com Hover Glow -->
+        <button id="btn-theme-toggle" onclick="toggleAtmosphere()" title="Alternar Ambiente Noturno / Luminoso" style="background-color: var(--bg-pill); border-color: var(--border-subtle); color: var(--text-body);" class="w-9 h-9 rounded-full border flex items-center justify-center hover:border-brand-crimson hover:scale-105 active:scale-95 transition-all shadow-xs">
           <i id="theme-icon" data-lucide="moon" class="w-4 h-4 text-brand-wine dark:text-rose-300"></i>
         </button>
 
         <!-- Menu de Acessibilidade Discreto -->
         <div class="relative">
-          <button onclick="toggleAccessibilityMenu()" title="Configurações de Acessibilidade" style="background-color: var(--bg-pill); border-color: var(--border-subtle); color: var(--text-body);" class="w-9 h-9 rounded-full border flex items-center justify-center hover:border-brand-crimson transition shadow-2xs">
+          <button onclick="toggleAccessibilityMenu()" title="Configurações de Acessibilidade" style="background-color: var(--bg-pill); border-color: var(--border-subtle); color: var(--text-body);" class="w-9 h-9 rounded-full border flex items-center justify-center hover:border-brand-crimson hover:scale-105 active:scale-95 transition-all shadow-xs">
             <i data-lucide="accessibility" class="w-4 h-4 text-brand-gold"></i>
           </button>
           
-          <div id="acc-menu" style="background-color: var(--bg-surface); border-color: var(--border-accent);" class="hidden absolute right-0 mt-2 w-64 rounded-2xl border shadow-xl p-3 z-50 text-xs">
+          <div id="acc-menu" style="background-color: var(--bg-surface); border-color: var(--border-accent);" class="hidden absolute right-0 mt-2 w-64 rounded-2xl border shadow-xl p-3 z-50 text-xs animate-spring-down">
             <div class="font-bold text-brand-wine dark:text-rose-200 mb-2 flex items-center gap-1.5">
               <i data-lucide="sparkles" class="w-3.5 h-3.5 text-brand-gold"></i>
               Adaptações Visuais (WCAG)
             </div>
             <div class="space-y-2">
-              <button onclick="toggleContrast()" style="background-color: var(--bg-pill);" class="w-full text-left px-3 py-2 rounded-xl flex items-center justify-between font-semibold">
+              <button onclick="toggleContrast()" style="background-color: var(--bg-pill);" class="w-full text-left px-3 py-2 rounded-xl flex items-center justify-between font-semibold hover:border-brand-crimson border">
                 <span>Alto Contraste</span>
                 <i data-lucide="eye" class="w-3.5 h-3.5 text-brand-gold"></i>
               </button>
               <div class="flex items-center justify-between px-3 py-1 font-semibold">
                 <span>Tamanho da Fonte:</span>
-                <div class="flex gap-1">
-                  <button onclick="changeFontSize(-1)" class="w-7 h-7 rounded-lg border flex items-center justify-center font-bold hover:bg-rose-50 dark:hover:bg-rose-950">A-</button>
-                  <button onclick="changeFontSize(1)" class="w-7 h-7 rounded-lg border flex items-center justify-center font-bold hover:bg-rose-50 dark:hover:bg-rose-950">A+</button>
+                <div class="flex gap-1.5">
+                  <button onclick="changeFontSize(-1)" class="w-7 h-7 rounded-lg border flex items-center justify-center font-bold hover:bg-rose-50 dark:hover:bg-rose-950 active:scale-95">A-</button>
+                  <button onclick="changeFontSize(1)" class="w-7 h-7 rounded-lg border flex items-center justify-center font-bold hover:bg-rose-50 dark:hover:bg-rose-950 active:scale-95">A+</button>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Botão Entrar / Minha Conta -->
-        <button onclick="openLoginModal()" style="color: var(--text-heading); background-color: var(--bg-pill); border-color: var(--border-subtle);" class="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border text-xs font-semibold hover:border-brand-crimson transition shadow-2xs">
+        <!-- Botão Entrar -->
+        <button onclick="openLoginModal()" style="color: var(--text-heading); background-color: var(--bg-pill); border-color: var(--border-subtle);" class="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border text-xs font-semibold hover:border-brand-crimson hover:scale-105 active:scale-95 transition-all shadow-xs">
           <i data-lucide="user" class="w-3.5 h-3.5 text-brand-crimson"></i>
           <span>Entrar</span>
         </button>
 
-        <!-- CTA Principal de Anunciar (Estilo Plataforma Real) -->
-        <a href="#anunciar" class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-bold text-white bg-gradient-to-r from-brand-crimson via-rose-600 to-amber-600 hover:opacity-95 shadow-md shadow-brand-crimson/20 transition transform hover:-translate-y-0.5">
-          <i data-lucide="plus-circle" class="w-3.5 h-3.5"></i>
+        <!-- CTA Principal: Anuncie Aqui com Brilho Vivo -->
+        <a href="#anunciar" class="shimmer-fx group/cta inline-flex items-center gap-1.5 px-4.5 py-2 rounded-full text-xs font-bold text-white bg-gradient-to-r from-brand-crimson via-rose-600 to-amber-600 hover:opacity-95 shadow-md shadow-brand-crimson/25 hover:shadow-xl hover:shadow-brand-crimson/40 hover:-translate-y-0.5 active:translate-y-0 active:scale-95 transition-all">
+          <i data-lucide="plus-circle" class="w-3.5 h-3.5 group-hover/cta:rotate-90 transition-transform"></i>
           <span>Anuncie Aqui</span>
         </a>
       </div>
@@ -225,169 +316,196 @@ export const WebUIHtml = `<!DOCTYPE html>
   </header>
 
   <!-- ====================================================================== -->
-  <!-- BARRA DE STORIES & VÍDEOS AO VIVO (HUMANIZAÇÃO IMEDIATA) -->
+  <!-- BARRA DE STORIES & VÍDEOS AO VIVO (MICRO-INTERAÇÕES VIVAS) -->
   <!-- ====================================================================== -->
   <section id="stories" class="max-w-7xl mx-auto px-4 sm:px-6 pt-5 pb-2 w-full">
-    <div class="flex items-center justify-between mb-2.5">
+    <div class="flex items-center justify-between mb-3">
       <h2 style="color: var(--text-heading);" class="text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 text-brand-wine dark:text-rose-300">
         <i data-lucide="video" class="w-3.5 h-3.5 text-brand-crimson"></i>
         Stories & Perfis ao Vivo Hoje
       </h2>
-      <span style="color: var(--text-muted);" class="text-[11px] font-medium hidden sm:inline">Vídeos e fotos recentes verificados</span>
+      <span style="color: var(--text-muted);" class="text-[11px] font-medium hidden sm:inline">Vídeos e fotos recentes com verificação em tempo real</span>
     </div>
 
-    <div class="flex items-center gap-4 overflow-x-auto no-scrollbar pb-2 pt-1">
+    <div class="flex items-center gap-5 overflow-x-auto no-scrollbar pb-3 pt-1">
+      
       <!-- Story 1: Juliana -->
-      <button onclick="openStoryModal('Juliana VIP', 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=85', 'Boa tarde amores! Já estou atendendo no Bosque em suíte climatizada com elevador privativo. ☕✨')" class="flex flex-col items-center gap-1.5 flex-shrink-0 group focus:outline-none">
-        <div class="w-16 h-16 sm:w-18 sm:h-18 rounded-full p-[2.5px] bg-gradient-to-tr from-brand-gold via-brand-crimson to-amber-400 group-hover:scale-105 transition-transform shadow-md">
-          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80" alt="Juliana VIP" class="w-full h-full object-cover rounded-full border-2 border-white dark:border-rose-950">
+      <button onclick="openStoryModal('Juliana VIP', 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=85', 'Boa tarde amores! Já estou atendendo no Bosque em suíte climatizada com elevador privativo. ☕✨')" class="flex flex-col items-center gap-1.5 flex-shrink-0 group focus:outline-none transition-transform hover:-translate-y-1.5 active:scale-95">
+        <div class="relative w-16 h-16 sm:w-18 sm:h-18 rounded-full p-[2.5px] bg-gradient-to-tr from-brand-gold via-brand-crimson to-amber-400 group-hover:scale-105 group-hover:shadow-lg group-hover:shadow-brand-gold/40 transition-all shadow-md">
+          <div class="w-full h-full rounded-full overflow-hidden border-2 border-white dark:border-rose-950">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80" alt="Juliana VIP" class="w-full h-full object-cover group-hover:scale-115 transition-transform duration-500">
+          </div>
         </div>
         <div class="flex items-center gap-1">
-          <span class="w-2 h-2 rounded-full bg-emerald-500 online-indicator"></span>
-          <span style="color: var(--text-heading);" class="text-[11px] font-bold group-hover:text-brand-crimson">Juliana VIP</span>
+          <span class="relative flex h-2 w-2">
+            <span class="radar-pulse-ring"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+          </span>
+          <span style="color: var(--text-heading);" class="text-[11px] font-bold group-hover:text-brand-crimson transition-colors">Juliana VIP</span>
         </div>
-        <span class="text-[9px] px-1.5 py-0.2 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 font-semibold -mt-1">Ao Vivo 📹</span>
+        <span class="text-[9px] px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 font-semibold -mt-1 group-hover:scale-105 group-hover:-translate-y-0.5 transition-all shadow-xs">Ao Vivo 📹</span>
       </button>
 
       <!-- Story 2: Valentina -->
-      <button onclick="openStoryModal('Valentina Rossi', 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=800&q=85', 'Sessões de massagem tântrica disponíveis hoje à tarde no Jardim Europa. Espaço térreo e acolhedor! 🌸')" class="flex flex-col items-center gap-1.5 flex-shrink-0 group focus:outline-none">
-        <div class="w-16 h-16 sm:w-18 sm:h-18 rounded-full p-[2.5px] bg-gradient-to-tr from-brand-crimson via-rose-500 to-amber-300 group-hover:scale-105 transition-transform shadow-md">
-          <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=200&q=80" alt="Valentina Rossi" class="w-full h-full object-cover rounded-full border-2 border-white dark:border-rose-950">
+      <button onclick="openStoryModal('Valentina Rossi', 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=800&q=85', 'Sessões de massagem tântrica disponíveis hoje à tarde no Jardim Europa. Espaço térreo e acolhedor! 🌸')" class="flex flex-col items-center gap-1.5 flex-shrink-0 group focus:outline-none transition-transform hover:-translate-y-1.5 active:scale-95">
+        <div class="relative w-16 h-16 sm:w-18 sm:h-18 rounded-full p-[2.5px] bg-gradient-to-tr from-brand-crimson via-rose-500 to-amber-300 group-hover:scale-105 group-hover:shadow-lg group-hover:shadow-brand-crimson/40 transition-all shadow-md">
+          <div class="w-full h-full rounded-full overflow-hidden border-2 border-white dark:border-rose-950">
+            <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=200&q=80" alt="Valentina Rossi" class="w-full h-full object-cover group-hover:scale-115 transition-transform duration-500">
+          </div>
         </div>
         <div class="flex items-center gap-1">
-          <span class="w-2 h-2 rounded-full bg-emerald-500 online-indicator"></span>
-          <span style="color: var(--text-heading);" class="text-[11px] font-bold group-hover:text-brand-crimson">Valentina</span>
+          <span class="relative flex h-2 w-2">
+            <span class="radar-pulse-ring"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+          </span>
+          <span style="color: var(--text-heading);" class="text-[11px] font-bold group-hover:text-brand-crimson transition-colors">Valentina</span>
         </div>
-        <span class="text-[9px] px-1.5 py-0.2 rounded-full bg-rose-100 text-rose-800 dark:bg-rose-950 dark:text-rose-300 font-semibold -mt-1">Novo Ensaio</span>
+        <span class="text-[9px] px-2 py-0.5 rounded-full bg-rose-100 text-rose-800 dark:bg-rose-950 dark:text-rose-300 font-semibold -mt-1 group-hover:scale-105 group-hover:-translate-y-0.5 transition-all shadow-xs">Novo Ensaio ✨</span>
       </button>
 
       <!-- Story 3: Lucas -->
-      <button onclick="openStoryModal('Lucas Moreno', 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=85', 'Espaço com iluminação suave e isolamento acústico no Centro. Momentos tranquilos e sem pressa. ✨')" class="flex flex-col items-center gap-1.5 flex-shrink-0 group focus:outline-none">
-        <div class="w-16 h-16 sm:w-18 sm:h-18 rounded-full p-[2.5px] bg-gradient-to-tr from-amber-400 via-brand-wine to-emerald-500 group-hover:scale-105 transition-transform shadow-md">
-          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80" alt="Lucas Moreno" class="w-full h-full object-cover rounded-full border-2 border-white dark:border-rose-950">
+      <button onclick="openStoryModal('Lucas Moreno', 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=85', 'Espaço com iluminação suave e isolamento acústico no Centro. Momentos tranquilos e sem pressa. ✨')" class="flex flex-col items-center gap-1.5 flex-shrink-0 group focus:outline-none transition-transform hover:-translate-y-1.5 active:scale-95">
+        <div class="relative w-16 h-16 sm:w-18 sm:h-18 rounded-full p-[2.5px] bg-gradient-to-tr from-amber-400 via-brand-wine to-emerald-500 group-hover:scale-105 group-hover:shadow-lg group-hover:shadow-amber-500/40 transition-all shadow-md">
+          <div class="w-full h-full rounded-full overflow-hidden border-2 border-white dark:border-rose-950">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80" alt="Lucas Moreno" class="w-full h-full object-cover group-hover:scale-115 transition-transform duration-500">
+          </div>
         </div>
         <div class="flex items-center gap-1">
-          <span class="w-2 h-2 rounded-full bg-emerald-500 online-indicator"></span>
-          <span style="color: var(--text-heading);" class="text-[11px] font-bold group-hover:text-brand-crimson">Lucas</span>
+          <span class="relative flex h-2 w-2">
+            <span class="radar-pulse-ring"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+          </span>
+          <span style="color: var(--text-heading);" class="text-[11px] font-bold group-hover:text-brand-crimson transition-colors">Lucas</span>
         </div>
-        <span class="text-[9px] px-1.5 py-0.2 rounded-full bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300 font-semibold -mt-1">Com Local</span>
+        <span class="text-[9px] px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300 font-semibold -mt-1 group-hover:scale-105 group-hover:-translate-y-0.5 transition-all shadow-xs">Com Local 🏠</span>
       </button>
 
       <!-- Story 4: Camila -->
-      <button onclick="openStoryModal('Camila Ferraz', 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=800&q=85', 'Atendimento com total paciência e carinho no Aviário. Espaço térreo preparado e cão-guia muito bem-vindo! 🐕💛')" class="flex flex-col items-center gap-1.5 flex-shrink-0 group focus:outline-none">
-        <div class="w-16 h-16 sm:w-18 sm:h-18 rounded-full p-[2.5px] bg-gradient-to-tr from-rose-400 via-brand-gold to-brand-crimson group-hover:scale-105 transition-transform shadow-md">
-          <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=200&q=80" alt="Camila Ferraz" class="w-full h-full object-cover rounded-full border-2 border-white dark:border-rose-950">
+      <button onclick="openStoryModal('Camila Ferraz', 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=800&q=85', 'Atendimento com total paciência e carinho no Aviário. Espaço térreo preparado e cão-guia muito bem-vindo! 🐕💛')" class="flex flex-col items-center gap-1.5 flex-shrink-0 group focus:outline-none transition-transform hover:-translate-y-1.5 active:scale-95">
+        <div class="relative w-16 h-16 sm:w-18 sm:h-18 rounded-full p-[2.5px] bg-gradient-to-tr from-rose-400 via-brand-gold to-brand-crimson group-hover:scale-105 group-hover:shadow-lg group-hover:shadow-purple-500/40 transition-all shadow-md">
+          <div class="w-full h-full rounded-full overflow-hidden border-2 border-white dark:border-rose-950">
+            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=200&q=80" alt="Camila Ferraz" class="w-full h-full object-cover group-hover:scale-115 transition-transform duration-500">
+          </div>
         </div>
         <div class="flex items-center gap-1">
-          <span class="w-2 h-2 rounded-full bg-emerald-500 online-indicator"></span>
-          <span style="color: var(--text-heading);" class="text-[11px] font-bold group-hover:text-brand-crimson">Camila</span>
+          <span class="relative flex h-2 w-2">
+            <span class="radar-pulse-ring"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+          </span>
+          <span style="color: var(--text-heading);" class="text-[11px] font-bold group-hover:text-brand-crimson transition-colors">Camila</span>
         </div>
-        <span class="text-[9px] px-1.5 py-0.2 rounded-full bg-purple-100 text-purple-800 dark:bg-purple-950 dark:text-purple-300 font-semibold -mt-1">Inclusiva PcD</span>
+        <span class="text-[9px] px-2 py-0.5 rounded-full bg-purple-100 text-purple-800 dark:bg-purple-950 dark:text-purple-300 font-semibold -mt-1 group-hover:scale-105 group-hover:-translate-y-0.5 transition-all shadow-xs">Inclusiva PcD 🐕</span>
       </button>
 
       <!-- Story 5: Rafaella -->
-      <button onclick="openStoryModal('Rafaella Santos', 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=800&q=85', 'Suíte privativa climatizada com banheira de hidromassagem na Cerâmica. Atendimento VIP e discreto. 🛁🥂')" class="flex flex-col items-center gap-1.5 flex-shrink-0 group focus:outline-none">
-        <div class="w-16 h-16 sm:w-18 sm:h-18 rounded-full p-[2.5px] bg-gradient-to-tr from-brand-gold via-brand-crimson to-rose-400 group-hover:scale-105 transition-transform shadow-md">
-          <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=200&q=80" alt="Rafaella Santos" class="w-full h-full object-cover rounded-full border-2 border-white dark:border-rose-950">
+      <button onclick="openStoryModal('Rafaella Santos', 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=800&q=85', 'Suíte privativa climatizada com banheira de hidromassagem na Cerâmica. Atendimento VIP e discreto. 🛁🥂')" class="flex flex-col items-center gap-1.5 flex-shrink-0 group focus:outline-none transition-transform hover:-translate-y-1.5 active:scale-95">
+        <div class="relative w-16 h-16 sm:w-18 sm:h-18 rounded-full p-[2.5px] bg-gradient-to-tr from-brand-gold via-brand-crimson to-rose-400 group-hover:scale-105 group-hover:shadow-lg group-hover:shadow-brand-crimson/40 transition-all shadow-md">
+          <div class="w-full h-full rounded-full overflow-hidden border-2 border-white dark:border-rose-950">
+            <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=200&q=80" alt="Rafaella Santos" class="w-full h-full object-cover group-hover:scale-115 transition-transform duration-500">
+          </div>
         </div>
         <div class="flex items-center gap-1">
-          <span class="w-2 h-2 rounded-full bg-emerald-500 online-indicator"></span>
-          <span style="color: var(--text-heading);" class="text-[11px] font-bold group-hover:text-brand-crimson">Rafaella</span>
+          <span class="relative flex h-2 w-2">
+            <span class="radar-pulse-ring"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+          </span>
+          <span style="color: var(--text-heading);" class="text-[11px] font-bold group-hover:text-brand-crimson transition-colors">Rafaella</span>
         </div>
-        <span class="text-[9px] px-1.5 py-0.2 rounded-full bg-rose-100 text-rose-800 dark:bg-rose-950 dark:text-rose-300 font-semibold -mt-1">VIP Diamante</span>
+        <span class="text-[9px] px-2 py-0.5 rounded-full bg-rose-100 text-rose-800 dark:bg-rose-950 dark:text-rose-300 font-semibold -mt-1 group-hover:scale-105 group-hover:-translate-y-0.5 transition-all shadow-xs">VIP Diamante 💎</span>
       </button>
     </div>
   </section>
 
   <!-- ====================================================================== -->
-  <!-- BARRA DE BUSCA RÁPIDA & CHIPS DE FILTRO (PADRÃO MARKETPLACE ADULTO) -->
+  <!-- BARRA DE BUSCA & CHIPS INTERATIVOS (MICRO-INTERAÇÕES ORGÂNICAS) -->
   <!-- ====================================================================== -->
   <section class="max-w-7xl mx-auto px-4 sm:px-6 py-4 w-full">
-    <div style="background-color: var(--bg-surface); border-color: var(--border-subtle); box-shadow: var(--card-shadow);" class="rounded-2xl border p-3.5 sm:p-4">
+    <div style="background-color: var(--bg-surface); border-color: var(--border-subtle); box-shadow: var(--card-shadow);" class="rounded-3xl border p-4 sm:p-5">
       
-      <!-- Linha de Busca Textual Direta -->
+      <!-- Linha de Busca Textual Direta com Focus Glow -->
       <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-        <div class="relative flex-grow">
-          <i data-lucide="search" class="w-4 h-4 text-brand-crimson absolute left-3.5 top-1/2 -translate-y-1/2"></i>
-          <input id="search-keyword" type="text" onkeyup="filterByKeyword()" placeholder="Buscar por nome, bairro (Bosque, Centro...), massagem, acessibilidade..." style="background-color: var(--bg-pill); border-color: var(--border-subtle); color: var(--text-heading);" class="w-full pl-10 pr-4 py-2.5 rounded-xl text-xs sm:text-sm border focus:outline-none focus:border-brand-crimson font-medium">
+        <div class="relative flex-grow group/search">
+          <i data-lucide="search" class="w-4 h-4 text-brand-crimson absolute left-4 top-1/2 -translate-y-1/2 group-focus-within/search:scale-120 group-focus-within/search:text-brand-wine transition-all"></i>
+          <input id="search-keyword" type="text" onkeyup="filterByKeyword()" placeholder="Buscar por nome, bairro (Bosque, Centro...), massagem, acessibilidade..." style="background-color: var(--bg-pill); border-color: var(--border-subtle); color: var(--text-heading);" class="w-full pl-11 pr-4 py-3 rounded-2xl text-xs sm:text-sm border focus:outline-none focus:border-brand-crimson focus:ring-4 focus:ring-brand-crimson/15 font-medium transition-all shadow-inner">
         </div>
 
-        <button onclick="toggleAdvancedFilters()" style="background-color: var(--bg-pill); border-color: var(--border-subtle); color: var(--text-heading);" class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border text-xs font-bold hover:border-brand-crimson transition flex-shrink-0">
-          <i data-lucide="sliders-horizontal" class="w-3.5 h-3.5 text-brand-crimson"></i>
+        <button onclick="toggleAdvancedFilters()" style="background-color: var(--bg-pill); border-color: var(--border-subtle); color: var(--text-heading);" class="group/filter inline-flex items-center justify-center gap-2 px-4.5 py-3 rounded-2xl border text-xs font-bold hover:border-brand-crimson hover:-translate-y-0.5 active:translate-y-0 transition-all flex-shrink-0 shadow-xs">
+          <i data-lucide="sliders-horizontal" class="w-3.5 h-3.5 text-brand-crimson group-hover/filter:rotate-90 transition-transform duration-300"></i>
           <span>Filtros Especiais</span>
           <span id="active-filters-badge" class="hidden w-2 h-2 rounded-full bg-brand-crimson"></span>
         </button>
       </div>
 
-      <!-- Carrossel de Chips / Tags Rápidas (Navegação Instantânea) -->
-      <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pt-3 mt-1 border-t" style="border-color: var(--border-subtle);">
-        <button onclick="selectQuickFilter('ALL')" id="chip-ALL" class="quick-chip active px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap bg-brand-crimson text-white transition shadow-xs flex items-center gap-1.5">
-          <i data-lucide="flame" class="w-3 h-3"></i>
+      <!-- Carrossel de Chips / Tags Rápidas com Efeito Hover Lift e Glow -->
+      <div class="flex items-center gap-2.5 overflow-x-auto no-scrollbar pt-3 mt-1 border-t" style="border-color: var(--border-subtle);">
+        
+        <button onclick="selectQuickFilter('ALL')" id="chip-ALL" class="quick-chip active group/c px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap bg-brand-crimson text-white transition-all shadow-sm hover:shadow-md hover:shadow-brand-crimson/30 hover:-translate-y-0.5 active:scale-95 flex items-center gap-1.5">
+          <i data-lucide="flame" class="w-3.5 h-3.5 group-hover/c:scale-120 transition-transform"></i>
           <span>Todos os Perfis</span>
         </button>
 
-        <button onclick="selectQuickFilter('ONLINE')" id="chip-ONLINE" style="background-color: var(--bg-pill); border-color: var(--border-subtle); color: var(--text-heading);" class="quick-chip px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap border hover:border-brand-crimson transition flex items-center gap-1.5">
-          <span class="w-2 h-2 rounded-full bg-emerald-500 online-indicator"></span>
+        <button onclick="selectQuickFilter('ONLINE')" id="chip-ONLINE" style="background-color: var(--bg-pill); border-color: var(--border-subtle); color: var(--text-heading);" class="quick-chip group/c px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap border hover:border-emerald-500 hover:shadow-md hover:shadow-emerald-500/20 hover:-translate-y-0.5 active:scale-95 transition-all flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
           <span>Online Agora</span>
         </button>
 
-        <button onclick="selectQuickFilter('PCD')" id="chip-PCD" style="background-color: var(--bg-pill); border-color: var(--border-subtle); color: var(--text-heading);" class="quick-chip px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap border hover:border-brand-crimson transition flex items-center gap-1.5">
-          <i data-lucide="accessibility" class="w-3.5 h-3.5 text-brand-gold"></i>
+        <button onclick="selectQuickFilter('PCD')" id="chip-PCD" style="background-color: var(--bg-pill); border-color: var(--border-subtle); color: var(--text-heading);" class="quick-chip group/c px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap border hover:border-brand-gold hover:shadow-md hover:shadow-brand-gold/20 hover:-translate-y-0.5 active:scale-95 transition-all flex items-center gap-1.5">
+          <i data-lucide="accessibility" class="w-3.5 h-3.5 text-brand-gold group-hover/c:scale-120 transition-transform"></i>
           <span>Acessibilidade & Inclusão</span>
         </button>
 
-        <button onclick="selectQuickFilter('LIBRAS')" id="chip-LIBRAS" style="background-color: var(--bg-pill); border-color: var(--border-subtle); color: var(--text-heading);" class="quick-chip px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap border hover:border-brand-crimson transition flex items-center gap-1.5">
-          <i data-lucide="message-square-text" class="w-3.5 h-3.5 text-brand-crimson"></i>
+        <button onclick="selectQuickFilter('LIBRAS')" id="chip-LIBRAS" style="background-color: var(--bg-pill); border-color: var(--border-subtle); color: var(--text-heading);" class="quick-chip group/c px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap border hover:border-brand-crimson hover:shadow-md hover:shadow-brand-crimson/20 hover:-translate-y-0.5 active:scale-95 transition-all flex items-center gap-1.5">
+          <i data-lucide="message-square-text" class="w-3.5 h-3.5 text-brand-crimson group-hover/c:scale-120 transition-transform"></i>
           <span>Fluente em Libras</span>
         </button>
 
-        <button onclick="selectQuickFilter('OWN_PLACE')" id="chip-OWN_PLACE" style="background-color: var(--bg-pill); border-color: var(--border-subtle); color: var(--text-heading);" class="quick-chip px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap border hover:border-brand-crimson transition flex items-center gap-1.5">
-          <i data-lucide="home" class="w-3.5 h-3.5 text-amber-600"></i>
+        <button onclick="selectQuickFilter('OWN_PLACE')" id="chip-OWN_PLACE" style="background-color: var(--bg-pill); border-color: var(--border-subtle); color: var(--text-heading);" class="quick-chip group/c px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap border hover:border-amber-500 hover:shadow-md hover:shadow-amber-500/20 hover:-translate-y-0.5 active:scale-95 transition-all flex items-center gap-1.5">
+          <i data-lucide="home" class="w-3.5 h-3.5 text-amber-600 group-hover/c:scale-120 transition-transform"></i>
           <span>Com Local Próprio</span>
         </button>
 
-        <button onclick="selectQuickFilter('DIAMANTE')" id="chip-DIAMANTE" style="background-color: var(--bg-pill); border-color: var(--border-subtle); color: var(--text-heading);" class="quick-chip px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap border hover:border-brand-crimson transition flex items-center gap-1.5">
-          <i data-lucide="sparkles" class="w-3.5 h-3.5 text-brand-gold"></i>
+        <button onclick="selectQuickFilter('DIAMANTE')" id="chip-DIAMANTE" style="background-color: var(--bg-pill); border-color: var(--border-subtle); color: var(--text-heading);" class="quick-chip group/c px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap border hover:border-brand-gold hover:shadow-md hover:shadow-brand-gold/30 hover:-translate-y-0.5 active:scale-95 transition-all flex items-center gap-1.5">
+          <i data-lucide="sparkles" class="w-3.5 h-3.5 text-brand-gold group-hover/c:scale-120 transition-transform"></i>
           <span>VIP Diamante</span>
         </button>
       </div>
 
       <!-- Painel Gaveta de Filtros Avançados / Acessibilidade NBR 9050 -->
-      <div id="advanced-filters-panel" class="hidden pt-4 mt-3 border-t" style="border-color: var(--border-subtle);">
-        <div class="text-xs font-bold text-brand-wine dark:text-rose-200 mb-2 flex items-center gap-1.5">
+      <div id="advanced-filters-panel" class="hidden pt-4 mt-3 border-t animate-spring-down" style="border-color: var(--border-subtle);">
+        <div class="text-xs font-bold text-brand-wine dark:text-rose-200 mb-2.5 flex items-center gap-1.5">
           <i data-lucide="heart" class="w-3.5 h-3.5 text-brand-crimson"></i>
           Recursos Especiais de Acessibilidade e Atendimento
         </div>
         
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5 text-xs font-medium" id="adv-checkboxes">
-          <label class="flex items-center gap-2 p-2 rounded-xl border cursor-pointer hover:border-brand-crimson" style="background-color: var(--bg-pill); border-color: var(--border-subtle);">
+          <label class="flex items-center gap-2 p-2.5 rounded-2xl border cursor-pointer hover:border-brand-crimson hover:bg-rose-50/50 dark:hover:bg-rose-950/20 transition-all" style="background-color: var(--bg-pill); border-color: var(--border-subtle);">
             <input type="checkbox" value="COMM_LIBRAS" class="acc-filter rounded text-brand-crimson focus:ring-0" onchange="triggerSearch()">
             <span>Fluência em Libras (Surdos)</span>
           </label>
-          <label class="flex items-center gap-2 p-2 rounded-xl border cursor-pointer hover:border-brand-crimson" style="background-color: var(--bg-pill); border-color: var(--border-subtle);">
+          <label class="flex items-center gap-2 p-2.5 rounded-2xl border cursor-pointer hover:border-brand-crimson hover:bg-rose-50/50 dark:hover:bg-rose-950/20 transition-all" style="background-color: var(--bg-pill); border-color: var(--border-subtle);">
             <input type="checkbox" value="MOB_RAMP_ELEVATOR" class="acc-filter rounded text-brand-crimson focus:ring-0" onchange="triggerSearch()">
             <span>Rampa NBR 9050 / Elevador</span>
           </label>
-          <label class="flex items-center gap-2 p-2 rounded-xl border cursor-pointer hover:border-brand-crimson" style="background-color: var(--bg-pill); border-color: var(--border-subtle);">
+          <label class="flex items-center gap-2 p-2.5 rounded-2xl border cursor-pointer hover:border-brand-crimson hover:bg-rose-50/50 dark:hover:bg-rose-950/20 transition-all" style="background-color: var(--bg-pill); border-color: var(--border-subtle);">
             <input type="checkbox" value="MOB_ADAPTED_BATHROOM" class="acc-filter rounded text-brand-crimson focus:ring-0" onchange="triggerSearch()">
             <span>Banheiro com Barras de Apoio</span>
           </label>
-          <label class="flex items-center gap-2 p-2 rounded-xl border cursor-pointer hover:border-brand-crimson" style="background-color: var(--bg-pill); border-color: var(--border-subtle);">
+          <label class="flex items-center gap-2 p-2.5 rounded-2xl border cursor-pointer hover:border-brand-crimson hover:bg-rose-50/50 dark:hover:bg-rose-950/20 transition-all" style="background-color: var(--bg-pill); border-color: var(--border-subtle);">
             <input type="checkbox" value="NEURO_LIGHT_CONTROL" class="acc-filter rounded text-brand-crimson focus:ring-0" onchange="triggerSearch()">
             <span>Iluminação Suave (Neurodivergentes)</span>
           </label>
-          <label class="flex items-center gap-2 p-2 rounded-xl border cursor-pointer hover:border-brand-crimson" style="background-color: var(--bg-pill); border-color: var(--border-subtle);">
+          <label class="flex items-center gap-2 p-2.5 rounded-2xl border cursor-pointer hover:border-brand-crimson hover:bg-rose-50/50 dark:hover:bg-rose-950/20 transition-all" style="background-color: var(--bg-pill); border-color: var(--border-subtle);">
             <input type="checkbox" value="NEURO_SILENT_SPACE" class="acc-filter rounded text-brand-crimson focus:ring-0" onchange="triggerSearch()">
             <span>Ambiente com Isolamento Acústico</span>
           </label>
-          <label class="flex items-center gap-2 p-2 rounded-xl border cursor-pointer hover:border-brand-crimson" style="background-color: var(--bg-pill); border-color: var(--border-subtle);">
+          <label class="flex items-center gap-2 p-2.5 rounded-2xl border cursor-pointer hover:border-brand-crimson hover:bg-rose-50/50 dark:hover:bg-rose-950/20 transition-all" style="background-color: var(--bg-pill); border-color: var(--border-subtle);">
             <input type="checkbox" value="SUPP_GUIDE_DOG" class="acc-filter rounded text-brand-crimson focus:ring-0" onchange="triggerSearch()">
             <span>Espaço Apto para Cão-Guia</span>
           </label>
         </div>
 
         <div class="flex justify-end gap-3 mt-3">
-          <button onclick="clearAllFilters()" style="color: var(--text-muted);" class="text-xs font-semibold hover:text-brand-crimson">Limpar Filtros</button>
+          <button onclick="clearAllFilters()" style="color: var(--text-muted);" class="text-xs font-semibold hover:text-brand-crimson transition-colors">Limpar Filtros</button>
         </div>
       </div>
     </div>
@@ -410,8 +528,11 @@ export const WebUIHtml = `<!DOCTYPE html>
       </div>
 
       <div class="flex items-center gap-2">
-        <span style="background-color: var(--bg-surface); border-color: var(--border-subtle); color: var(--text-body);" class="text-xs font-semibold px-3 py-1.5 rounded-full border shadow-2xs flex items-center gap-1.5">
-          <span class="w-2 h-2 rounded-full bg-emerald-500 online-indicator"></span>
+        <span style="background-color: var(--bg-surface); border-color: var(--border-subtle); color: var(--text-body);" class="text-xs font-semibold px-3.5 py-1.5 rounded-full border shadow-xs flex items-center gap-2">
+          <span class="relative flex h-2 w-2">
+            <span class="radar-pulse-ring"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+          </span>
           <span id="results-count">Carregando catálogo...</span>
         </span>
       </div>
@@ -424,23 +545,27 @@ export const WebUIHtml = `<!DOCTYPE html>
   </main>
 
   <!-- ====================================================================== -->
-  <!-- MODAL: CONVERSA DIRETA NO WHATSAPP (HUMANIZADO, SEM TERMOS DE TI) -->
+  <!-- MODAL: CONVERSA DIRETA NO WHATSAPP (CORRIGIDO: AVATAR 56PX E CONTAINER) -->
   <!-- ====================================================================== -->
-  <div id="modal-whatsapp" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-    <div style="background-color: var(--bg-surface); border-color: var(--border-accent);" class="border rounded-3xl max-w-md w-full p-6 shadow-2xl relative">
-      <button onclick="closeModal('modal-whatsapp')" style="color: var(--text-muted);" class="absolute top-5 right-5 hover:text-brand-crimson p-1 rounded-full transition">
+  <div id="modal-whatsapp" class="fixed inset-0 bg-black/75 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div style="background-color: var(--bg-surface); border-color: var(--border-accent);" class="border rounded-3xl max-w-md w-full p-6 shadow-2xl relative animate-modal-pop overflow-hidden">
+      
+      <!-- Botão Fechar com Rotação Suave -->
+      <button onclick="closeModal('modal-whatsapp')" style="color: var(--text-muted);" class="absolute top-5 right-5 hover:text-brand-crimson p-1.5 rounded-full hover:bg-rose-50 dark:hover:bg-rose-950 hover:rotate-90 transition-all">
         <i data-lucide="x" class="w-5 h-5"></i>
       </button>
 
-      <!-- Cabeçalho estilo Contato Real -->
+      <!-- Cabeçalho estilo Contato Real com Avatar Perfeitamente Proporcionado -->
       <div class="flex items-center gap-3.5 mb-4 pb-3 border-b" style="border-color: var(--border-subtle);">
-        <img id="wa-avatar" src="" alt="Acompanhante" class="w-13 h-13 rounded-full object-cover border-2 border-brand-crimson shadow-md">
-        <div>
-          <div class="flex items-center gap-1.5">
-            <h3 id="wa-name" style="color: var(--text-heading);" class="font-serif text-lg font-bold">Nome da Acompanhante</h3>
-            <span class="text-[10px] text-emerald-800 bg-emerald-100 dark:bg-emerald-950 dark:text-emerald-300 font-bold px-1.5 py-0.2 rounded-full">Verificada</span>
+        <div class="w-14 h-14 min-w-[56px] min-h-[56px] max-w-[56px] max-h-[56px] rounded-full overflow-hidden border-2 border-brand-crimson shadow-md shrink-0">
+          <img id="wa-avatar" src="" alt="Acompanhante" class="w-full h-full object-cover">
+        </div>
+        <div class="min-w-0 flex-1">
+          <div class="flex items-center gap-2 flex-wrap">
+            <h3 id="wa-name" style="color: var(--text-heading);" class="font-serif text-lg font-bold truncate">Nome da Acompanhante</h3>
+            <span class="text-[10px] text-emerald-800 bg-emerald-100 dark:bg-emerald-950 dark:text-emerald-300 font-bold px-2 py-0.5 rounded-full shrink-0">Verificada</span>
           </div>
-          <p id="wa-location" style="color: var(--text-muted);" class="text-xs">Bosque, Rio Branco • Atende Hoje</p>
+          <p id="wa-location" style="color: var(--text-muted);" class="text-xs truncate">Bosque, Rio Branco • Atende Hoje</p>
         </div>
       </div>
 
@@ -455,7 +580,7 @@ export const WebUIHtml = `<!DOCTYPE html>
         <div class="grid grid-cols-2 gap-2.5">
           <div>
             <label style="color: var(--text-heading);" class="block text-[11px] font-bold mb-1">Quando prefere:</label>
-            <select id="wa-time-pref" onchange="updateCustomMessage()" style="background-color: var(--bg-pill); border-color: var(--border-subtle); color: var(--text-heading);" class="w-full rounded-xl p-2 text-xs border font-medium">
+            <select id="wa-time-pref" onchange="updateCustomMessage()" style="background-color: var(--bg-pill); border-color: var(--border-subtle); color: var(--text-heading);" class="w-full rounded-xl p-2.5 text-xs border font-medium focus:border-brand-crimson focus:outline-none">
               <option value="hoje à noite">Hoje à noite</option>
               <option value="hoje à tarde">Hoje à tarde</option>
               <option value="amanhã">Amanhã</option>
@@ -464,7 +589,7 @@ export const WebUIHtml = `<!DOCTYPE html>
           </div>
           <div>
             <label style="color: var(--text-heading);" class="block text-[11px] font-bold mb-1">Onde será:</label>
-            <select id="wa-location-pref" onchange="updateCustomMessage()" style="background-color: var(--bg-pill); border-color: var(--border-subtle); color: var(--text-heading);" class="w-full rounded-xl p-2 text-xs border font-medium">
+            <select id="wa-location-pref" onchange="updateCustomMessage()" style="background-color: var(--bg-pill); border-color: var(--border-subtle); color: var(--text-heading);" class="w-full rounded-xl p-2.5 text-xs border font-medium focus:border-brand-crimson focus:outline-none">
               <option value="no seu local privativo">No seu espaço / local</option>
               <option value="no meu domicílio">No meu domicílio</option>
               <option value="em hotel/motel">Em Hotel ou Motel</option>
@@ -474,7 +599,7 @@ export const WebUIHtml = `<!DOCTYPE html>
 
         <div>
           <label style="color: var(--text-heading);" class="block text-[11px] font-bold mb-1">Adaptação necessária (opcional):</label>
-          <select id="wa-acc-pref" onchange="updateCustomMessage()" style="background-color: var(--bg-pill); border-color: var(--border-subtle); color: var(--text-heading);" class="w-full rounded-xl p-2 text-xs border font-medium">
+          <select id="wa-acc-pref" onchange="updateCustomMessage()" style="background-color: var(--bg-pill); border-color: var(--border-subtle); color: var(--text-heading);" class="w-full rounded-xl p-2.5 text-xs border font-medium focus:border-brand-crimson focus:outline-none">
             <option value="sem adaptações específicas">Nenhuma necessidade específica</option>
             <option value="preciso de rampa/elevador para cadeira de rodas">Cadeirante / Necessito rampa/elevador</option>
             <option value="comunicação em Libras (sou surdo)">Comunicação em Libras (Surdo)</option>
@@ -485,18 +610,18 @@ export const WebUIHtml = `<!DOCTYPE html>
 
         <!-- Preview da Mensagem Amigável -->
         <div>
-          <label style="color: var(--text-muted);" class="block text-[10px] font-bold uppercase tracking-wider mb-1">Mensagem enviada no WhatsApp:</label>
-          <div id="wa-message-preview" style="background-color: var(--bg-pill); border-color: var(--border-subtle); color: var(--text-heading);" class="p-3 rounded-xl border text-xs font-mono leading-relaxed italic">
+          <label style="color: var(--text-muted);" class="block text-[10px] font-bold uppercase tracking-wider mb-1">Mensagem que será enviada no WhatsApp:</label>
+          <div id="wa-message-preview" style="background-color: var(--bg-pill); border-color: var(--border-subtle); color: var(--text-heading);" class="p-3 rounded-2xl border text-xs font-mono leading-relaxed italic">
             <!-- Gerado via JS -->
           </div>
         </div>
 
         <div class="pt-2">
-          <button type="submit" class="w-full py-3 px-4 rounded-xl text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-500 transition shadow-lg shadow-emerald-600/25 flex items-center justify-center gap-2">
-            <i data-lucide="message-circle" class="w-4 h-4"></i>
+          <button type="submit" class="btn-whatsapp shimmer-fx w-full py-3 px-4 rounded-xl text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-500 shadow-md shadow-emerald-600/30 hover:shadow-xl hover:shadow-emerald-500/40 hover:-translate-y-0.5 active:translate-y-0 active:scale-95 transition-all flex items-center justify-center gap-2">
+            <i data-lucide="message-circle" class="wa-icon w-4 h-4"></i>
             <span>Iniciar Conversa no WhatsApp</span>
           </button>
-          <p style="color: var(--text-muted);" class="text-[10px] text-center mt-1.5">
+          <p style="color: var(--text-muted);" class="text-[10px] text-center mt-2">
             Ao clicar, seu aplicativo oficial do WhatsApp será aberto com o texto pronto.
           </p>
         </div>
@@ -507,9 +632,9 @@ export const WebUIHtml = `<!DOCTYPE html>
   <!-- ====================================================================== -->
   <!-- MODAL: ENSAIO SENSUAL PRIVADO & PIX (15 FOTOS EM ALTA RESOLUÇÃO) -->
   <!-- ====================================================================== -->
-  <div id="modal-paywall" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-    <div style="background-color: var(--bg-surface); border-color: var(--border-accent);" class="border rounded-3xl max-w-lg w-full p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto no-scrollbar">
-      <button onclick="closeModal('modal-paywall')" style="color: var(--text-muted);" class="absolute top-5 right-5 hover:text-brand-crimson p-1 rounded-full transition">
+  <div id="modal-paywall" class="fixed inset-0 bg-black/75 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div style="background-color: var(--bg-surface); border-color: var(--border-accent);" class="border rounded-3xl max-w-lg w-full p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto no-scrollbar animate-modal-pop">
+      <button onclick="closeModal('modal-paywall')" style="color: var(--text-muted);" class="absolute top-5 right-5 hover:text-brand-crimson p-1.5 rounded-full hover:bg-rose-50 dark:hover:bg-rose-950 hover:rotate-90 transition-all">
         <i data-lucide="x" class="w-5 h-5"></i>
       </button>
 
@@ -525,7 +650,7 @@ export const WebUIHtml = `<!DOCTYPE html>
       <!-- Preview com Blur e Trava -->
       <div id="paywall-preview-box" style="background-color: var(--bg-pill); border-color: var(--border-subtle);" class="relative rounded-2xl overflow-hidden border h-60 flex items-center justify-center mb-4 shadow-inner">
         <img id="paywall-preview-img" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80" alt="Preview" class="absolute inset-0 w-full h-full object-cover filter blur-lg opacity-40">
-        <div class="relative z-10 text-center p-6 bg-black/40 backdrop-blur-xs rounded-2xl border border-white/20 text-white max-w-xs">
+        <div class="relative z-10 text-center p-6 bg-black/40 backdrop-blur-sm rounded-2xl border border-white/20 text-white max-w-xs">
           <div class="w-12 h-12 rounded-full bg-white/20 backdrop-blur flex items-center justify-center mx-auto mb-2 text-brand-gold shadow-md">
             <i data-lucide="lock" class="w-6 h-6"></i>
           </div>
@@ -548,13 +673,13 @@ export const WebUIHtml = `<!DOCTYPE html>
           <div style="color: var(--text-muted);" class="text-[11px] mb-1 font-medium">Código Pix Copia e Cola:</div>
           <div class="flex gap-2">
             <input id="pix-copia-cola" readonly style="background-color: var(--bg-surface); border-color: var(--border-subtle); color: var(--text-heading);" class="flex-grow border rounded-xl px-2.5 py-1.5 text-[11px] font-mono truncate">
-            <button onclick="copyPixCode()" class="px-3 py-1.5 rounded-xl text-xs font-bold text-white bg-brand-crimson hover:bg-brand-velvet transition">
+            <button onclick="copyPixCode()" class="px-3 py-1.5 rounded-xl text-xs font-bold text-white bg-brand-crimson hover:bg-brand-velvet transition hover:scale-105 active:scale-95">
               Copiar
             </button>
           </div>
         </div>
 
-        <button onclick="simulatePixPayment()" class="w-full py-3 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-brand-crimson to-amber-600 hover:opacity-95 transition shadow-lg shadow-brand-crimson/25 flex items-center justify-center gap-2">
+        <button onclick="simulatePixPayment()" class="shimmer-fx w-full py-3 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-brand-crimson to-amber-600 hover:opacity-95 shadow-lg shadow-brand-crimson/25 hover:-translate-y-0.5 active:translate-y-0 active:scale-95 transition-all flex items-center justify-center gap-2">
           <i data-lucide="check-circle" class="w-4 h-4"></i>
           <span>Já Fiz o Pix (Confirmar Pagamento)</span>
         </button>
@@ -566,7 +691,7 @@ export const WebUIHtml = `<!DOCTYPE html>
           <span style="color: var(--text-muted);" class="text-[10px] block">Acesso vitalício</span>
           <span class="font-bold text-base text-brand-wine dark:text-rose-100">R$ 35,00</span>
         </div>
-        <button onclick="startPixCheckout()" class="px-6 py-2.5 rounded-full text-xs font-bold text-white bg-brand-crimson hover:bg-brand-velvet transition shadow-md shadow-brand-crimson/25 flex items-center gap-1.5">
+        <button onclick="startPixCheckout()" class="shimmer-fx px-6 py-2.5 rounded-full text-xs font-bold text-white bg-brand-crimson hover:bg-brand-velvet hover:shadow-lg hover:shadow-brand-crimson/30 hover:-translate-y-0.5 active:translate-y-0 active:scale-95 transition-all flex items-center gap-1.5">
           <i data-lucide="zap" class="w-3.5 h-3.5 text-brand-gold"></i>
           <span>Desbloquear via Pix</span>
         </button>
@@ -599,7 +724,7 @@ export const WebUIHtml = `<!DOCTYPE html>
   <!-- MODAL: VISUALIZADOR DE STORY (ESTILO INSTAGRAM / FATAL MODEL) -->
   <!-- ====================================================================== -->
   <div id="modal-story" class="fixed inset-0 bg-black/90 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
-    <div class="relative max-w-sm w-full h-[620px] rounded-3xl overflow-hidden border border-white/20 shadow-2xl flex flex-col justify-between">
+    <div class="relative max-w-sm w-full h-[620px] rounded-3xl overflow-hidden border border-white/20 shadow-2xl flex flex-col justify-between animate-modal-pop">
       <!-- Imagem de Fundo do Story -->
       <img id="story-bg" src="" alt="Story" class="absolute inset-0 w-full h-full object-cover">
       <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/80"></div>
@@ -611,14 +736,16 @@ export const WebUIHtml = `<!DOCTYPE html>
         </div>
         
         <div class="flex items-center justify-between">
-          <div class="flex items-center gap-2">
-            <img id="story-avatar" src="" alt="Avatar" class="w-8 h-8 rounded-full border-2 border-brand-gold object-cover">
+          <div class="flex items-center gap-2.5">
+            <div class="w-9 h-9 min-w-[36px] min-h-[36px] max-w-[36px] max-h-[36px] rounded-full overflow-hidden border-2 border-brand-gold shrink-0">
+              <img id="story-avatar" src="" alt="Avatar" class="w-full h-full object-cover">
+            </div>
             <div>
               <div id="story-name" class="text-white text-xs font-bold">Nome</div>
               <div class="text-[10px] text-gray-300">Publicado há 2 horas • Rio Branco</div>
             </div>
           </div>
-          <button onclick="closeModal('modal-story')" class="text-white p-1 hover:text-brand-crimson">
+          <button onclick="closeModal('modal-story')" class="text-white p-1 hover:text-brand-crimson hover:rotate-90 transition-all">
             <i data-lucide="x" class="w-5 h-5"></i>
           </button>
         </div>
@@ -626,12 +753,12 @@ export const WebUIHtml = `<!DOCTYPE html>
 
       <!-- Legenda do Story e CTA WhatsApp -->
       <div class="relative z-10 p-5 space-y-3">
-        <p id="story-caption" class="text-white text-xs leading-relaxed font-medium bg-black/40 backdrop-blur-xs p-3 rounded-2xl border border-white/10">
+        <p id="story-caption" class="text-white text-xs leading-relaxed font-medium bg-black/40 backdrop-blur-sm p-3.5 rounded-2xl border border-white/10">
           Legenda do story...
         </p>
 
-        <button onclick="replyStoryOnWhatsApp()" class="w-full py-3 rounded-xl text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-500 transition shadow-lg shadow-emerald-600/30 flex items-center justify-center gap-2">
-          <i data-lucide="message-circle" class="w-4 h-4"></i>
+        <button onclick="replyStoryOnWhatsApp()" class="btn-whatsapp shimmer-fx w-full py-3.5 rounded-2xl text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-500 shadow-lg shadow-emerald-600/35 hover:-translate-y-0.5 active:translate-y-0 active:scale-95 transition-all flex items-center justify-center gap-2">
+          <i data-lucide="message-circle" class="wa-icon w-4 h-4"></i>
           <span>Responder no WhatsApp</span>
         </button>
       </div>
@@ -652,32 +779,32 @@ export const WebUIHtml = `<!DOCTYPE html>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-      <div style="background-color: var(--bg-surface); border-color: var(--border-subtle); box-shadow: var(--card-shadow);" class="p-5 rounded-2xl border">
-        <div class="w-10 h-10 rounded-xl bg-rose-100 dark:bg-rose-950 flex items-center justify-center mb-3 text-brand-crimson">
+      <div style="background-color: var(--bg-surface); border-color: var(--border-subtle); box-shadow: var(--card-shadow);" class="p-5 rounded-3xl border hover:-translate-y-1 hover:shadow-lg transition-all">
+        <div class="w-10 h-10 rounded-2xl bg-rose-100 dark:bg-rose-950 flex items-center justify-center mb-3 text-brand-crimson">
           <i data-lucide="shield-check" class="w-5 h-5"></i>
         </div>
         <h3 style="color: var(--text-heading);" class="font-bold text-sm mb-1">Fotos & Perfis Reais</h3>
         <p style="color: var(--text-muted);" class="text-xs leading-relaxed">Verificação obrigatória em vídeo de 100% das anunciantes. Sem fotos fakes ou desatualizadas.</p>
       </div>
 
-      <div style="background-color: var(--bg-surface); border-color: var(--border-subtle); box-shadow: var(--card-shadow);" class="p-5 rounded-2xl border">
-        <div class="w-10 h-10 rounded-xl bg-amber-100 dark:bg-amber-950 flex items-center justify-center mb-3 text-brand-gold">
+      <div style="background-color: var(--bg-surface); border-color: var(--border-subtle); box-shadow: var(--card-shadow);" class="p-5 rounded-3xl border hover:-translate-y-1 hover:shadow-lg transition-all">
+        <div class="w-10 h-10 rounded-2xl bg-amber-100 dark:bg-amber-950 flex items-center justify-center mb-3 text-brand-gold">
           <i data-lucide="accessibility" class="w-5 h-5"></i>
         </div>
         <h3 style="color: var(--text-heading);" class="font-bold text-sm mb-1">Pioneirismo em Inclusão</h3>
         <p style="color: var(--text-muted);" class="text-xs leading-relaxed">Atendimento humanizado para pessoas com deficiência física, surdos (Libras) e neurodivergentes.</p>
       </div>
 
-      <div style="background-color: var(--bg-surface); border-color: var(--border-subtle); box-shadow: var(--card-shadow);" class="p-5 rounded-2xl border">
-        <div class="w-10 h-10 rounded-xl bg-purple-100 dark:bg-purple-950 flex items-center justify-center mb-3 text-purple-700">
+      <div style="background-color: var(--bg-surface); border-color: var(--border-subtle); box-shadow: var(--card-shadow);" class="p-5 rounded-3xl border hover:-translate-y-1 hover:shadow-lg transition-all">
+        <div class="w-10 h-10 rounded-2xl bg-purple-100 dark:bg-purple-950 flex items-center justify-center mb-3 text-purple-700">
           <i data-lucide="lock" class="w-5 h-5"></i>
         </div>
         <h3 style="color: var(--text-heading);" class="font-bold text-sm mb-1">Discrição & Sigilo</h3>
         <p style="color: var(--text-muted);" class="text-xs leading-relaxed">Pseudônimo público de clientes. Cobranças Pix sem qualquer menção a conteúdo adulto no extrato.</p>
       </div>
 
-      <div style="background-color: var(--bg-surface); border-color: var(--border-subtle); box-shadow: var(--card-shadow);" class="p-5 rounded-2xl border">
-        <div class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-950 flex items-center justify-center mb-3 text-emerald-600">
+      <div style="background-color: var(--bg-surface); border-color: var(--border-subtle); box-shadow: var(--card-shadow);" class="p-5 rounded-3xl border hover:-translate-y-1 hover:shadow-lg transition-all">
+        <div class="w-10 h-10 rounded-2xl bg-emerald-100 dark:bg-emerald-950 flex items-center justify-center mb-3 text-emerald-600">
           <i data-lucide="message-circle" class="w-5 h-5"></i>
         </div>
         <h3 style="color: var(--text-heading);" class="font-bold text-sm mb-1">WhatsApp Direto</h3>
@@ -694,7 +821,7 @@ export const WebUIHtml = `<!DOCTYPE html>
       
       <!-- Aviso Legal 18+ -->
       <div style="background-color: var(--bg-pill); border-color: var(--border-subtle);" class="p-4 rounded-2xl border mb-8 flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left">
-        <span class="w-10 h-10 rounded-full bg-brand-crimson text-white font-extrabold flex items-center justify-center flex-shrink-0 text-sm">
+        <span class="w-10 h-10 rounded-full bg-brand-crimson text-white font-extrabold flex items-center justify-center flex-shrink-0 text-sm shadow-md">
           18+
         </span>
         <div style="color: var(--text-muted);" class="text-[11px] leading-relaxed">
@@ -706,35 +833,35 @@ export const WebUIHtml = `<!DOCTYPE html>
         <div>
           <h4 style="color: var(--text-heading);" class="font-bold mb-2.5">Enlace</h4>
           <ul class="space-y-1.5" style="color: var(--text-muted);">
-            <li><a href="#catalogo" class="hover:text-brand-crimson">Acompanhantes</a></li>
-            <li><a href="#stories" class="hover:text-brand-crimson">Stories & Vídeos</a></li>
-            <li><a href="#anunciar" class="hover:text-brand-crimson">Anunciar Perfil</a></li>
-            <li><a href="/api/v1/health" target="_blank" class="hover:text-brand-crimson">Status do Sistema</a></li>
+            <li><a href="#catalogo" class="hover:text-brand-crimson transition-colors">Acompanhantes</a></li>
+            <li><a href="#stories" class="hover:text-brand-crimson transition-colors">Stories & Vídeos</a></li>
+            <li><a href="#anunciar" class="hover:text-brand-crimson transition-colors">Anunciar Perfil</a></li>
+            <li><a href="/api/v1/health" target="_blank" class="hover:text-brand-crimson transition-colors">Status do Sistema</a></li>
           </ul>
         </div>
         <div>
           <h4 style="color: var(--text-heading);" class="font-bold mb-2.5">Acessibilidade</h4>
           <ul class="space-y-1.5" style="color: var(--text-muted);">
-            <li><a href="#" onclick="selectQuickFilter('PCD')" class="hover:text-brand-crimson">Atendimento PcD</a></li>
-            <li><a href="#" onclick="selectQuickFilter('LIBRAS')" class="hover:text-brand-crimson">Intérpretes de Libras</a></li>
-            <li><a href="#" class="hover:text-brand-crimson">Locais com Rampa NBR 9050</a></li>
-            <li><a href="#" class="hover:text-brand-crimson">Espaços Neurodivergentes</a></li>
+            <li><a href="#" onclick="selectQuickFilter('PCD')" class="hover:text-brand-crimson transition-colors">Atendimento PcD</a></li>
+            <li><a href="#" onclick="selectQuickFilter('LIBRAS')" class="hover:text-brand-crimson transition-colors">Intérpretes de Libras</a></li>
+            <li><a href="#" class="hover:text-brand-crimson transition-colors">Locais com Rampa NBR 9050</a></li>
+            <li><a href="#" class="hover:text-brand-crimson transition-colors">Espaços Neurodivergentes</a></li>
           </ul>
         </div>
         <div>
           <h4 style="color: var(--text-heading);" class="font-bold mb-2.5">Segurança & Ética</h4>
           <ul class="space-y-1.5" style="color: var(--text-muted);">
-            <li><a href="#" class="hover:text-brand-crimson">Dicas de Encontro Seguro</a></li>
-            <li><a href="#" class="hover:text-brand-crimson">Canal de Denúncias 24h</a></li>
-            <li><a href="#" class="hover:text-brand-crimson">Termos de Uso</a></li>
-            <li><a href="#" class="hover:text-brand-crimson">Privacidade & LGPD</a></li>
+            <li><a href="#" class="hover:text-brand-crimson transition-colors">Dicas de Encontro Seguro</a></li>
+            <li><a href="#" class="hover:text-brand-crimson transition-colors">Canal de Denúncias 24h</a></li>
+            <li><a href="#" class="hover:text-brand-crimson transition-colors">Termos de Uso</a></li>
+            <li><a href="#" class="hover:text-brand-crimson transition-colors">Privacidade & LGPD</a></li>
           </ul>
         </div>
         <div>
           <h4 style="color: var(--text-heading);" class="font-bold mb-2.5">Cidades</h4>
           <ul class="space-y-1.5" style="color: var(--text-muted);">
-            <li><a href="#" class="hover:text-brand-crimson font-semibold">Rio Branco (AC)</a></li>
-            <li><a href="#" class="hover:text-brand-crimson">Cruzeiro do Sul (AC)</a></li>
+            <li><a href="#" class="hover:text-brand-crimson font-semibold transition-colors">Rio Branco (AC)</a></li>
+            <li><a href="#" class="hover:text-brand-crimson transition-colors">Cruzeiro do Sul (AC)</a></li>
             <li><span class="text-gray-400">São Paulo (SP) — Breve</span></li>
             <li><span class="text-gray-400">Belo Horizonte (MG) — Breve</span></li>
           </ul>
@@ -758,12 +885,10 @@ export const WebUIHtml = `<!DOCTYPE html>
   <!-- SCRIPTS DE COMPORTAMENTO, FILTROS E CONEXÃO REAL -->
   <!-- ====================================================================== -->
   <script>
-    // Catálogo de Dados em Cache Local para Navegação Instantânea
     let catalogItems = [];
     let currentSelectedStory = null;
     let activeQuickFilter = 'ALL';
 
-    // Banco de Fotos e Detalhes Humanizados dos Modelos
     const providerHumanProfiles = {
       'Juliana VIP': {
         age: 24,
@@ -828,7 +953,6 @@ export const WebUIHtml = `<!DOCTYPE html>
       }
     };
 
-    // Humanização dos Selos de Acessibilidade
     const accLabelMap = {
       'COMM_LIBRAS': { label: 'Fluente em Libras', icon: 'message-square-text' },
       'MOB_RAMP_ELEVATOR': { label: 'Rampa / Elevador', icon: 'accessibility' },
@@ -839,7 +963,6 @@ export const WebUIHtml = `<!DOCTYPE html>
       'SUPP_GUIDE_DOG': { label: 'Aceita Cão-Guia', icon: 'heart-handshake' }
     };
 
-    // Alternador de Iluminação (Seda Luminosa vs. Cabernet Veludo)
     let isNight = false;
     function toggleAtmosphere() {
       isNight = !isNight;
@@ -893,7 +1016,6 @@ export const WebUIHtml = `<!DOCTYPE html>
       document.getElementById(id).classList.add('hidden');
     }
 
-    // Carrossel de Fotos no Próprio Card
     const cardPhotoIndexes = {};
     function nextCardPhoto(event, cardId, maxPhotos) {
       event.stopPropagation();
@@ -918,7 +1040,6 @@ export const WebUIHtml = `<!DOCTYPE html>
       }
     }
 
-    // Seleção de Chips Rápidos
     function selectQuickFilter(filter) {
       activeQuickFilter = filter;
       document.querySelectorAll('.quick-chip').forEach(el => {
@@ -947,7 +1068,6 @@ export const WebUIHtml = `<!DOCTYPE html>
       renderCatalog();
     }
 
-    // Busca no Backend e População
     async function triggerSearch() {
       const grid = document.getElementById('providers-grid');
       const countEl = document.getElementById('results-count');
@@ -976,7 +1096,6 @@ export const WebUIHtml = `<!DOCTYPE html>
       }
     }
 
-    // Renderização dos Cards Humanizados
     function renderCatalog() {
       const grid = document.getElementById('providers-grid');
       const keyword = (document.getElementById('search-keyword').value || '').toLowerCase().trim();
@@ -990,12 +1109,10 @@ export const WebUIHtml = `<!DOCTYPE html>
           phone: '5568999881122'
         };
 
-        // Filtro por Chips
         if (activeQuickFilter === 'PCD' && (!p.accessibilityFeatures || p.accessibilityFeatures.length === 0)) return false;
         if (activeQuickFilter === 'LIBRAS' && (!p.accessibilityFeatures || !p.accessibilityFeatures.includes('COMM_LIBRAS'))) return false;
         if (activeQuickFilter === 'DIAMANTE' && p.activePlanTier !== 'DIAMANTE') return false;
 
-        // Filtro por Palavra-Chave
         if (keyword) {
           const matchName = p.artisticName.toLowerCase().includes(keyword);
           const matchNeigh = (p.neighborhood || '').toLowerCase().includes(keyword);
@@ -1015,7 +1132,7 @@ export const WebUIHtml = `<!DOCTYPE html>
             <i data-lucide="heart-off" class="w-10 h-10 text-brand-crimson mx-auto mb-3 opacity-60"></i>
             <div style="color: var(--text-heading);" class="font-serif text-lg font-bold">Nenhum perfil encontrado com estes filtros</div>
             <div style="color: var(--text-muted);" class="text-xs mt-1 max-w-sm mx-auto">Tente selecionar "Todos os Perfis" ou desmarcar algumas preferências.</div>
-            <button onclick="clearAllFilters()" class="mt-4 px-4 py-2 rounded-full text-xs font-bold text-white bg-brand-crimson hover:bg-brand-velvet transition">
+            <button onclick="clearAllFilters()" class="mt-4 px-5 py-2.5 rounded-full text-xs font-bold text-white bg-brand-crimson hover:bg-brand-velvet hover:shadow-lg transition-all">
               Ver Todos os Perfis
             </button>
           </div>
@@ -1040,10 +1157,9 @@ export const WebUIHtml = `<!DOCTYPE html>
           ? 'R$ ' + (p.minRateCents / 100).toFixed(0) 
           : 'R$ 250';
 
-        // Selos de Acessibilidade Formatados com Humanidade
         const accTags = (p.accessibilityFeatures || []).map(f => {
           const item = accLabelMap[f] || { label: f, icon: 'check' };
-          return \`<span style="background-color: var(--bg-pill); border-color: var(--border-subtle); color: var(--text-heading);" class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-[10px] font-semibold border">
+          return \`<span style="background-color: var(--bg-pill); border-color: var(--border-subtle); color: var(--text-heading);" class="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl text-[10px] font-semibold border hover:border-brand-crimson transition-colors">
             <i data-lucide="\${item.icon}" class="w-3 h-3 text-brand-crimson"></i>
             <span>\${item.label}</span>
           </span>\`;
@@ -1051,7 +1167,7 @@ export const WebUIHtml = `<!DOCTYPE html>
 
         const card = document.createElement('div');
         card.style = "background-color: var(--bg-surface); border-color: var(--border-subtle); box-shadow: var(--card-shadow);";
-        card.className = "rounded-3xl border overflow-hidden transition-all duration-300 flex flex-col group hover:-translate-y-1";
+        card.className = "rounded-3xl border overflow-hidden transition-all duration-300 flex flex-col group hover:-translate-y-2 hover:shadow-2xl hover:border-brand-crimson/30";
 
         card.innerHTML = \`
           <!-- Área Fotográfica com Proporção Vertical 3:4 e Carrossel Embutido -->
@@ -1061,57 +1177,60 @@ export const WebUIHtml = `<!DOCTYPE html>
                  src="\${human.photos[0]}" 
                  data-photos='\${JSON.stringify(human.photos)}'
                  alt="\${p.artisticName}" 
-                 class="w-full h-full object-cover object-center group-hover:scale-102 transition duration-500">
+                 class="w-full h-full object-cover object-center group-hover:scale-106 transition duration-700 ease-out">
             
             <!-- Degradê Suave para Leitura Perfeita -->
-            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/30 pointer-events-none"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-black/30 pointer-events-none group-hover:from-black/90 transition-all"></div>
 
             <!-- Badges Superiores -->
-            <div class="absolute top-3 left-3 flex items-center gap-1.5 z-10">
-              <span class="inline-flex items-center gap-1 bg-black/60 backdrop-blur-md text-white text-[10px] font-bold px-2.5 py-1 rounded-full border border-white/20">
-                <span class="w-2 h-2 rounded-full bg-emerald-400 online-indicator"></span>
+            <div class="absolute top-3.5 left-3.5 flex items-center gap-2 z-10">
+              <span class="inline-flex items-center gap-1.5 bg-black/60 backdrop-blur-md text-white text-[10px] font-bold px-2.5 py-1 rounded-full border border-white/20 shadow-xs">
+                <span class="relative flex h-2 w-2">
+                  <span class="radar-pulse-ring"></span>
+                  <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                </span>
                 <span>Online</span>
               </span>
-              \${p.activePlanTier === 'DIAMANTE' ? '<span class="inline-flex items-center gap-1 bg-amber-400/90 backdrop-blur-md text-amber-950 text-[10px] font-extrabold px-2.5 py-1 rounded-full shadow-xs"><i data-lucide="sparkles" class="w-3 h-3"></i> VIP</span>' : ''}
+              \${p.activePlanTier === 'DIAMANTE' ? '<span class="inline-flex items-center gap-1 bg-amber-400 text-amber-950 text-[10px] font-extrabold px-2.5 py-1 rounded-full shadow-xs"><i data-lucide="sparkles" class="w-3 h-3"></i> VIP</span>' : ''}
             </div>
 
-            <div class="absolute top-3 right-3 flex items-center gap-1.5 z-10">
-              <span id="card-indicator-\${cardId}" class="bg-black/60 backdrop-blur-md text-white text-[10px] font-bold px-2 py-0.5 rounded-full border border-white/20">
+            <div class="absolute top-3.5 right-3.5 flex items-center gap-2 z-10">
+              <span id="card-indicator-\${cardId}" class="bg-black/60 backdrop-blur-md text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full border border-white/20">
                 1/\${human.photos.length}
               </span>
-              <button onclick="toggleFavorite(event, '\${p.providerId}')" class="w-7 h-7 rounded-full bg-black/60 backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:text-rose-400 transition">
-                <i data-lucide="heart" class="w-3.5 h-3.5"></i>
+              <button onclick="toggleFavorite(event, '\${p.providerId}')" class="w-8 h-8 rounded-full bg-black/60 backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:text-rose-400 hover:scale-120 active:scale-95 transition-all">
+                <i data-lucide="heart" class="w-4 h-4"></i>
               </button>
             </div>
 
-            <!-- Setas de Navegação de Foto -->
+            <!-- Setas de Navegação de Foto com Glassmorphism Suave -->
             \${human.photos.length > 1 ? \`
-              <button onclick="prevCardPhoto(event, '\${cardId}', \${human.photos.length})" class="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/50 hover:bg-black/80 text-white flex items-center justify-center backdrop-blur-xs transition z-10 opacity-0 group-hover:opacity-100">
+              <button onclick="prevCardPhoto(event, '\${cardId}', \${human.photos.length})" class="absolute left-2.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/50 hover:bg-black/85 text-white hover:text-brand-gold flex items-center justify-center backdrop-blur-md transition-all z-10 opacity-0 group-hover:opacity-100 hover:scale-115 active:scale-90">
                 <i data-lucide="chevron-left" class="w-4 h-4"></i>
               </button>
-              <button onclick="nextCardPhoto(event, '\${cardId}', \${human.photos.length})" class="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/50 hover:bg-black/80 text-white flex items-center justify-center backdrop-blur-xs transition z-10 opacity-0 group-hover:opacity-100">
+              <button onclick="nextCardPhoto(event, '\${cardId}', \${human.photos.length})" class="absolute right-2.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/50 hover:bg-black/85 text-white hover:text-brand-gold flex items-center justify-center backdrop-blur-md transition-all z-10 opacity-0 group-hover:opacity-100 hover:scale-115 active:scale-90">
                 <i data-lucide="chevron-right" class="w-4 h-4"></i>
               </button>
             \` : ''}
 
             <!-- Informações Sobrepostas na Foto (Visual Editorial de Luxo) -->
-            <div class="absolute bottom-3 left-3 right-3 text-white pointer-events-none z-10">
+            <div class="absolute bottom-3.5 left-3.5 right-3.5 text-white pointer-events-none z-10">
               <div class="flex items-end justify-between">
                 <div>
                   <div class="flex items-center gap-1.5">
-                    <h2 class="font-serif text-xl sm:text-2xl font-bold tracking-tight text-white drop-shadow-sm">
+                    <h2 class="font-serif text-xl sm:text-2xl font-bold tracking-tight text-white drop-shadow-md">
                       \${p.artisticName}, \${human.age}
                     </h2>
-                    <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400" title="Identidade e Fotos 100% Verificadas"></i>
+                    <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 shrink-0" title="Identidade e Fotos 100% Verificadas"></i>
                   </div>
-                  <p class="text-xs text-rose-200 font-medium flex items-center gap-1 drop-shadow-xs">
+                  <p class="text-xs text-rose-200 font-medium flex items-center gap-1 drop-shadow-xs mt-0.5">
                     <i data-lucide="map-pin" class="w-3 h-3 text-brand-gold"></i>
                     \${p.neighborhood}, \${p.city}
                   </p>
                 </div>
                 <div class="text-right">
                   <div class="text-[10px] text-gray-300 uppercase tracking-wider font-semibold">Cachê</div>
-                  <div class="text-lg font-bold font-serif text-brand-gold drop-shadow-sm">
+                  <div class="text-lg font-bold font-serif text-brand-gold drop-shadow-md">
                     \${rateFormatted}<span class="text-[11px] text-gray-200 font-sans font-normal">/h</span>
                   </div>
                 </div>
@@ -1120,7 +1239,7 @@ export const WebUIHtml = `<!DOCTYPE html>
           </div>
 
           <!-- Corpo do Card (Detalhes, Acessibilidade e Ações Diretas) -->
-          <div class="p-4 sm:p-5 flex-grow flex flex-col justify-between space-y-3.5">
+          <div class="p-4 sm:p-5 flex-grow flex flex-col justify-between space-y-4">
             <div>
               <!-- Medidas e Comodidade -->
               <div style="color: var(--text-muted);" class="text-[11px] font-semibold flex items-center gap-2 mb-2 pb-2 border-b" style="border-color: var(--border-subtle);">
@@ -1145,15 +1264,15 @@ export const WebUIHtml = `<!DOCTYPE html>
             <!-- Botões de Ação Humana e Conversão Direta -->
             <div class="pt-2 space-y-2 border-t" style="border-color: var(--border-subtle);">
               
-              <!-- Botão Principal: WhatsApp Oficial com Conversão Instantânea -->
-              <button onclick="openProfileWhatsApp('\${p.artisticName}', '\${p.providerId}', '\${human.phone}', '\${p.neighborhood}')" class="w-full py-2.5 px-4 rounded-xl text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-500 transition shadow-md shadow-emerald-600/20 flex items-center justify-center gap-2">
-                <i data-lucide="message-circle" class="w-4 h-4"></i>
-                <span>Conversar no WhatsApp</span>
+              <!-- Botão Principal: WhatsApp Oficial com Micro-Interação Wiggle -->
+              <button onclick="openProfileWhatsApp('\${p.artisticName}', '\${p.providerId}', '\${human.phone}', '\${p.neighborhood}')" class="btn-whatsapp shimmer-fx w-full py-3 px-4 rounded-2xl text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-500 shadow-md shadow-emerald-600/25 hover:shadow-xl hover:shadow-emerald-500/40 hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] transition-all flex items-center justify-center gap-2">
+                <i data-lucide="message-circle" class="wa-icon w-4 h-4"></i>
+                <span class="tracking-wide">Conversar no WhatsApp</span>
               </button>
 
               <!-- Botão Secundário: Ensaio Privado (Paywall Pix) -->
-              <button onclick="openEnsaioPaywall('\${p.providerId}', '\${p.artisticName}')" style="background-color: var(--bg-pill); border-color: var(--border-subtle); color: var(--text-heading);" class="w-full py-2 px-3 rounded-xl text-[11px] font-bold border hover:border-brand-crimson transition flex items-center justify-center gap-1.5">
-                <i data-lucide="sparkles" class="w-3.5 h-3.5 text-brand-gold"></i>
+              <button onclick="openEnsaioPaywall('\${p.providerId}', '\${p.artisticName}')" style="background-color: var(--bg-pill); border-color: var(--border-subtle); color: var(--text-heading);" class="group/ens w-full py-2.5 px-3 rounded-2xl text-[11px] font-bold border hover:border-amber-400 hover:bg-amber-50/50 dark:hover:bg-amber-950/30 hover:-translate-y-0.5 active:translate-y-0 transition-all flex items-center justify-center gap-1.5">
+                <i data-lucide="sparkles" class="w-3.5 h-3.5 text-brand-gold group-hover/ens:rotate-12 group-hover/ens:scale-110 transition-transform"></i>
                 <span>Ver Ensaio Privado (15 Fotos)</span>
               </button>
             </div>
@@ -1165,7 +1284,6 @@ export const WebUIHtml = `<!DOCTYPE html>
       if (window.lucide) lucide.createIcons();
     }
 
-    // Modal de WhatsApp com Pré-Mensagem Humanizada
     function openProfileWhatsApp(name, id, phone, neighborhood) {
       document.getElementById('wa-provider-id').value = id;
       document.getElementById('wa-provider-phone').value = phone || '5568999881122';
@@ -1204,7 +1322,6 @@ export const WebUIHtml = `<!DOCTYPE html>
       window.open(waUrl, '_blank');
     }
 
-    // Story Modal
     function openStoryModal(name, photoUrl, caption) {
       currentSelectedStory = { name, photoUrl, caption };
       document.getElementById('story-bg').src = photoUrl;
@@ -1222,7 +1339,6 @@ export const WebUIHtml = `<!DOCTYPE html>
       window.open('https://wa.me/' + human.phone + '?text=' + encodeURIComponent(msg), '_blank');
     }
 
-    // Modal de Paywall e Pix
     let activePaywallProvider = null;
     function openEnsaioPaywall(providerId, providerName) {
       activePaywallProvider = providerName;
@@ -1268,6 +1384,7 @@ export const WebUIHtml = `<!DOCTYPE html>
     function toggleFavorite(event, providerId) {
       event.stopPropagation();
       const btn = event.currentTarget;
+      btn.classList.toggle('heart-active');
       btn.classList.toggle('text-rose-500');
       btn.classList.toggle('text-white');
     }
@@ -1276,7 +1393,6 @@ export const WebUIHtml = `<!DOCTYPE html>
       alert('Área do Usuário: Login com Pseudônimo e Proteção de Identidade ativada.');
     }
 
-    // Inicialização
     window.addEventListener('DOMContentLoaded', () => {
       triggerSearch();
       if (window.lucide) lucide.createIcons();
