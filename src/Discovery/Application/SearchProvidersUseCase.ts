@@ -5,6 +5,7 @@ import type { ProviderSearchQueryDTO } from '../../Shared/Presentation/Validatio
 export interface ProviderSearchResultItem {
   providerId: string;
   artisticName: string;
+  bio?: string;
   stateUf: string;
   city: string;
   neighborhood: string;
@@ -34,7 +35,8 @@ export class SearchProvidersUseCase {
            sp.min_rate_cents,
            ROUND(sp.distance_meters::numeric, 0) as distance_meters,
            sp.matched_features_count,
-           p.accepted_locations
+           p.accepted_locations,
+           p.bio
          FROM public.search_providers_catalog(
            $1,
            $2,
@@ -80,6 +82,7 @@ export class SearchProvidersUseCase {
       const items: ProviderSearchResultItem[] = searchRes.rows.map((row) => ({
         providerId: row.provider_id,
         artisticName: row.artistic_name,
+        bio: row.bio,
         stateUf: query.state_uf.toUpperCase(),
         city: query.city,
         neighborhood: row.neighborhood,

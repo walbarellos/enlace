@@ -3,8 +3,13 @@ export const WebUIHtml = `<!DOCTYPE html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Plataforma Enlace — Encontros Íntimos, Acessíveis e Seguros</title>
+  <title>Enlace — Acompanhantes Verificadas, Experiências & Acolhimento Inclusivo</title>
   
+  <!-- Fontes Editoriais e Humanas: Playfair Display (sensual/editorial) & Plus Jakarta Sans (moderna/legível) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
   <!-- Tailwind CSS via CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Lucide Icons via CDN -->
@@ -15,27 +20,20 @@ export const WebUIHtml = `<!DOCTYPE html>
       darkMode: 'class',
       theme: {
         extend: {
+          fontFamily: {
+            serif: ['"Playfair Display"', 'Georgia', 'serif'],
+            sans: ['"Plus Jakarta Sans"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+          },
           colors: {
-            sensual: {
-              50: '#fff1f2',
-              100: '#ffe4e6',
-              200: '#fecdd3',
-              300: '#fda4af',
-              400: '#fb7185',
-              500: '#f43f5e',
-              600: '#e11d48',
-              700: '#be123c',
-              800: '#9f1239',
-              900: '#881337',
-              950: '#4c0519'
-            },
-            champagne: {
-              200: '#fef3c7',
-              300: '#fde68a',
-              400: '#fcd34d',
-              500: '#d4af37',
-              600: '#b48c28',
-              700: '#854d0e'
+            brand: {
+              wine: '#8B1538',
+              crimson: '#A81D45',
+              velvet: '#5C0D24',
+              gold: '#D4AF37',
+              champagne: '#E5C158',
+              amber: '#F59E0B',
+              whatsapp: '#25D366',
+              whatsappDark: '#128C7E'
             }
           }
         }
@@ -44,37 +42,39 @@ export const WebUIHtml = `<!DOCTYPE html>
   </script>
 
   <style>
-    /* Transições suaves de iluminação */
-    body {
-      transition: background-color 0.3s ease, color 0.3s ease;
+    /* Transições suaves e naturais */
+    * {
+      transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
     }
 
-    /* TEMA LUMINOSO SENSUAL (Padrão: Menos escuro, acolhedor e sedutor) */
+    /* TEMA LUMINOSO SENSUAL (Padrão: Acolhedor, Quente, Tons de Seda e Champagne) */
     :root {
-      --bg-page: #FAF5F7;
+      --bg-page: #FAF7F5;
       --bg-surface: #FFFFFF;
-      --bg-subtle: #FDF2F4;
-      --bg-elevated: #FFF9FA;
-      --border-main: #F2D5DE;
-      --border-accent: #E5B2C2;
-      --text-heading: #2D081B;
-      --text-body: #5A2E44;
-      --text-muted: #8E5A74;
-      --card-shadow: 0 10px 25px -5px rgba(190, 18, 60, 0.06), 0 8px 10px -6px rgba(190, 18, 60, 0.04);
+      --bg-card-subtle: #FDFBFA;
+      --bg-pill: #F5ECE8;
+      --border-subtle: #EDE2DC;
+      --border-accent: #E2CDC4;
+      --text-heading: #1C0913;
+      --text-body: #523140;
+      --text-muted: #855F70;
+      --card-shadow: 0 10px 30px -4px rgba(139, 21, 56, 0.06), 0 4px 12px -2px rgba(0, 0, 0, 0.03);
+      --card-hover-shadow: 0 20px 35px -5px rgba(139, 21, 56, 0.12), 0 8px 16px -4px rgba(0, 0, 0, 0.06);
     }
 
-    /* TEMA NOTURNO CABERNET (Intimista) */
+    /* TEMA NOTURNO CABERNET (Intimista, Nobre, Veludo Noir) */
     .theme-night {
-      --bg-page: #10060D;
-      --bg-surface: #180B14;
-      --bg-subtle: #210F1C;
-      --bg-elevated: #2D1426;
-      --border-main: #3D1A33;
-      --border-accent: #65254D;
-      --text-heading: #FFF1F2;
-      --text-body: #FBCFE8;
-      --text-muted: #B885A1;
-      --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.6);
+      --bg-page: #0C0409;
+      --bg-surface: #150811;
+      --bg-card-subtle: #1C0C17;
+      --bg-pill: #261120;
+      --border-subtle: #2D1122;
+      --border-accent: #4A1D39;
+      --text-heading: #FFF1F4;
+      --text-body: #E5BCCF;
+      --text-muted: #A3758B;
+      --card-shadow: 0 12px 35px -5px rgba(0, 0, 0, 0.7);
+      --card-hover-shadow: 0 20px 45px -5px rgba(0, 0, 0, 0.9);
     }
 
     /* MODO ALTO CONTRASTE (WCAG 2.1 AA) */
@@ -93,445 +93,795 @@ export const WebUIHtml = `<!DOCTYPE html>
       font-weight: 800 !important;
     }
 
-    :focus-visible {
-      outline: 2px solid #be123c !important;
-      outline-offset: 2px !important;
+    /* Esconde barra de scroll mantendo funcionalidade */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    /* Efeito de pulso suave e vivo para o status Online */
+    @keyframes pulse-dot {
+      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+      70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(37, 211, 102, 0); }
+      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+    }
+    .online-indicator {
+      animation: pulse-dot 2s infinite cubic-bezier(0.45, 0, 0.55, 1);
     }
   </style>
 </head>
-<body style="background-color: var(--bg-page); color: var(--text-body);" class="font-sans min-h-screen flex flex-col antialiased selection:bg-sensual-600 selection:text-white">
+<body style="background-color: var(--bg-page); color: var(--text-body);" class="font-sans min-h-screen flex flex-col antialiased selection:bg-brand-crimson selection:text-white">
 
   <!-- ====================================================================== -->
-  <!-- TOPO / BARRA LUMINOSA E SELETOR DE AMBIENTE -->
+  <!-- BARRA DE NAVEGAÇÃO PRINCIPAL (HUMANIZADA, LUXO & ALTA CONVERSÃO) -->
   <!-- ====================================================================== -->
-  <header style="background-color: var(--bg-surface); border-color: var(--border-main);" class="border-b backdrop-blur-md sticky top-0 z-40 transition-colors">
-    <div class="max-w-7xl mx-auto px-4 py-3.5 flex flex-wrap items-center justify-between gap-4">
+  <header style="background-color: var(--bg-surface); border-color: var(--border-subtle);" class="border-b sticky top-0 z-40 backdrop-blur-md bg-opacity-95 shadow-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-4">
       
-      <!-- Logotipo & Proposta de Valor -->
-      <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sensual-700 via-sensual-500 to-champagne-500 p-[1px] shadow-md shadow-sensual-700/20">
-          <div style="background-color: var(--bg-surface);" class="w-full h-full rounded-xl flex items-center justify-center">
-            <i data-lucide="flame" class="w-5 h-5 text-sensual-600"></i>
+      <!-- Marca & Seletor de Cidade -->
+      <div class="flex items-center gap-5">
+        <a href="/" class="flex flex-col group text-decoration-none">
+          <span class="font-serif text-2xl md:text-3xl font-bold tracking-tight text-brand-wine dark:text-rose-100 flex items-center gap-1.5">
+            enlace
+            <span class="inline-block w-2 h-2 rounded-full bg-brand-crimson"></span>
+          </span>
+          <span style="color: var(--text-muted);" class="text-[9px] uppercase tracking-widest font-semibold font-sans -mt-1">
+            Acompanhantes & Experiências
+          </span>
+        </a>
+
+        <!-- Seletor de Cidade Humanizado -->
+        <div class="relative hidden sm:block">
+          <button onclick="toggleCityDropdown()" style="background-color: var(--bg-pill); border-color: var(--border-subtle); color: var(--text-heading);" class="flex items-center gap-2 px-3 py-1.5 rounded-full border text-xs font-semibold hover:border-brand-crimson transition shadow-2xs">
+            <i data-lucide="map-pin" class="w-3.5 h-3.5 text-brand-crimson"></i>
+            <span id="current-location-text">Rio Branco, AC</span>
+            <i data-lucide="chevron-down" class="w-3 h-3 opacity-60"></i>
+          </button>
+          
+          <div id="city-dropdown" style="background-color: var(--bg-surface); border-color: var(--border-accent);" class="hidden absolute left-0 mt-2 w-56 rounded-2xl border shadow-xl p-2 z-50">
+            <div class="text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 text-brand-crimson">Cidades Ativas</div>
+            <button onclick="selectCity('Rio Branco', 'AC')" class="w-full text-left px-3 py-2 rounded-xl text-xs font-medium hover:bg-rose-50 dark:hover:bg-rose-950/40 flex items-center justify-between">
+              <span>Rio Branco (AC)</span>
+              <span class="text-[10px] bg-emerald-100 text-emerald-800 dark:bg-emerald-900/60 dark:text-emerald-200 px-1.5 py-0.5 rounded-md font-bold">Piloto Ativo</span>
+            </button>
+            <button onclick="selectCity('Cruzeiro do Sul', 'AC')" class="w-full text-left px-3 py-2 rounded-xl text-xs font-medium hover:bg-rose-50 dark:hover:bg-rose-950/40 flex items-center justify-between">
+              <span>Cruzeiro do Sul (AC)</span>
+            </button>
+            <div class="border-t my-1" style="border-color: var(--border-subtle);"></div>
+            <div class="px-3 py-1 text-[11px] text-gray-400">São Paulo, RJ e BH em breve</div>
           </div>
-        </div>
-        <div>
-          <div class="flex items-center gap-2">
-            <h1 style="color: var(--text-heading);" class="text-xl font-extrabold tracking-tight">
-              ENLACE
-            </h1>
-            <span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-sensual-100 text-sensual-800 border border-sensual-200">
-              Privé & Acessível
-            </span>
-          </div>
-          <p style="color: var(--text-muted);" class="text-[11px] font-medium">Prazer consensual, privacidade absoluta e acolhimento universal</p>
         </div>
       </div>
 
-      <!-- Barra de Ferramentas de Iluminação e Acessibilidade -->
-      <div class="flex items-center flex-wrap gap-2.5">
+      <!-- Links de Navegação Principal -->
+      <nav class="hidden md:flex items-center gap-6 text-xs font-semibold">
+        <a href="#catalogo" style="color: var(--text-heading);" class="text-brand-crimson font-bold flex items-center gap-1 border-b-2 border-brand-crimson pb-0.5">
+          <span>Acompanhantes</span>
+        </a>
+        <a href="#stories" style="color: var(--text-body);" class="hover:text-brand-crimson flex items-center gap-1.5 transition">
+          <span>Stories & Vídeos</span>
+          <span class="px-1.5 py-0.5 text-[9px] font-extrabold rounded-full bg-rose-100 text-rose-800 dark:bg-rose-900/50 dark:text-rose-200 uppercase">Novo</span>
+        </a>
+        <a href="#como-funciona" style="color: var(--text-body);" class="hover:text-brand-crimson transition">
+          Como Funciona
+        </a>
+        <a href="#acessibilidade" style="color: var(--text-body);" class="hover:text-brand-crimson transition flex items-center gap-1">
+          <i data-lucide="accessibility" class="w-3.5 h-3.5 text-brand-gold"></i>
+          Acessibilidade & Inclusão
+        </a>
+      </nav>
+
+      <!-- Ações do Topo: Atmosfera, Acessibilidade & Anunciar -->
+      <div class="flex items-center gap-2.5">
         
-        <!-- Alternador de Luminosidade (Claro Sensual / Noturno Sensual) -->
-        <button id="btn-theme-toggle" onclick="toggleAtmosphere()" style="background-color: var(--bg-subtle); border-color: var(--border-main); color: var(--text-body);" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs font-semibold hover:border-sensual-400 transition shadow-sm">
-          <i id="theme-icon" data-lucide="moon" class="w-3.5 h-3.5 text-sensual-700"></i>
-          <span id="theme-text">Ambiente Noturno</span>
+        <!-- Alternador Discreto de Atmosfera (Dia / Noite) -->
+        <button id="btn-theme-toggle" onclick="toggleAtmosphere()" title="Alternar Ambiente Noturno / Luminoso" style="background-color: var(--bg-pill); border-color: var(--border-subtle); color: var(--text-body);" class="w-9 h-9 rounded-full border flex items-center justify-center hover:border-brand-crimson transition shadow-2xs">
+          <i id="theme-icon" data-lucide="moon" class="w-4 h-4 text-brand-wine dark:text-rose-300"></i>
         </button>
 
-        <!-- Ferramentas de Acessibilidade -->
-        <div style="background-color: var(--bg-subtle); border-color: var(--border-main);" class="flex items-center rounded-lg p-1 border text-xs shadow-sm">
-          <button onclick="toggleContrast()" style="color: var(--text-body);" class="inline-flex items-center gap-1 px-2.5 py-1 rounded hover:bg-sensual-100 transition" title="Alternar Alto Contraste">
-            <i data-lucide="eye" class="w-3.5 h-3.5 text-champagne-600"></i>
-            <span>Contraste</span>
+        <!-- Menu de Acessibilidade Discreto -->
+        <div class="relative">
+          <button onclick="toggleAccessibilityMenu()" title="Configurações de Acessibilidade" style="background-color: var(--bg-pill); border-color: var(--border-subtle); color: var(--text-body);" class="w-9 h-9 rounded-full border flex items-center justify-center hover:border-brand-crimson transition shadow-2xs">
+            <i data-lucide="accessibility" class="w-4 h-4 text-brand-gold"></i>
           </button>
-          <div style="background-color: var(--border-main);" class="w-px h-4 mx-1"></div>
-          <button onclick="changeFontSize(-1)" style="color: var(--text-body);" class="px-2 py-1 rounded hover:bg-sensual-100 font-bold" title="Diminuir Fonte">A-</button>
-          <button onclick="changeFontSize(1)" style="color: var(--text-body);" class="px-2 py-1 rounded hover:bg-sensual-100 font-bold" title="Aumentar Fonte">A+</button>
+          
+          <div id="acc-menu" style="background-color: var(--bg-surface); border-color: var(--border-accent);" class="hidden absolute right-0 mt-2 w-64 rounded-2xl border shadow-xl p-3 z-50 text-xs">
+            <div class="font-bold text-brand-wine dark:text-rose-200 mb-2 flex items-center gap-1.5">
+              <i data-lucide="sparkles" class="w-3.5 h-3.5 text-brand-gold"></i>
+              Adaptações Visuais (WCAG)
+            </div>
+            <div class="space-y-2">
+              <button onclick="toggleContrast()" style="background-color: var(--bg-pill);" class="w-full text-left px-3 py-2 rounded-xl flex items-center justify-between font-semibold">
+                <span>Alto Contraste</span>
+                <i data-lucide="eye" class="w-3.5 h-3.5 text-brand-gold"></i>
+              </button>
+              <div class="flex items-center justify-between px-3 py-1 font-semibold">
+                <span>Tamanho da Fonte:</span>
+                <div class="flex gap-1">
+                  <button onclick="changeFontSize(-1)" class="w-7 h-7 rounded-lg border flex items-center justify-center font-bold hover:bg-rose-50 dark:hover:bg-rose-950">A-</button>
+                  <button onclick="changeFontSize(1)" class="w-7 h-7 rounded-lg border flex items-center justify-center font-bold hover:bg-rose-50 dark:hover:bg-rose-950">A+</button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <!-- Identidade Criptográfica do Cliente -->
-        <div style="background-color: var(--bg-subtle); border-color: var(--border-accent);" class="flex items-center gap-2.5 rounded-lg px-3 py-1.5 text-xs border shadow-sm">
-          <span class="relative flex h-2 w-2">
-            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-sensual-500 opacity-75"></span>
-            <span class="relative inline-flex rounded-full h-2 w-2 bg-sensual-600"></span>
-          </span>
-          <span style="color: var(--text-muted);">Sessão:</span>
-          <span class="font-mono font-bold text-sensual-800">Cliente_9942</span>
-          <span class="inline-flex items-center gap-1 bg-sensual-700 text-white text-[10px] px-2 py-0.5 rounded-md font-semibold">
-            <i data-lucide="check-check" class="w-3 h-3"></i>
-            +18 Verificado
-          </span>
-        </div>
+        <!-- Botão Entrar / Minha Conta -->
+        <button onclick="openLoginModal()" style="color: var(--text-heading); background-color: var(--bg-pill); border-color: var(--border-subtle);" class="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border text-xs font-semibold hover:border-brand-crimson transition shadow-2xs">
+          <i data-lucide="user" class="w-3.5 h-3.5 text-brand-crimson"></i>
+          <span>Entrar</span>
+        </button>
+
+        <!-- CTA Principal de Anunciar (Estilo Plataforma Real) -->
+        <a href="#anunciar" class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-bold text-white bg-gradient-to-r from-brand-crimson via-rose-600 to-amber-600 hover:opacity-95 shadow-md shadow-brand-crimson/20 transition transform hover:-translate-y-0.5">
+          <i data-lucide="plus-circle" class="w-3.5 h-3.5"></i>
+          <span>Anuncie Aqui</span>
+        </a>
       </div>
     </div>
   </header>
 
   <!-- ====================================================================== -->
-  <!-- HERO / PAINEL DE BUSCA COM ILUMINAÇÃO ACOLHEDORA -->
+  <!-- BARRA DE STORIES & VÍDEOS AO VIVO (HUMANIZAÇÃO IMEDIATA) -->
   <!-- ====================================================================== -->
-  <main class="flex-grow max-w-7xl w-full mx-auto px-4 py-8">
-    <section class="mb-8">
-      <div style="background-color: var(--bg-surface); border-color: var(--border-main); box-shadow: var(--card-shadow);" class="p-6 md:p-8 rounded-2xl border relative overflow-hidden transition-colors">
-        
-        <!-- Glows sutis de atmosfera sensual (Quentes e Luminosos) -->
-        <div class="absolute -top-24 -right-24 w-80 h-80 bg-sensual-200/40 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="absolute -bottom-24 -left-24 w-80 h-80 bg-champagne-200/40 rounded-full blur-3xl pointer-events-none"></div>
+  <section id="stories" class="max-w-7xl mx-auto px-4 sm:px-6 pt-5 pb-2 w-full">
+    <div class="flex items-center justify-between mb-2.5">
+      <h2 style="color: var(--text-heading);" class="text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 text-brand-wine dark:text-rose-300">
+        <i data-lucide="video" class="w-3.5 h-3.5 text-brand-crimson"></i>
+        Stories & Perfis ao Vivo Hoje
+      </h2>
+      <span style="color: var(--text-muted);" class="text-[11px] font-medium hidden sm:inline">Vídeos e fotos recentes verificados</span>
+    </div>
 
-        <div style="border-color: var(--border-main);" class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-4 border-b relative z-10">
-          <div>
-            <h2 style="color: var(--text-heading);" class="text-xl md:text-2xl font-extrabold flex items-center gap-2">
-              <i data-lucide="sparkles" class="w-5 h-5 text-champagne-500"></i>
-              Encontros Acessíveis, Seguros e Sem Burocracia
-            </h2>
-            <p style="color: var(--text-muted);" class="text-xs md:text-sm mt-1">
-              Filtros para pessoas com deficiência, neurodivergentes e preferências específicas, com total proteção física e discrição civil.
-            </p>
-          </div>
-          <div style="background-color: var(--bg-subtle); border-color: var(--border-main);" class="flex items-center gap-2 text-xs font-semibold px-3 py-1.5 rounded-lg border text-sensual-800 self-start md:self-auto shadow-sm">
-            <i data-lucide="shield-check" class="w-4 h-4 text-sensual-600"></i>
-            <span>Localização Difusa (Raio Seguro 500m+)</span>
-          </div>
+    <div class="flex items-center gap-4 overflow-x-auto no-scrollbar pb-2 pt-1">
+      <!-- Story 1: Juliana -->
+      <button onclick="openStoryModal('Juliana VIP', 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=85', 'Boa tarde amores! Já estou atendendo no Bosque em suíte climatizada com elevador privativo. ☕✨')" class="flex flex-col items-center gap-1.5 flex-shrink-0 group focus:outline-none">
+        <div class="w-16 h-16 sm:w-18 sm:h-18 rounded-full p-[2.5px] bg-gradient-to-tr from-brand-gold via-brand-crimson to-amber-400 group-hover:scale-105 transition-transform shadow-md">
+          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80" alt="Juliana VIP" class="w-full h-full object-cover rounded-full border-2 border-white dark:border-rose-950">
+        </div>
+        <div class="flex items-center gap-1">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 online-indicator"></span>
+          <span style="color: var(--text-heading);" class="text-[11px] font-bold group-hover:text-brand-crimson">Juliana VIP</span>
+        </div>
+        <span class="text-[9px] px-1.5 py-0.2 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 font-semibold -mt-1">Ao Vivo 📹</span>
+      </button>
+
+      <!-- Story 2: Valentina -->
+      <button onclick="openStoryModal('Valentina Rossi', 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=800&q=85', 'Sessões de massagem tântrica disponíveis hoje à tarde no Jardim Europa. Espaço térreo e acolhedor! 🌸')" class="flex flex-col items-center gap-1.5 flex-shrink-0 group focus:outline-none">
+        <div class="w-16 h-16 sm:w-18 sm:h-18 rounded-full p-[2.5px] bg-gradient-to-tr from-brand-crimson via-rose-500 to-amber-300 group-hover:scale-105 transition-transform shadow-md">
+          <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=200&q=80" alt="Valentina Rossi" class="w-full h-full object-cover rounded-full border-2 border-white dark:border-rose-950">
+        </div>
+        <div class="flex items-center gap-1">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 online-indicator"></span>
+          <span style="color: var(--text-heading);" class="text-[11px] font-bold group-hover:text-brand-crimson">Valentina</span>
+        </div>
+        <span class="text-[9px] px-1.5 py-0.2 rounded-full bg-rose-100 text-rose-800 dark:bg-rose-950 dark:text-rose-300 font-semibold -mt-1">Novo Ensaio</span>
+      </button>
+
+      <!-- Story 3: Lucas -->
+      <button onclick="openStoryModal('Lucas Moreno', 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=85', 'Espaço com iluminação suave e isolamento acústico no Centro. Momentos tranquilos e sem pressa. ✨')" class="flex flex-col items-center gap-1.5 flex-shrink-0 group focus:outline-none">
+        <div class="w-16 h-16 sm:w-18 sm:h-18 rounded-full p-[2.5px] bg-gradient-to-tr from-amber-400 via-brand-wine to-emerald-500 group-hover:scale-105 transition-transform shadow-md">
+          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80" alt="Lucas Moreno" class="w-full h-full object-cover rounded-full border-2 border-white dark:border-rose-950">
+        </div>
+        <div class="flex items-center gap-1">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 online-indicator"></span>
+          <span style="color: var(--text-heading);" class="text-[11px] font-bold group-hover:text-brand-crimson">Lucas</span>
+        </div>
+        <span class="text-[9px] px-1.5 py-0.2 rounded-full bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300 font-semibold -mt-1">Com Local</span>
+      </button>
+
+      <!-- Story 4: Camila -->
+      <button onclick="openStoryModal('Camila Ferraz', 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=800&q=85', 'Atendimento com total paciência e carinho no Aviário. Espaço térreo preparado e cão-guia muito bem-vindo! 🐕💛')" class="flex flex-col items-center gap-1.5 flex-shrink-0 group focus:outline-none">
+        <div class="w-16 h-16 sm:w-18 sm:h-18 rounded-full p-[2.5px] bg-gradient-to-tr from-rose-400 via-brand-gold to-brand-crimson group-hover:scale-105 transition-transform shadow-md">
+          <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=200&q=80" alt="Camila Ferraz" class="w-full h-full object-cover rounded-full border-2 border-white dark:border-rose-950">
+        </div>
+        <div class="flex items-center gap-1">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 online-indicator"></span>
+          <span style="color: var(--text-heading);" class="text-[11px] font-bold group-hover:text-brand-crimson">Camila</span>
+        </div>
+        <span class="text-[9px] px-1.5 py-0.2 rounded-full bg-purple-100 text-purple-800 dark:bg-purple-950 dark:text-purple-300 font-semibold -mt-1">Inclusiva PcD</span>
+      </button>
+
+      <!-- Story 5: Rafaella -->
+      <button onclick="openStoryModal('Rafaella Santos', 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=800&q=85', 'Suíte privativa climatizada com banheira de hidromassagem na Cerâmica. Atendimento VIP e discreto. 🛁🥂')" class="flex flex-col items-center gap-1.5 flex-shrink-0 group focus:outline-none">
+        <div class="w-16 h-16 sm:w-18 sm:h-18 rounded-full p-[2.5px] bg-gradient-to-tr from-brand-gold via-brand-crimson to-rose-400 group-hover:scale-105 transition-transform shadow-md">
+          <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=200&q=80" alt="Rafaella Santos" class="w-full h-full object-cover rounded-full border-2 border-white dark:border-rose-950">
+        </div>
+        <div class="flex items-center gap-1">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 online-indicator"></span>
+          <span style="color: var(--text-heading);" class="text-[11px] font-bold group-hover:text-brand-crimson">Rafaella</span>
+        </div>
+        <span class="text-[9px] px-1.5 py-0.2 rounded-full bg-rose-100 text-rose-800 dark:bg-rose-950 dark:text-rose-300 font-semibold -mt-1">VIP Diamante</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- ====================================================================== -->
+  <!-- BARRA DE BUSCA RÁPIDA & CHIPS DE FILTRO (PADRÃO MARKETPLACE ADULTO) -->
+  <!-- ====================================================================== -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 py-4 w-full">
+    <div style="background-color: var(--bg-surface); border-color: var(--border-subtle); box-shadow: var(--card-shadow);" class="rounded-2xl border p-3.5 sm:p-4">
+      
+      <!-- Linha de Busca Textual Direta -->
+      <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+        <div class="relative flex-grow">
+          <i data-lucide="search" class="w-4 h-4 text-brand-crimson absolute left-3.5 top-1/2 -translate-y-1/2"></i>
+          <input id="search-keyword" type="text" onkeyup="filterByKeyword()" placeholder="Buscar por nome, bairro (Bosque, Centro...), massagem, acessibilidade..." style="background-color: var(--bg-pill); border-color: var(--border-subtle); color: var(--text-heading);" class="w-full pl-10 pr-4 py-2.5 rounded-xl text-xs sm:text-sm border focus:outline-none focus:border-brand-crimson font-medium">
         </div>
 
-        <form id="search-form" onsubmit="event.preventDefault(); triggerSearch();" class="space-y-5 relative z-10">
-          <!-- Filtros de Região -->
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div>
-              <label style="color: var(--text-heading);" class="block text-xs font-bold mb-1.5">Região / Estado</label>
-              <select id="state_uf" style="background-color: var(--bg-subtle); border-color: var(--border-main); color: var(--text-heading);" class="w-full rounded-lg px-3 py-2 text-sm border focus:border-sensual-500 focus:ring-1 focus:ring-sensual-500 font-medium">
-                <option value="AC" selected>Acre (AC) — Piloto Inicial Ativo</option>
-                <option value="SP" disabled>São Paulo (SP) — Em Breve</option>
-                <option value="RJ" disabled>Rio de Janeiro (RJ) — Em Breve</option>
-              </select>
-            </div>
-            <div>
-              <label style="color: var(--text-heading);" class="block text-xs font-bold mb-1.5">Município</label>
-              <select id="city" style="background-color: var(--bg-subtle); border-color: var(--border-main); color: var(--text-heading);" class="w-full rounded-lg px-3 py-2 text-sm border focus:border-sensual-500 focus:ring-1 focus:ring-sensual-500 font-medium">
-                <option value="Rio Branco" selected>Rio Branco</option>
-                <option value="Cruzeiro do Sul">Cruzeiro do Sul</option>
-              </select>
-            </div>
-            <div>
-              <label style="color: var(--text-heading);" class="block text-xs font-bold mb-1.5">Bairro ou Região</label>
-              <input id="neighborhood" type="text" placeholder="Todos os bairros" style="background-color: var(--bg-subtle); border-color: var(--border-main); color: var(--text-heading);" class="w-full rounded-lg px-3 py-2 text-sm border placeholder:text-rose-300 focus:border-sensual-500 focus:ring-1 focus:ring-sensual-500 font-medium">
-            </div>
-          </div>
-
-          <!-- Filtros de Acessibilidade Especializada -->
-          <div>
-            <label class="block text-xs font-bold uppercase tracking-wider text-sensual-800 mb-2.5 flex items-center gap-1.5">
-              <i data-lucide="heart" class="w-3.5 h-3.5 text-sensual-600"></i>
-              Adaptações e Recursos de Acessibilidade:
-            </label>
-            <div class="flex flex-wrap gap-2.5" id="accessibility-pills">
-              
-              <label class="cursor-pointer">
-                <input type="checkbox" name="acc" value="COMM_LIBRAS" class="hidden peer" onchange="triggerSearch()">
-                <span style="background-color: var(--bg-subtle); border-color: var(--border-main); color: var(--text-body);" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs peer-checked:bg-sensual-700 peer-checked:border-sensual-800 peer-checked:text-white transition font-medium shadow-sm">
-                  <i data-lucide="message-square-text" class="w-3.5 h-3.5 text-sensual-600 peer-checked:text-white"></i>
-                  Fluência em Libras
-                </span>
-              </label>
-
-              <label class="cursor-pointer">
-                <input type="checkbox" name="acc" value="MOB_RAMP_ELEVATOR" class="hidden peer" onchange="triggerSearch()">
-                <span style="background-color: var(--bg-subtle); border-color: var(--border-main); color: var(--text-body);" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs peer-checked:bg-sensual-700 peer-checked:border-sensual-800 peer-checked:text-white transition font-medium shadow-sm">
-                  <i data-lucide="accessibility" class="w-3.5 h-3.5 text-sensual-600 peer-checked:text-white"></i>
-                  Rampa / Elevador Privativo
-                </span>
-              </label>
-
-              <label class="cursor-pointer">
-                <input type="checkbox" name="acc" value="NEURO_LIGHT_CONTROL" class="hidden peer" onchange="triggerSearch()">
-                <span style="background-color: var(--bg-subtle); border-color: var(--border-main); color: var(--text-body);" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs peer-checked:bg-sensual-700 peer-checked:border-sensual-800 peer-checked:text-white transition font-medium shadow-sm">
-                  <i data-lucide="sun-dim" class="w-3.5 h-3.5 text-champagne-600 peer-checked:text-white"></i>
-                  Iluminação Suave / Neurodivergente
-                </span>
-              </label>
-
-              <label class="cursor-pointer">
-                <input type="checkbox" name="acc" value="NEURO_SILENT_SPACE" class="hidden peer" onchange="triggerSearch()">
-                <span style="background-color: var(--bg-subtle); border-color: var(--border-main); color: var(--text-body);" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs peer-checked:bg-sensual-700 peer-checked:border-sensual-800 peer-checked:text-white transition font-medium shadow-sm">
-                  <i data-lucide="volume-x" class="w-3.5 h-3.5 text-sensual-600 peer-checked:text-white"></i>
-                  Ambiente Silencioso
-                </span>
-              </label>
-
-              <label class="cursor-pointer">
-                <input type="checkbox" name="acc" value="SUPP_GUIDE_DOG" class="hidden peer" onchange="triggerSearch()">
-                <span style="background-color: var(--bg-subtle); border-color: var(--border-main); color: var(--text-body);" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs peer-checked:bg-sensual-700 peer-checked:border-sensual-800 peer-checked:text-white transition font-medium shadow-sm">
-                  <i data-lucide="heart-handshake" class="w-3.5 h-3.5 text-champagne-600 peer-checked:text-white"></i>
-                  Aceite de Cão-Guia
-                </span>
-              </label>
-            </div>
-          </div>
-
-          <div class="flex justify-end gap-3 pt-2">
-            <button type="button" onclick="clearFilters()" style="color: var(--text-muted);" class="px-4 py-2 rounded-lg text-xs font-semibold hover:text-sensual-700 transition">
-              Redefinir Filtros
-            </button>
-            <button type="submit" class="px-6 py-2.5 rounded-lg text-xs font-bold bg-gradient-to-r from-sensual-700 via-sensual-600 to-rose-700 hover:from-sensual-600 hover:to-rose-600 text-white shadow-lg shadow-sensual-700/25 transition inline-flex items-center gap-2">
-              <i data-lucide="search" class="w-3.5 h-3.5"></i>
-              Explorar Perfis
-            </button>
-          </div>
-        </form>
+        <button onclick="toggleAdvancedFilters()" style="background-color: var(--bg-pill); border-color: var(--border-subtle); color: var(--text-heading);" class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border text-xs font-bold hover:border-brand-crimson transition flex-shrink-0">
+          <i data-lucide="sliders-horizontal" class="w-3.5 h-3.5 text-brand-crimson"></i>
+          <span>Filtros Especiais</span>
+          <span id="active-filters-badge" class="hidden w-2 h-2 rounded-full bg-brand-crimson"></span>
+        </button>
       </div>
-    </section>
 
-    <!-- ====================================================================== -->
-    <!-- VITRINE DE PERFIS -->
-    <!-- ====================================================================== -->
-    <section>
-      <div class="flex items-center justify-between mb-5">
-        <h3 style="color: var(--text-heading);" class="text-lg font-bold flex items-center gap-2">
-          <span>Acompanhantes Verificados</span>
-          <span id="results-count" style="color: var(--text-muted);" class="text-xs font-normal">(pesquisando...)</span>
-        </h3>
-        <span style="background-color: var(--bg-surface); border-color: var(--border-main); color: var(--text-muted);" class="text-xs inline-flex items-center gap-1.5 px-3 py-1 rounded-md border shadow-sm">
-          <i data-lucide="shield-check" class="w-3.5 h-3.5 text-sensual-600"></i>
-          Verificação Estrita +18
+      <!-- Carrossel de Chips / Tags Rápidas (Navegação Instantânea) -->
+      <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pt-3 mt-1 border-t" style="border-color: var(--border-subtle);">
+        <button onclick="selectQuickFilter('ALL')" id="chip-ALL" class="quick-chip active px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap bg-brand-crimson text-white transition shadow-xs flex items-center gap-1.5">
+          <i data-lucide="flame" class="w-3 h-3"></i>
+          <span>Todos os Perfis</span>
+        </button>
+
+        <button onclick="selectQuickFilter('ONLINE')" id="chip-ONLINE" style="background-color: var(--bg-pill); border-color: var(--border-subtle); color: var(--text-heading);" class="quick-chip px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap border hover:border-brand-crimson transition flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 online-indicator"></span>
+          <span>Online Agora</span>
+        </button>
+
+        <button onclick="selectQuickFilter('PCD')" id="chip-PCD" style="background-color: var(--bg-pill); border-color: var(--border-subtle); color: var(--text-heading);" class="quick-chip px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap border hover:border-brand-crimson transition flex items-center gap-1.5">
+          <i data-lucide="accessibility" class="w-3.5 h-3.5 text-brand-gold"></i>
+          <span>Acessibilidade & Inclusão</span>
+        </button>
+
+        <button onclick="selectQuickFilter('LIBRAS')" id="chip-LIBRAS" style="background-color: var(--bg-pill); border-color: var(--border-subtle); color: var(--text-heading);" class="quick-chip px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap border hover:border-brand-crimson transition flex items-center gap-1.5">
+          <i data-lucide="message-square-text" class="w-3.5 h-3.5 text-brand-crimson"></i>
+          <span>Fluente em Libras</span>
+        </button>
+
+        <button onclick="selectQuickFilter('OWN_PLACE')" id="chip-OWN_PLACE" style="background-color: var(--bg-pill); border-color: var(--border-subtle); color: var(--text-heading);" class="quick-chip px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap border hover:border-brand-crimson transition flex items-center gap-1.5">
+          <i data-lucide="home" class="w-3.5 h-3.5 text-amber-600"></i>
+          <span>Com Local Próprio</span>
+        </button>
+
+        <button onclick="selectQuickFilter('DIAMANTE')" id="chip-DIAMANTE" style="background-color: var(--bg-pill); border-color: var(--border-subtle); color: var(--text-heading);" class="quick-chip px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap border hover:border-brand-crimson transition flex items-center gap-1.5">
+          <i data-lucide="sparkles" class="w-3.5 h-3.5 text-brand-gold"></i>
+          <span>VIP Diamante</span>
+        </button>
+      </div>
+
+      <!-- Painel Gaveta de Filtros Avançados / Acessibilidade NBR 9050 -->
+      <div id="advanced-filters-panel" class="hidden pt-4 mt-3 border-t" style="border-color: var(--border-subtle);">
+        <div class="text-xs font-bold text-brand-wine dark:text-rose-200 mb-2 flex items-center gap-1.5">
+          <i data-lucide="heart" class="w-3.5 h-3.5 text-brand-crimson"></i>
+          Recursos Especiais de Acessibilidade e Atendimento
+        </div>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5 text-xs font-medium" id="adv-checkboxes">
+          <label class="flex items-center gap-2 p-2 rounded-xl border cursor-pointer hover:border-brand-crimson" style="background-color: var(--bg-pill); border-color: var(--border-subtle);">
+            <input type="checkbox" value="COMM_LIBRAS" class="acc-filter rounded text-brand-crimson focus:ring-0" onchange="triggerSearch()">
+            <span>Fluência em Libras (Surdos)</span>
+          </label>
+          <label class="flex items-center gap-2 p-2 rounded-xl border cursor-pointer hover:border-brand-crimson" style="background-color: var(--bg-pill); border-color: var(--border-subtle);">
+            <input type="checkbox" value="MOB_RAMP_ELEVATOR" class="acc-filter rounded text-brand-crimson focus:ring-0" onchange="triggerSearch()">
+            <span>Rampa NBR 9050 / Elevador</span>
+          </label>
+          <label class="flex items-center gap-2 p-2 rounded-xl border cursor-pointer hover:border-brand-crimson" style="background-color: var(--bg-pill); border-color: var(--border-subtle);">
+            <input type="checkbox" value="MOB_ADAPTED_BATHROOM" class="acc-filter rounded text-brand-crimson focus:ring-0" onchange="triggerSearch()">
+            <span>Banheiro com Barras de Apoio</span>
+          </label>
+          <label class="flex items-center gap-2 p-2 rounded-xl border cursor-pointer hover:border-brand-crimson" style="background-color: var(--bg-pill); border-color: var(--border-subtle);">
+            <input type="checkbox" value="NEURO_LIGHT_CONTROL" class="acc-filter rounded text-brand-crimson focus:ring-0" onchange="triggerSearch()">
+            <span>Iluminação Suave (Neurodivergentes)</span>
+          </label>
+          <label class="flex items-center gap-2 p-2 rounded-xl border cursor-pointer hover:border-brand-crimson" style="background-color: var(--bg-pill); border-color: var(--border-subtle);">
+            <input type="checkbox" value="NEURO_SILENT_SPACE" class="acc-filter rounded text-brand-crimson focus:ring-0" onchange="triggerSearch()">
+            <span>Ambiente com Isolamento Acústico</span>
+          </label>
+          <label class="flex items-center gap-2 p-2 rounded-xl border cursor-pointer hover:border-brand-crimson" style="background-color: var(--bg-pill); border-color: var(--border-subtle);">
+            <input type="checkbox" value="SUPP_GUIDE_DOG" class="acc-filter rounded text-brand-crimson focus:ring-0" onchange="triggerSearch()">
+            <span>Espaço Apto para Cão-Guia</span>
+          </label>
+        </div>
+
+        <div class="flex justify-end gap-3 mt-3">
+          <button onclick="clearAllFilters()" style="color: var(--text-muted);" class="text-xs font-semibold hover:text-brand-crimson">Limpar Filtros</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================================================================== -->
+  <!-- VITRINE PRINCIPAL DE ACOMPANHANTES (CARDS EDITORIAIS HUMANIZADOS) -->
+  <!-- ====================================================================== -->
+  <main id="catalogo" class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 py-6 w-full">
+    
+    <!-- Cabeçalho do Catálogo com Contagem -->
+    <div class="flex items-center justify-between mb-6">
+      <div>
+        <h1 style="color: var(--text-heading);" class="font-serif text-2xl sm:text-3xl font-bold tracking-tight">
+          Acompanhantes em Rio Branco
+        </h1>
+        <p style="color: var(--text-muted);" class="text-xs sm:text-sm mt-0.5">
+          Perfis com fotos e vídeos 100% verificados • Atendimento consensual, inclusivo e discreto
+        </p>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <span style="background-color: var(--bg-surface); border-color: var(--border-subtle); color: var(--text-body);" class="text-xs font-semibold px-3 py-1.5 rounded-full border shadow-2xs flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 online-indicator"></span>
+          <span id="results-count">Carregando catálogo...</span>
         </span>
       </div>
+    </div>
 
-      <div id="providers-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <!-- Injetado dinamicamente via script -->
-      </div>
-    </section>
+    <!-- Grid de Perfis -->
+    <div id="providers-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+      <!-- Injetado dinamicamente via script com estética humana autêntica -->
+    </div>
   </main>
 
   <!-- ====================================================================== -->
-  <!-- MODAL: SOLICITAÇÃO DE ATENDIMENTO (WHATSAPP/TELEGRAM) -->
+  <!-- MODAL: CONVERSA DIRETA NO WHATSAPP (HUMANIZADO, SEM TERMOS DE TI) -->
   <!-- ====================================================================== -->
-  <div id="modal-request" class="fixed inset-0 bg-sensual-950/40 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-    <div style="background-color: var(--bg-surface); border-color: var(--border-accent);" class="border rounded-2xl max-w-lg w-full p-6 shadow-2xl relative">
-      <button onclick="closeModal('modal-request')" style="color: var(--text-muted);" class="absolute top-4 right-4 hover:text-sensual-700 p-1 rounded-lg transition">
+  <div id="modal-whatsapp" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div style="background-color: var(--bg-surface); border-color: var(--border-accent);" class="border rounded-3xl max-w-md w-full p-6 shadow-2xl relative">
+      <button onclick="closeModal('modal-whatsapp')" style="color: var(--text-muted);" class="absolute top-5 right-5 hover:text-brand-crimson p-1 rounded-full transition">
         <i data-lucide="x" class="w-5 h-5"></i>
       </button>
-      
-      <div class="flex items-center gap-2 text-sensual-700 text-xs font-bold uppercase tracking-wider mb-1">
-        <i data-lucide="heart-handshake" class="w-3.5 h-3.5 text-champagne-600"></i>
-        <span>Solicitação Formal & Baixa Fricção</span>
+
+      <!-- Cabeçalho estilo Contato Real -->
+      <div class="flex items-center gap-3.5 mb-4 pb-3 border-b" style="border-color: var(--border-subtle);">
+        <img id="wa-avatar" src="" alt="Acompanhante" class="w-13 h-13 rounded-full object-cover border-2 border-brand-crimson shadow-md">
+        <div>
+          <div class="flex items-center gap-1.5">
+            <h3 id="wa-name" style="color: var(--text-heading);" class="font-serif text-lg font-bold">Nome da Acompanhante</h3>
+            <span class="text-[10px] text-emerald-800 bg-emerald-100 dark:bg-emerald-950 dark:text-emerald-300 font-bold px-1.5 py-0.2 rounded-full">Verificada</span>
+          </div>
+          <p id="wa-location" style="color: var(--text-muted);" class="text-xs">Bosque, Rio Branco • Atende Hoje</p>
+        </div>
       </div>
-      <h3 style="color: var(--text-heading);" class="text-xl font-extrabold mb-2" id="req-provider-name">Agendar Encontro</h3>
-      <p style="color: var(--text-muted);" class="text-xs mb-4 leading-relaxed">
-        Não cobramos qualquer taxa sobre encontros presenciais. Este formulário gera um cartão estruturado que formaliza o respeito a limites, horários e adaptações de acessibilidade.
+
+      <p style="color: var(--text-body);" class="text-xs mb-3.5 leading-relaxed">
+        Você conversará <strong>diretamente no WhatsApp da anunciante</strong>, sem intermediários. Personalize abaixo sua mensagem de contato:
       </p>
 
-      <form id="form-create-request" onsubmit="event.preventDefault(); submitServiceRequest();" class="space-y-3.5">
-        <input type="hidden" id="req-provider-id">
-        <div>
-          <label style="color: var(--text-heading);" class="block text-xs font-bold mb-1">Data e Horário</label>
-          <input type="datetime-local" id="req-datetime" required style="background-color: var(--bg-subtle); border-color: var(--border-main); color: var(--text-heading);" class="w-full rounded-lg p-2 text-sm border focus:border-sensual-500 font-medium">
-        </div>
-        <div class="grid grid-cols-2 gap-3">
+      <form id="form-whatsapp" onsubmit="event.preventDefault(); triggerWhatsAppRedirect();" class="space-y-3">
+        <input type="hidden" id="wa-provider-id">
+        <input type="hidden" id="wa-provider-phone">
+
+        <div class="grid grid-cols-2 gap-2.5">
           <div>
-            <label style="color: var(--text-heading);" class="block text-xs font-bold mb-1">Duração Desejada</label>
-            <select id="req-duration" style="background-color: var(--bg-subtle); border-color: var(--border-main); color: var(--text-heading);" class="w-full rounded-lg p-2 text-sm border font-medium">
-              <option value="1">1 hora</option>
-              <option value="2" selected>2 horas</option>
-              <option value="4">4 horas</option>
-              <option value="8">Pernoite (8 horas)</option>
+            <label style="color: var(--text-heading);" class="block text-[11px] font-bold mb-1">Quando prefere:</label>
+            <select id="wa-time-pref" onchange="updateCustomMessage()" style="background-color: var(--bg-pill); border-color: var(--border-subtle); color: var(--text-heading);" class="w-full rounded-xl p-2 text-xs border font-medium">
+              <option value="hoje à noite">Hoje à noite</option>
+              <option value="hoje à tarde">Hoje à tarde</option>
+              <option value="amanhã">Amanhã</option>
+              <option value="este final de semana">Neste final de semana</option>
             </select>
           </div>
           <div>
-            <label style="color: var(--text-heading);" class="block text-xs font-bold mb-1">Local do Encontro</label>
-            <select id="req-location" style="background-color: var(--bg-subtle); border-color: var(--border-main); color: var(--text-heading);" class="w-full rounded-lg p-2 text-sm border font-medium">
-              <option value="OWN_PLACE" selected>Espaço do Prestador</option>
-              <option value="CLIENT_PLACE">Domicílio do Cliente</option>
-              <option value="HOTEL_MOTEL">Hotel / Motel</option>
-              <option value="VIRTUAL">Virtual</option>
+            <label style="color: var(--text-heading);" class="block text-[11px] font-bold mb-1">Onde será:</label>
+            <select id="wa-location-pref" onchange="updateCustomMessage()" style="background-color: var(--bg-pill); border-color: var(--border-subtle); color: var(--text-heading);" class="w-full rounded-xl p-2 text-xs border font-medium">
+              <option value="no seu local privativo">No seu espaço / local</option>
+              <option value="no meu domicílio">No meu domicílio</option>
+              <option value="em hotel/motel">Em Hotel ou Motel</option>
             </select>
           </div>
         </div>
 
         <div>
-          <label style="color: var(--text-heading);" class="block text-xs font-bold mb-1">Canal de Contato Direto</label>
-          <select id="req-channel" style="background-color: var(--bg-subtle); border-color: var(--border-main); color: var(--text-heading);" class="w-full rounded-lg p-2 text-sm border font-medium">
-            <option value="WHATSAPP" selected>WhatsApp (wa.me)</option>
-            <option value="TELEGRAM">Telegram (t.me)</option>
+          <label style="color: var(--text-heading);" class="block text-[11px] font-bold mb-1">Adaptação necessária (opcional):</label>
+          <select id="wa-acc-pref" onchange="updateCustomMessage()" style="background-color: var(--bg-pill); border-color: var(--border-subtle); color: var(--text-heading);" class="w-full rounded-xl p-2 text-xs border font-medium">
+            <option value="sem adaptações específicas">Nenhuma necessidade específica</option>
+            <option value="preciso de rampa/elevador para cadeira de rodas">Cadeirante / Necessito rampa/elevador</option>
+            <option value="comunicação em Libras (sou surdo)">Comunicação em Libras (Surdo)</option>
+            <option value="ambiente calmo com luz e som suaves">Neurodivergente / Luz e som suaves</option>
+            <option value="estarei com cão-guia">Acompanhado de cão-guia</option>
           </select>
         </div>
 
-        <!-- Preview do Cartão Sanitizado -->
-        <div style="background-color: var(--bg-subtle); border-color: var(--border-main);" class="p-3.5 rounded-xl border text-[11px] font-mono space-y-1">
-          <div class="text-sensual-800 font-bold mb-1 flex items-center gap-1.5">
-            <i data-lucide="shield-check" class="w-3.5 h-3.5 text-sensual-600"></i>
-            Cartão Sanitizado de Segurança:
+        <!-- Preview da Mensagem Amigável -->
+        <div>
+          <label style="color: var(--text-muted);" class="block text-[10px] font-bold uppercase tracking-wider mb-1">Mensagem enviada no WhatsApp:</label>
+          <div id="wa-message-preview" style="background-color: var(--bg-pill); border-color: var(--border-subtle); color: var(--text-heading);" class="p-3 rounded-xl border text-xs font-mono leading-relaxed italic">
+            <!-- Gerado via JS -->
           </div>
-          <div style="color: var(--text-body);">Cliente: <span class="font-bold text-sensual-900">Cliente_9942</span> (Identidade civil protegida)</div>
-          <div style="color: var(--text-body);">Adaptações: <span id="req-preview-acc" class="font-bold text-sensual-900">Libras, Rampa NBR 9050</span></div>
-          <div style="color: var(--text-muted);">Termos: +18 Consensual • Acordo Livre entre as partes</div>
         </div>
 
-        <div class="flex justify-end gap-2 pt-3">
-          <button type="button" onclick="closeModal('modal-request')" style="color: var(--text-muted);" class="px-4 py-2 rounded-lg text-xs font-semibold hover:text-sensual-700">
-            Cancelar
+        <div class="pt-2">
+          <button type="submit" class="w-full py-3 px-4 rounded-xl text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-500 transition shadow-lg shadow-emerald-600/25 flex items-center justify-center gap-2">
+            <i data-lucide="message-circle" class="w-4 h-4"></i>
+            <span>Iniciar Conversa no WhatsApp</span>
           </button>
-          <button type="submit" class="px-5 py-2.5 rounded-lg text-xs font-bold bg-gradient-to-r from-sensual-700 to-rose-700 hover:from-sensual-600 hover:to-rose-600 text-white inline-flex items-center gap-2 shadow-lg shadow-sensual-700/25">
-            <i data-lucide="message-circle" class="w-4 h-4 text-champagne-300"></i>
-            Enviar Solicitação via WhatsApp
-          </button>
+          <p style="color: var(--text-muted);" class="text-[10px] text-center mt-1.5">
+            Ao clicar, seu aplicativo oficial do WhatsApp será aberto com o texto pronto.
+          </p>
         </div>
       </form>
     </div>
   </div>
 
   <!-- ====================================================================== -->
-  <!-- MODAL: PAYWALL DE MÍDIA DIGITAL & PIX INSTANTÂNEO (SPLIT 85/15) -->
+  <!-- MODAL: ENSAIO SENSUAL PRIVADO & PIX (15 FOTOS EM ALTA RESOLUÇÃO) -->
   <!-- ====================================================================== -->
-  <div id="modal-paywall" class="fixed inset-0 bg-sensual-950/40 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-    <div style="background-color: var(--bg-surface); border-color: var(--border-accent);" class="border rounded-2xl max-w-md w-full p-6 shadow-2xl relative">
-      <button onclick="closeModal('modal-paywall')" style="color: var(--text-muted);" class="absolute top-4 right-4 hover:text-sensual-700 p-1 rounded-lg transition">
+  <div id="modal-paywall" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div style="background-color: var(--bg-surface); border-color: var(--border-accent);" class="border rounded-3xl max-w-lg w-full p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto no-scrollbar">
+      <button onclick="closeModal('modal-paywall')" style="color: var(--text-muted);" class="absolute top-5 right-5 hover:text-brand-crimson p-1 rounded-full transition">
         <i data-lucide="x" class="w-5 h-5"></i>
       </button>
 
       <div class="text-center mb-4">
-        <span class="inline-flex items-center gap-1 text-champagne-600 text-xs font-bold uppercase tracking-wider">
-          <i data-lucide="lock" class="w-3.5 h-3.5 text-sensual-600"></i>
-          Conteúdo Íntimo Exclusivo
+        <span class="inline-flex items-center gap-1 text-brand-gold text-[11px] font-bold uppercase tracking-widest">
+          <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+          Ensaio Exclusivo em Alta Definição
         </span>
-        <h3 style="color: var(--text-heading);" class="text-lg font-extrabold mt-1" id="paywall-title">Ensaio Sensual Privado</h3>
-        <p style="color: var(--text-muted);" class="text-xs mt-1">
-          Acesso perpétuo com marca d'água forense esteganográfica anti-vazamento.
-        </p>
+        <h3 id="paywall-title" style="color: var(--text-heading);" class="font-serif text-xl font-bold mt-1">Ensaio Sensual Privado</h3>
+        <p style="color: var(--text-muted);" class="text-xs mt-0.5">Série completa com 15 fotografias íntimas em lingerie de renda</p>
       </div>
 
       <!-- Preview com Blur e Trava -->
-      <div style="background-color: var(--bg-subtle); border-color: var(--border-main);" class="relative rounded-xl overflow-hidden border h-52 flex items-center justify-center mb-4">
-        <div class="absolute inset-0 bg-cover bg-center filter blur-xl opacity-40" style="background-image: url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80')"></div>
-        <div class="relative z-10 text-center p-4">
-          <div class="w-12 h-12 rounded-full bg-sensual-100 border border-sensual-300 flex items-center justify-center mx-auto mb-2 text-sensual-700 shadow-md">
+      <div id="paywall-preview-box" style="background-color: var(--bg-pill); border-color: var(--border-subtle);" class="relative rounded-2xl overflow-hidden border h-60 flex items-center justify-center mb-4 shadow-inner">
+        <img id="paywall-preview-img" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80" alt="Preview" class="absolute inset-0 w-full h-full object-cover filter blur-lg opacity-40">
+        <div class="relative z-10 text-center p-6 bg-black/40 backdrop-blur-xs rounded-2xl border border-white/20 text-white max-w-xs">
+          <div class="w-12 h-12 rounded-full bg-white/20 backdrop-blur flex items-center justify-center mx-auto mb-2 text-brand-gold shadow-md">
             <i data-lucide="lock" class="w-6 h-6"></i>
           </div>
-          <div style="color: var(--text-heading);" class="font-bold text-sm">Mídia Restrita por Paywall</div>
-          <div class="text-xs text-sensual-800 font-bold mt-1">Valor Unitário: R$ 35,00 via Pix</div>
-          <div style="color: var(--text-muted);" class="text-[10px] mt-0.5">Split Automático: 85% Prestador (R$ 29,75) / 15% Plataforma</div>
+          <div class="font-bold text-sm">Álbum Privado com 15 Fotos</div>
+          <div class="text-xs text-amber-300 font-bold mt-1">Valor Único: R$ 35,00 via Pix</div>
+          <div class="text-[10px] text-gray-200 mt-1">Liberado imediatamente na tela após o pagamento</div>
         </div>
       </div>
 
-      <!-- Checkout Pix -->
-      <div id="pix-checkout-box" class="hidden space-y-3">
-        <div style="background-color: var(--bg-subtle); border-color: var(--border-main);" class="text-center p-4 rounded-xl border">
-          <div class="text-xs text-sensual-800 font-bold mb-2 flex items-center justify-center gap-1.5">
-            <i data-lucide="qr-code" class="w-4 h-4 text-sensual-600"></i>
-            Cobrança Pix Pronta para Pagamento
+      <!-- Caixa Pix Ativa -->
+      <div id="pix-checkout-box" class="hidden space-y-3.5">
+        <div style="background-color: var(--bg-pill); border-color: var(--border-subtle);" class="p-4 rounded-2xl border text-center">
+          <div class="text-xs font-bold text-brand-wine dark:text-rose-200 mb-2 flex items-center justify-center gap-1.5">
+            <i data-lucide="qr-code" class="w-4 h-4 text-brand-crimson"></i>
+            Pague com Qualquer Aplicativo Bancário via Pix
           </div>
-          <img id="pix-qr-img" src="" alt="QR Code Pix" class="w-36 h-36 mx-auto rounded-lg bg-white p-1 mb-2 border border-sensual-200">
-          <div style="color: var(--text-muted);" class="text-[11px] mb-1">Copia e Cola Oficial (EMVCo):</div>
-          <input id="pix-copia-cola" readonly style="background-color: var(--bg-surface); border-color: var(--border-main); color: var(--text-heading);" class="w-full border rounded p-1.5 text-[10px] font-mono text-center truncate">
-        </div>
-
-        <button onclick="simulatePixPayment()" class="w-full py-2.5 rounded-lg text-xs font-bold bg-gradient-to-r from-sensual-700 to-rose-700 hover:from-sensual-600 hover:to-rose-600 text-white flex items-center justify-center gap-2 shadow-lg shadow-sensual-700/25">
-          <i data-lucide="zap" class="w-4 h-4 text-champagne-300"></i>
-          Simular Confirmação Pix (Webhook)
-        </button>
-      </div>
-
-      <!-- Botão Inicial -->
-      <div id="pix-initial-actions" class="flex justify-end gap-2">
-        <button onclick="closeModal('modal-paywall')" style="color: var(--text-muted);" class="px-4 py-2 rounded-lg text-xs font-semibold hover:text-sensual-700">
-          Fechar
-        </button>
-        <button onclick="startPixCheckout()" class="px-5 py-2.5 rounded-lg text-xs font-bold bg-gradient-to-r from-sensual-700 via-sensual-600 to-rose-700 hover:from-sensual-600 hover:to-rose-600 text-white inline-flex items-center gap-2 shadow-lg shadow-sensual-700/25">
-          <i data-lucide="credit-card" class="w-4 h-4"></i>
-          Pagar R$ 35,00 via Pix
-        </button>
-      </div>
-
-      <!-- Confirmação e Desbloqueio com Esteganografia -->
-      <div id="pix-unlocked-box" class="hidden text-center space-y-3 py-2">
-        <div class="text-sensual-800 font-bold text-sm flex items-center justify-center gap-1.5">
-          <i data-lucide="check-circle-2" class="w-5 h-5 text-sensual-600"></i>
-          Mídia Desbloqueada com Sucesso
-        </div>
-        <div style="background-color: var(--bg-subtle); border-color: var(--border-main);" class="p-3.5 rounded-xl border text-xs text-left space-y-1.5">
-          <div class="flex items-center gap-1.5 text-sensual-800 font-bold">
-            <i data-lucide="fingerprint" class="w-4 h-4 text-sensual-600"></i>
-            Marca d'Água Forense Injetada:
+          
+          <img id="pix-qr-img" src="" alt="QR Code Pix" class="w-40 h-40 mx-auto rounded-xl bg-white p-2 border shadow-sm mb-2.5">
+          
+          <div style="color: var(--text-muted);" class="text-[11px] mb-1 font-medium">Código Pix Copia e Cola:</div>
+          <div class="flex gap-2">
+            <input id="pix-copia-cola" readonly style="background-color: var(--bg-surface); border-color: var(--border-subtle); color: var(--text-heading);" class="flex-grow border rounded-xl px-2.5 py-1.5 text-[11px] font-mono truncate">
+            <button onclick="copyPixCode()" class="px-3 py-1.5 rounded-xl text-xs font-bold text-white bg-brand-crimson hover:bg-brand-velvet transition">
+              Copiar
+            </button>
           </div>
-          <div style="color: var(--text-body);">Pseudônimo Rastreador: <span class="font-mono font-bold text-sensual-900">Cliente_9942</span></div>
-          <div style="color: var(--text-muted);">Split Financeiro: R$ 29,75 creditado automaticamente ao prestador</div>
         </div>
-        <button onclick="closeModal('modal-paywall')" style="background-color: var(--bg-surface); border-color: var(--border-main); color: var(--text-heading);" class="w-full py-2 rounded-lg text-xs font-bold border hover:bg-sensual-50">
-          Fechar Visualizador
+
+        <button onclick="simulatePixPayment()" class="w-full py-3 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-brand-crimson to-amber-600 hover:opacity-95 transition shadow-lg shadow-brand-crimson/25 flex items-center justify-center gap-2">
+          <i data-lucide="check-circle" class="w-4 h-4"></i>
+          <span>Já Fiz o Pix (Confirmar Pagamento)</span>
+        </button>
+      </div>
+
+      <!-- Ações Iniciais -->
+      <div id="pix-initial-actions" class="flex items-center justify-between pt-2">
+        <div class="text-left">
+          <span style="color: var(--text-muted);" class="text-[10px] block">Acesso vitalício</span>
+          <span class="font-bold text-base text-brand-wine dark:text-rose-100">R$ 35,00</span>
+        </div>
+        <button onclick="startPixCheckout()" class="px-6 py-2.5 rounded-full text-xs font-bold text-white bg-brand-crimson hover:bg-brand-velvet transition shadow-md shadow-brand-crimson/25 flex items-center gap-1.5">
+          <i data-lucide="zap" class="w-3.5 h-3.5 text-brand-gold"></i>
+          <span>Desbloquear via Pix</span>
+        </button>
+      </div>
+
+      <!-- Álbum Desbloqueado com Sucesso -->
+      <div id="pix-unlocked-box" class="hidden text-center space-y-4 py-2">
+        <div class="p-3 bg-emerald-100 dark:bg-emerald-950/60 border border-emerald-300 dark:border-emerald-800 rounded-2xl text-emerald-800 dark:text-emerald-200 text-xs font-bold flex items-center justify-center gap-2">
+          <i data-lucide="check-check" class="w-5 h-5 text-emerald-600"></i>
+          <span>Pagamento confirmado! Álbum liberado em alta resolução.</span>
+        </div>
+
+        <div class="grid grid-cols-2 gap-2 text-left" id="unlocked-gallery">
+          <div class="relative rounded-xl overflow-hidden h-36">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=85" class="w-full h-full object-cover">
+          </div>
+          <div class="relative rounded-xl overflow-hidden h-36">
+            <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=600&q=85" class="w-full h-full object-cover">
+          </div>
+        </div>
+
+        <button onclick="closeModal('modal-paywall')" style="background-color: var(--bg-pill); border-color: var(--border-subtle); color: var(--text-heading);" class="w-full py-2.5 rounded-xl text-xs font-bold border hover:border-brand-crimson">
+          Fechar Álbum
         </button>
       </div>
     </div>
   </div>
 
   <!-- ====================================================================== -->
-  <!-- RODAPÉ SOFISTICADO -->
+  <!-- MODAL: VISUALIZADOR DE STORY (ESTILO INSTAGRAM / FATAL MODEL) -->
   <!-- ====================================================================== -->
-  <footer style="background-color: var(--bg-surface); border-color: var(--border-main);" class="border-t py-8 text-xs mt-12 transition-colors">
-    <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
-      <div>
-        <p style="color: var(--text-heading);" class="font-bold mb-1">Plataforma Enlace © 2026 — Relações Consensuais e Conteúdo Privado</p>
-        <p style="color: var(--text-muted);" class="text-[11px]">
-          Privacidade absoluta do usuário • Conformidade estrita com LGPD (Art. 7/11) e Código Penal Brasileiro (Art. 228-231).
-        </p>
+  <div id="modal-story" class="fixed inset-0 bg-black/90 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+    <div class="relative max-w-sm w-full h-[620px] rounded-3xl overflow-hidden border border-white/20 shadow-2xl flex flex-col justify-between">
+      <!-- Imagem de Fundo do Story -->
+      <img id="story-bg" src="" alt="Story" class="absolute inset-0 w-full h-full object-cover">
+      <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/80"></div>
+
+      <!-- Barra de Progresso no Topo -->
+      <div class="relative z-10 p-4 space-y-3">
+        <div class="w-full h-1 bg-white/30 rounded-full overflow-hidden">
+          <div class="h-full bg-white rounded-full w-3/4 animate-pulse"></div>
+        </div>
+        
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <img id="story-avatar" src="" alt="Avatar" class="w-8 h-8 rounded-full border-2 border-brand-gold object-cover">
+            <div>
+              <div id="story-name" class="text-white text-xs font-bold">Nome</div>
+              <div class="text-[10px] text-gray-300">Publicado há 2 horas • Rio Branco</div>
+            </div>
+          </div>
+          <button onclick="closeModal('modal-story')" class="text-white p-1 hover:text-brand-crimson">
+            <i data-lucide="x" class="w-5 h-5"></i>
+          </button>
+        </div>
       </div>
-      <div class="flex items-center gap-4 text-xs font-semibold">
-        <a href="/api/v1/health" target="_blank" class="hover:text-sensual-700 transition inline-flex items-center gap-1.5 text-sensual-800">
-          <i data-lucide="activity" class="w-3.5 h-3.5 text-sensual-600"></i>
-          Sistema Online
-        </a>
-        <span style="color: var(--border-main);">•</span>
-        <span style="color: var(--text-muted);" class="inline-flex items-center gap-1.5">
-          <i data-lucide="database" class="w-3.5 h-3.5 text-champagne-600"></i>
-          PostGIS Georreferenciado
+
+      <!-- Legenda do Story e CTA WhatsApp -->
+      <div class="relative z-10 p-5 space-y-3">
+        <p id="story-caption" class="text-white text-xs leading-relaxed font-medium bg-black/40 backdrop-blur-xs p-3 rounded-2xl border border-white/10">
+          Legenda do story...
+        </p>
+
+        <button onclick="replyStoryOnWhatsApp()" class="w-full py-3 rounded-xl text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-500 transition shadow-lg shadow-emerald-600/30 flex items-center justify-center gap-2">
+          <i data-lucide="message-circle" class="w-4 h-4"></i>
+          <span>Responder no WhatsApp</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====================================================================== -->
+  <!-- SEÇÃO DE CONFIANÇA & INCLUSÃO (POR QUE O ENLACE É DIFERENTE) -->
+  <!-- ====================================================================== -->
+  <section id="como-funciona" class="max-w-7xl mx-auto px-4 sm:px-6 py-12 border-t w-full" style="border-color: var(--border-subtle);">
+    <div class="text-center max-w-2xl mx-auto mb-10">
+      <h2 style="color: var(--text-heading);" class="font-serif text-2xl sm:text-3xl font-bold tracking-tight">
+        A evolução do marketplace adulto
+      </h2>
+      <p style="color: var(--text-muted);" class="text-xs sm:text-sm mt-2 leading-relaxed">
+        Criamos uma plataforma segura, moderna e sem preconceitos para que encontros consensuais aconteçam com total respeito, dignidade e acessibilidade universal.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+      <div style="background-color: var(--bg-surface); border-color: var(--border-subtle); box-shadow: var(--card-shadow);" class="p-5 rounded-2xl border">
+        <div class="w-10 h-10 rounded-xl bg-rose-100 dark:bg-rose-950 flex items-center justify-center mb-3 text-brand-crimson">
+          <i data-lucide="shield-check" class="w-5 h-5"></i>
+        </div>
+        <h3 style="color: var(--text-heading);" class="font-bold text-sm mb-1">Fotos & Perfis Reais</h3>
+        <p style="color: var(--text-muted);" class="text-xs leading-relaxed">Verificação obrigatória em vídeo de 100% das anunciantes. Sem fotos fakes ou desatualizadas.</p>
+      </div>
+
+      <div style="background-color: var(--bg-surface); border-color: var(--border-subtle); box-shadow: var(--card-shadow);" class="p-5 rounded-2xl border">
+        <div class="w-10 h-10 rounded-xl bg-amber-100 dark:bg-amber-950 flex items-center justify-center mb-3 text-brand-gold">
+          <i data-lucide="accessibility" class="w-5 h-5"></i>
+        </div>
+        <h3 style="color: var(--text-heading);" class="font-bold text-sm mb-1">Pioneirismo em Inclusão</h3>
+        <p style="color: var(--text-muted);" class="text-xs leading-relaxed">Atendimento humanizado para pessoas com deficiência física, surdos (Libras) e neurodivergentes.</p>
+      </div>
+
+      <div style="background-color: var(--bg-surface); border-color: var(--border-subtle); box-shadow: var(--card-shadow);" class="p-5 rounded-2xl border">
+        <div class="w-10 h-10 rounded-xl bg-purple-100 dark:bg-purple-950 flex items-center justify-center mb-3 text-purple-700">
+          <i data-lucide="lock" class="w-5 h-5"></i>
+        </div>
+        <h3 style="color: var(--text-heading);" class="font-bold text-sm mb-1">Discrição & Sigilo</h3>
+        <p style="color: var(--text-muted);" class="text-xs leading-relaxed">Pseudônimo público de clientes. Cobranças Pix sem qualquer menção a conteúdo adulto no extrato.</p>
+      </div>
+
+      <div style="background-color: var(--bg-surface); border-color: var(--border-subtle); box-shadow: var(--card-shadow);" class="p-5 rounded-2xl border">
+        <div class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-950 flex items-center justify-center mb-3 text-emerald-600">
+          <i data-lucide="message-circle" class="w-5 h-5"></i>
+        </div>
+        <h3 style="color: var(--text-heading);" class="font-bold text-sm mb-1">WhatsApp Direto</h3>
+        <p style="color: var(--text-muted);" class="text-xs leading-relaxed">Você combina diretamente com a acompanhante. Não cobramos comissão sobre encontros presenciais.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================================================================== -->
+  <!-- RODAPÉ COMPLETO & RESPONSÁVEL (+18 ANOS) -->
+  <!-- ====================================================================== -->
+  <footer style="background-color: var(--bg-surface); border-color: var(--border-subtle);" class="border-t py-10 text-xs mt-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      
+      <!-- Aviso Legal 18+ -->
+      <div style="background-color: var(--bg-pill); border-color: var(--border-subtle);" class="p-4 rounded-2xl border mb-8 flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left">
+        <span class="w-10 h-10 rounded-full bg-brand-crimson text-white font-extrabold flex items-center justify-center flex-shrink-0 text-sm">
+          18+
         </span>
+        <div style="color: var(--text-muted);" class="text-[11px] leading-relaxed">
+          <strong>Aviso de Maioridade e Consentimento:</strong> Este portal é destinado exclusivamente a adultos maiores de 18 anos. Todos os anunciantes são profissionais autônomos e declaram sob as penas da lei que todas as imagens e serviços ofertados decorrem de livre vontade e consentimento. Repudiamos e combatemos rigorosamente qualquer forma de exploração sexual, tráfico de pessoas ou abuso.
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 pb-8 border-b" style="border-color: var(--border-subtle);">
+        <div>
+          <h4 style="color: var(--text-heading);" class="font-bold mb-2.5">Enlace</h4>
+          <ul class="space-y-1.5" style="color: var(--text-muted);">
+            <li><a href="#catalogo" class="hover:text-brand-crimson">Acompanhantes</a></li>
+            <li><a href="#stories" class="hover:text-brand-crimson">Stories & Vídeos</a></li>
+            <li><a href="#anunciar" class="hover:text-brand-crimson">Anunciar Perfil</a></li>
+            <li><a href="/api/v1/health" target="_blank" class="hover:text-brand-crimson">Status do Sistema</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 style="color: var(--text-heading);" class="font-bold mb-2.5">Acessibilidade</h4>
+          <ul class="space-y-1.5" style="color: var(--text-muted);">
+            <li><a href="#" onclick="selectQuickFilter('PCD')" class="hover:text-brand-crimson">Atendimento PcD</a></li>
+            <li><a href="#" onclick="selectQuickFilter('LIBRAS')" class="hover:text-brand-crimson">Intérpretes de Libras</a></li>
+            <li><a href="#" class="hover:text-brand-crimson">Locais com Rampa NBR 9050</a></li>
+            <li><a href="#" class="hover:text-brand-crimson">Espaços Neurodivergentes</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 style="color: var(--text-heading);" class="font-bold mb-2.5">Segurança & Ética</h4>
+          <ul class="space-y-1.5" style="color: var(--text-muted);">
+            <li><a href="#" class="hover:text-brand-crimson">Dicas de Encontro Seguro</a></li>
+            <li><a href="#" class="hover:text-brand-crimson">Canal de Denúncias 24h</a></li>
+            <li><a href="#" class="hover:text-brand-crimson">Termos de Uso</a></li>
+            <li><a href="#" class="hover:text-brand-crimson">Privacidade & LGPD</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 style="color: var(--text-heading);" class="font-bold mb-2.5">Cidades</h4>
+          <ul class="space-y-1.5" style="color: var(--text-muted);">
+            <li><a href="#" class="hover:text-brand-crimson font-semibold">Rio Branco (AC)</a></li>
+            <li><a href="#" class="hover:text-brand-crimson">Cruzeiro do Sul (AC)</a></li>
+            <li><span class="text-gray-400">São Paulo (SP) — Breve</span></li>
+            <li><span class="text-gray-400">Belo Horizonte (MG) — Breve</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <p style="color: var(--text-muted);" class="text-[11px]">
+          Plataforma Enlace © 2026 • Todos os direitos reservados • CNPJ sob sigilo operacional
+        </p>
+        <div class="flex items-center gap-3 text-[11px]" style="color: var(--text-muted);">
+          <span>Rio Branco • Acre</span>
+          <span>•</span>
+          <span>100% Criptografado</span>
+        </div>
       </div>
     </div>
   </footer>
 
   <!-- ====================================================================== -->
-  <!-- JAVASCRIPT DE CONSUMO E ILUMINAÇÃO -->
+  <!-- SCRIPTS DE COMPORTAMENTO, FILTROS E CONEXÃO REAL -->
   <!-- ====================================================================== -->
   <script>
-    let activeOrderId = null;
+    // Catálogo de Dados em Cache Local para Navegação Instantânea
+    let catalogItems = [];
+    let currentSelectedStory = null;
+    let activeQuickFilter = 'ALL';
 
-    const tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    tomorrow.setHours(20, 0, 0, 0);
-    document.getElementById('req-datetime').value = tomorrow.toISOString().slice(0, 16);
-
-    const taxonomyData = {
-      'COMM_LIBRAS': { label: 'Libras', icon: 'message-square-text' },
-      'MOB_RAMP_ELEVATOR': { label: 'Rampa / Elevador', icon: 'accessibility' },
-      'NEURO_LIGHT_CONTROL': { label: 'Luz Intimista', icon: 'sun-dim' },
-      'NEURO_SILENT_SPACE': { label: 'Ambiente Silencioso', icon: 'volume-x' },
-      'SUPP_GUIDE_DOG': { label: 'Cão-Guia', icon: 'heart-handshake' },
-      'MOB_WIDE_DOORS': { label: 'Portas Largas', icon: 'door-open' },
-      'MOB_ADAPTED_BATHROOM': { label: 'Banheiro Adaptado', icon: 'bath' }
+    // Banco de Fotos e Detalhes Humanizados dos Modelos
+    const providerHumanProfiles = {
+      'Juliana VIP': {
+        age: 24,
+        height: '1,68m',
+        weight: '58kg',
+        photos: [
+          'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=85',
+          'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=800&q=85',
+          'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=800&q=85'
+        ],
+        services: ['GFE (Namoradinha)', 'Massagem Relaxante', 'Acessível PcD', 'Libras Fluente'],
+        phone: '5568999881122',
+        specialPlace: 'Suíte climatizada com elevador privativo'
+      },
+      'Lucas Moreno': {
+        age: 27,
+        height: '1,82m',
+        weight: '78kg',
+        photos: [
+          'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=85',
+          'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=800&q=85'
+        ],
+        services: ['Acolhedor TEA/TDAH', 'Sem Pressa', 'Jantar & Companhia', 'Espaço Silencioso'],
+        phone: '5568999773344',
+        specialPlace: 'Apartamento com isolamento acústico'
+      },
+      'Valentina Rossi': {
+        age: 23,
+        height: '1,70m',
+        weight: '60kg',
+        photos: [
+          'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=800&q=85',
+          'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=800&q=85'
+        ],
+        services: ['Massagem Tântrica', 'Banheira de Hidro', 'Lingerie Fina', 'Acesso Térreo'],
+        phone: '5568999665544',
+        specialPlace: 'Suíte térrea com ar-condicionado e hidro'
+      },
+      'Camila Ferraz': {
+        age: 26,
+        height: '1,64m',
+        weight: '55kg',
+        photos: [
+          'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=800&q=85',
+          'https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?auto=format&fit=crop&w=800&q=85'
+        ],
+        services: ['Carinhosa & Doce', 'Acesso sem Degraus', 'Aceita Cão-Guia', 'Paciência Total'],
+        phone: '5568999554433',
+        specialPlace: 'Casa térrea ampla e acessível'
+      },
+      'Rafaella Santos': {
+        age: 25,
+        height: '1,75m',
+        weight: '63kg',
+        photos: [
+          'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=800&q=85',
+          'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=85'
+        ],
+        services: ['Mulher Trans VIP', 'Suíte Luxo', 'Pernoite', 'Discrição Absoluta'],
+        phone: '5568999443322',
+        specialPlace: 'Espaço requintado na Cerâmica'
+      }
     };
 
-    // Alternador de Iluminação (Claro Sensual / Noturno Sensual)
-    let isNightMode = false;
+    // Humanização dos Selos de Acessibilidade
+    const accLabelMap = {
+      'COMM_LIBRAS': { label: 'Fluente em Libras', icon: 'message-square-text' },
+      'MOB_RAMP_ELEVATOR': { label: 'Rampa / Elevador', icon: 'accessibility' },
+      'MOB_ADAPTED_BATHROOM': { label: 'Banheiro Adaptado', icon: 'bath' },
+      'MOB_WIDE_DOORS': { label: 'Portas Amplas 90cm', icon: 'door-open' },
+      'NEURO_LIGHT_CONTROL': { label: 'Luz Suave / TEA', icon: 'sun-dim' },
+      'NEURO_SILENT_SPACE': { label: 'Espaço Silencioso', icon: 'volume-x' },
+      'SUPP_GUIDE_DOG': { label: 'Aceita Cão-Guia', icon: 'heart-handshake' }
+    };
+
+    // Alternador de Iluminação (Seda Luminosa vs. Cabernet Veludo)
+    let isNight = false;
     function toggleAtmosphere() {
-      isNightMode = !isNightMode;
-      document.body.classList.toggle('theme-night', isNightMode);
-      
+      isNight = !isNight;
+      document.body.classList.toggle('theme-night', isNight);
       const icon = document.getElementById('theme-icon');
-      const text = document.getElementById('theme-text');
-      
-      if (isNightMode) {
+      if (isNight) {
         icon.setAttribute('data-lucide', 'sun');
-        text.innerText = 'Ambiente Luminoso';
       } else {
         icon.setAttribute('data-lucide', 'moon');
-        text.innerText = 'Ambiente Noturno';
       }
       if (window.lucide) lucide.createIcons();
+    }
+
+    function toggleAccessibilityMenu() {
+      const menu = document.getElementById('acc-menu');
+      menu.classList.toggle('hidden');
+    }
+
+    function toggleCityDropdown() {
+      const drop = document.getElementById('city-dropdown');
+      drop.classList.toggle('hidden');
+    }
+
+    function selectCity(city, uf) {
+      document.getElementById('current-location-text').innerText = city + ', ' + uf;
+      toggleCityDropdown();
+      triggerSearch();
+    }
+
+    function toggleAdvancedFilters() {
+      const panel = document.getElementById('advanced-filters-panel');
+      panel.classList.toggle('hidden');
     }
 
     function toggleContrast() {
       document.body.classList.toggle('high-contrast');
     }
 
-    let currentFontSize = 16;
+    let fontSize = 16;
     function changeFontSize(delta) {
-      currentFontSize = Math.min(22, Math.max(14, currentFontSize + delta));
-      document.documentElement.style.fontSize = currentFontSize + 'px';
+      fontSize = Math.min(22, Math.max(14, fontSize + delta));
+      document.documentElement.style.fontSize = fontSize + 'px';
     }
 
     function openModal(id) {
@@ -543,241 +893,390 @@ export const WebUIHtml = `<!DOCTYPE html>
       document.getElementById(id).classList.add('hidden');
     }
 
-    function clearFilters() {
-      document.querySelectorAll('#accessibility-pills input[type="checkbox"]').forEach(c => c.checked = false);
-      document.getElementById('neighborhood').value = '';
-      triggerSearch();
+    // Carrossel de Fotos no Próprio Card
+    const cardPhotoIndexes = {};
+    function nextCardPhoto(event, cardId, maxPhotos) {
+      event.stopPropagation();
+      cardPhotoIndexes[cardId] = ((cardPhotoIndexes[cardId] || 0) + 1) % maxPhotos;
+      updateCardPhotoDisplay(cardId);
     }
 
+    function prevCardPhoto(event, cardId, maxPhotos) {
+      event.stopPropagation();
+      cardPhotoIndexes[cardId] = ((cardPhotoIndexes[cardId] || 0) - 1 + maxPhotos) % maxPhotos;
+      updateCardPhotoDisplay(cardId);
+    }
+
+    function updateCardPhotoDisplay(cardId) {
+      const img = document.getElementById('card-img-' + cardId);
+      const indicator = document.getElementById('card-indicator-' + cardId);
+      const photos = JSON.parse(img.getAttribute('data-photos'));
+      const idx = cardPhotoIndexes[cardId] || 0;
+      img.src = photos[idx];
+      if (indicator) {
+        indicator.innerText = (idx + 1) + '/' + photos.length;
+      }
+    }
+
+    // Seleção de Chips Rápidos
+    function selectQuickFilter(filter) {
+      activeQuickFilter = filter;
+      document.querySelectorAll('.quick-chip').forEach(el => {
+        el.classList.remove('active', 'bg-brand-crimson', 'text-white');
+        el.style.backgroundColor = 'var(--bg-pill)';
+        el.style.color = 'var(--text-heading)';
+      });
+
+      const activeEl = document.getElementById('chip-' + filter);
+      if (activeEl) {
+        activeEl.classList.add('active', 'bg-brand-crimson', 'text-white');
+        activeEl.style.backgroundColor = '';
+        activeEl.style.color = '';
+      }
+
+      renderCatalog();
+    }
+
+    function clearAllFilters() {
+      document.querySelectorAll('.acc-filter').forEach(c => c.checked = false);
+      document.getElementById('search-keyword').value = '';
+      selectQuickFilter('ALL');
+    }
+
+    function filterByKeyword() {
+      renderCatalog();
+    }
+
+    // Busca no Backend e População
     async function triggerSearch() {
-      const stateUf = document.getElementById('state_uf').value;
-      const city = document.getElementById('city').value;
-      const neighborhood = document.getElementById('neighborhood').value.trim();
+      const grid = document.getElementById('providers-grid');
+      const countEl = document.getElementById('results-count');
+      countEl.innerText = 'buscando...';
 
       const selectedAccs = Array.from(
-        document.querySelectorAll('#accessibility-pills input[type="checkbox"]:checked')
+        document.querySelectorAll('.acc-filter:checked')
       ).map(cb => cb.value);
 
       const params = new URLSearchParams({
-        state_uf: stateUf,
-        city: city
+        state_uf: 'AC',
+        city: 'Rio Branco'
       });
-
-      if (neighborhood) params.append('neighborhood', neighborhood);
-      selectedAccs.forEach(acc => params.append('accommodations', acc));
-
-      const grid = document.getElementById('providers-grid');
-      const countEl = document.getElementById('results-count');
-      countEl.innerText = '(pesquisando...)';
+      selectedAccs.forEach(a => params.append('accommodations', a));
 
       try {
         const res = await fetch('/api/v1/providers/search?' + params.toString());
         const data = await res.json();
-
-        countEl.innerText = '(' + (data.count || 0) + ' disponíveis)';
-        grid.innerHTML = '';
-
-        if (!data.items || data.items.length === 0) {
-          grid.innerHTML = \`
-            <div style="background-color: var(--bg-surface); border-color: var(--border-main);" class="col-span-full py-12 text-center rounded-2xl border">
-              <i data-lucide="search-x" class="w-8 h-8 text-sensual-500 mx-auto mb-2"></i>
-              <div style="color: var(--text-heading);" class="font-bold text-base">Nenhum perfil disponível com estes filtros</div>
-              <div style="color: var(--text-muted);" class="text-xs mt-1">Tente desmarcar algumas preferências ou ampliar a busca.</div>
-            </div>
-          \`;
-          if (window.lucide) lucide.createIcons();
-          return;
-        }
-
-        data.items.forEach(p => {
-          let tierBadge = '<span style="background-color: var(--bg-subtle); border-color: var(--border-main); color: var(--text-muted);" class="px-2 py-0.5 rounded text-[10px] font-semibold border">Padrão</span>';
-          if (p.activePlanTier === 'DIAMANTE') {
-            tierBadge = '<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-gradient-to-r from-champagne-300 via-rose-200 to-sensual-300 text-sensual-950 shadow-sm border border-champagne-400"><i data-lucide="sparkles" class="w-3 h-3 text-sensual-800"></i> DIAMANTE</span>';
-          } else if (p.activePlanTier === 'OURO') {
-            tierBadge = '<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-champagne-300 text-champagne-950 shadow-sm border border-champagne-400"><i data-lucide="star" class="w-3 h-3 text-champagne-800"></i> OURO</span>';
-          }
-
-          const accPills = (p.accessibilityFeatures || []).map(f => {
-            const tax = taxonomyData[f] || { label: f, icon: 'check' };
-            return \`<span style="background-color: var(--bg-subtle); border-color: var(--border-main);" class="inline-flex items-center gap-1 border text-sensual-900 text-[10px] px-2 py-0.5 rounded-md font-semibold"><i data-lucide="\${tax.icon}" class="w-3 h-3 text-sensual-700"></i> \${tax.label}</span>\`;
-          }).join('');
-
-          const avatarUrl = p.artisticName.includes('Lucas')
-            ? 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80'
-            : 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80';
-
-          const card = document.createElement('div');
-          card.style = "background-color: var(--bg-surface); border-color: var(--border-main); box-shadow: var(--card-shadow);";
-          card.className = "rounded-2xl border overflow-hidden hover:border-sensual-400 transition-all duration-300 flex flex-col group";
-          card.innerHTML = \`
-            <div class="relative h-56 bg-sensual-100 overflow-hidden">
-              <img src="\${avatarUrl}" alt="\${p.artisticName}" class="w-full h-full object-cover object-center group-hover:scale-105 transition duration-500">
-              <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-              <div class="absolute top-3 left-3 flex gap-1.5 items-center">
-                \${tierBadge}
-                <span class="inline-flex items-center gap-1 bg-white/95 border border-sensual-200 text-sensual-800 px-2 py-0.5 rounded-full text-[10px] font-bold shadow-sm">
-                  <i data-lucide="badge-check" class="w-3 h-3 text-sensual-600"></i> Verificado
-                </span>
-              </div>
-              <div class="absolute bottom-2 right-2 bg-white/95 backdrop-blur px-2.5 py-1 rounded text-[11px] font-bold text-sensual-950 border border-sensual-200 inline-flex items-center gap-1 shadow-sm">
-                <i data-lucide="map-pin" class="w-3 h-3 text-sensual-600"></i>
-                ~\${p.distanceMeters || 500}m (Aproximado)
-              </div>
-            </div>
-
-            <div class="p-5 flex-grow flex flex-col justify-between">
-              <div>
-                <div class="flex items-center justify-between mb-1">
-                  <h4 style="color: var(--text-heading);" class="text-lg font-extrabold tracking-tight group-hover:text-sensual-700 transition">\${p.artisticName}</h4>
-                  <span class="text-sm font-extrabold text-sensual-700 font-mono">R$ \${(p.minRateCents / 100).toFixed(0)}/h</span>
-                </div>
-                <p style="color: var(--text-muted);" class="text-xs mb-3 font-medium">\${p.city} • Bairro \${p.neighborhood}</p>
-
-                <div class="mb-4">
-                  <div style="color: var(--text-heading);" class="text-[11px] font-bold mb-1.5 flex items-center gap-1">
-                    <i data-lucide="sparkles" class="w-3 h-3 text-champagne-600"></i>
-                    Acomodações Oferecidas:
-                  </div>
-                  <div class="flex flex-wrap gap-1.5">
-                    \${accPills || '<span style="color: var(--text-muted);" class="text-[11px]">Nenhuma acomodação cadastrada</span>'}
-                  </div>
-                </div>
-              </div>
-
-              <div style="border-color: var(--border-main);" class="pt-3 border-t flex gap-2">
-                <button onclick="openPaywallModal('\${p.providerId}')" style="background-color: var(--bg-subtle); border-color: var(--border-main); color: var(--text-body);" class="flex-1 py-2.5 px-3 rounded-lg text-xs font-bold border hover:border-sensual-400 transition inline-flex items-center justify-center gap-1.5 shadow-sm">
-                  <i data-lucide="lock" class="w-3.5 h-3.5 text-sensual-600"></i>
-                  Mídia Privada
-                </button>
-                <button onclick="openRequestModal('\${p.providerId}', '\${p.artisticName}')" class="flex-1 py-2.5 px-3 rounded-lg text-xs font-bold bg-gradient-to-r from-sensual-700 via-sensual-600 to-rose-700 hover:from-sensual-600 hover:to-rose-600 text-white transition inline-flex items-center justify-center gap-1.5 shadow-md shadow-sensual-700/25">
-                  <i data-lucide="message-square" class="w-3.5 h-3.5 text-champagne-300"></i>
-                  Conectar
-                </button>
-              </div>
-            </div>
-          \`;
-          grid.appendChild(card);
-        });
-
-        if (window.lucide) {
-          lucide.createIcons();
-        }
+        
+        catalogItems = data.items || [];
+        countEl.innerText = catalogItems.length + ' anunciantes verificadas';
+        renderCatalog();
       } catch (err) {
-        countEl.innerText = '(erro na busca)';
         console.error(err);
+        countEl.innerText = 'erro ao carregar';
       }
     }
 
-    function openRequestModal(providerId, providerName) {
-      document.getElementById('req-provider-id').value = providerId;
-      document.getElementById('req-provider-name').innerText = 'Agendar com ' + providerName;
-      openModal('modal-request');
-    }
+    // Renderização dos Cards Humanizados
+    function renderCatalog() {
+      const grid = document.getElementById('providers-grid');
+      const keyword = (document.getElementById('search-keyword').value || '').toLowerCase().trim();
+      
+      let filtered = catalogItems.filter(p => {
+        const human = providerHumanProfiles[p.artisticName] || {
+          age: 24,
+          height: '1,68m',
+          photos: ['https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=85'],
+          services: ['Atendimento Exclusivo'],
+          phone: '5568999881122'
+        };
 
-    async function submitServiceRequest() {
-      const providerId = document.getElementById('req-provider-id').value;
-      const datetime = new Date(document.getElementById('req-datetime').value).toISOString();
-      const duration = parseInt(document.getElementById('req-duration').value, 10);
-      const locationMode = document.getElementById('req-location').value;
-      const channel = document.getElementById('req-channel').value;
+        // Filtro por Chips
+        if (activeQuickFilter === 'PCD' && (!p.accessibilityFeatures || p.accessibilityFeatures.length === 0)) return false;
+        if (activeQuickFilter === 'LIBRAS' && (!p.accessibilityFeatures || !p.accessibilityFeatures.includes('COMM_LIBRAS'))) return false;
+        if (activeQuickFilter === 'DIAMANTE' && p.activePlanTier !== 'DIAMANTE') return false;
 
-      try {
-        const loginRes = await fetch('/api/v1/auth/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email: 'cliente.demo@enlace.app', password: 'SenhaForte123!' })
-        });
-        const loginData = await loginRes.json();
-
-        const reqRes = await fetch('/api/v1/requests', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + loginData.token
-          },
-          body: JSON.stringify({
-            provider_id: providerId,
-            requested_datetime: datetime,
-            duration_hours: duration,
-            location_mode: locationMode,
-            channel: channel,
-            accommodations: ['COMM_LIBRAS', 'MOB_RAMP_ELEVATOR']
-          })
-        });
-
-        const reqData = await reqRes.json();
-        if (reqRes.status === 201) {
-          closeModal('modal-request');
-          window.open(reqData.deepLinkUrl, '_blank');
-        } else {
-          alert('Erro ao gerar solicitação: ' + (reqData.detail || 'Falha de validação'));
+        // Filtro por Palavra-Chave
+        if (keyword) {
+          const matchName = p.artisticName.toLowerCase().includes(keyword);
+          const matchNeigh = (p.neighborhood || '').toLowerCase().includes(keyword);
+          const matchBio = (p.bio || '').toLowerCase().includes(keyword);
+          const matchServices = human.services.some(s => s.toLowerCase().includes(keyword));
+          if (!matchName && !matchNeigh && !matchBio && !matchServices) return false;
         }
-      } catch (err) {
-        alert('Erro de conexão ao gerar solicitação.');
+
+        return true;
+      });
+
+      grid.innerHTML = '';
+
+      if (filtered.length === 0) {
+        grid.innerHTML = \`
+          <div style="background-color: var(--bg-surface); border-color: var(--border-subtle);" class="col-span-full py-16 text-center rounded-3xl border">
+            <i data-lucide="heart-off" class="w-10 h-10 text-brand-crimson mx-auto mb-3 opacity-60"></i>
+            <div style="color: var(--text-heading);" class="font-serif text-lg font-bold">Nenhum perfil encontrado com estes filtros</div>
+            <div style="color: var(--text-muted);" class="text-xs mt-1 max-w-sm mx-auto">Tente selecionar "Todos os Perfis" ou desmarcar algumas preferências.</div>
+            <button onclick="clearAllFilters()" class="mt-4 px-4 py-2 rounded-full text-xs font-bold text-white bg-brand-crimson hover:bg-brand-velvet transition">
+              Ver Todos os Perfis
+            </button>
+          </div>
+        \`;
+        if (window.lucide) lucide.createIcons();
+        return;
       }
+
+      filtered.forEach((p, idx) => {
+        const cardId = 'card_' + idx;
+        const human = providerHumanProfiles[p.artisticName] || {
+          age: 24,
+          height: '1,68m',
+          weight: '58kg',
+          photos: ['https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=85'],
+          services: ['Atendimento VIP'],
+          phone: '5568999881122',
+          specialPlace: 'Local privativo climatizado'
+        };
+
+        const rateFormatted = p.minRateCents > 0 
+          ? 'R$ ' + (p.minRateCents / 100).toFixed(0) 
+          : 'R$ 250';
+
+        // Selos de Acessibilidade Formatados com Humanidade
+        const accTags = (p.accessibilityFeatures || []).map(f => {
+          const item = accLabelMap[f] || { label: f, icon: 'check' };
+          return \`<span style="background-color: var(--bg-pill); border-color: var(--border-subtle); color: var(--text-heading);" class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-[10px] font-semibold border">
+            <i data-lucide="\${item.icon}" class="w-3 h-3 text-brand-crimson"></i>
+            <span>\${item.label}</span>
+          </span>\`;
+        }).join('');
+
+        const card = document.createElement('div');
+        card.style = "background-color: var(--bg-surface); border-color: var(--border-subtle); box-shadow: var(--card-shadow);";
+        card.className = "rounded-3xl border overflow-hidden transition-all duration-300 flex flex-col group hover:-translate-y-1";
+
+        card.innerHTML = \`
+          <!-- Área Fotográfica com Proporção Vertical 3:4 e Carrossel Embutido -->
+          <div class="relative aspect-[3/4] bg-neutral-200 overflow-hidden cursor-pointer" onclick="openProfileWhatsApp('\${p.artisticName}', '\${p.providerId}', '\${human.phone}', '\${p.neighborhood}')">
+            
+            <img id="card-img-\${cardId}" 
+                 src="\${human.photos[0]}" 
+                 data-photos='\${JSON.stringify(human.photos)}'
+                 alt="\${p.artisticName}" 
+                 class="w-full h-full object-cover object-center group-hover:scale-102 transition duration-500">
+            
+            <!-- Degradê Suave para Leitura Perfeita -->
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/30 pointer-events-none"></div>
+
+            <!-- Badges Superiores -->
+            <div class="absolute top-3 left-3 flex items-center gap-1.5 z-10">
+              <span class="inline-flex items-center gap-1 bg-black/60 backdrop-blur-md text-white text-[10px] font-bold px-2.5 py-1 rounded-full border border-white/20">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 online-indicator"></span>
+                <span>Online</span>
+              </span>
+              \${p.activePlanTier === 'DIAMANTE' ? '<span class="inline-flex items-center gap-1 bg-amber-400/90 backdrop-blur-md text-amber-950 text-[10px] font-extrabold px-2.5 py-1 rounded-full shadow-xs"><i data-lucide="sparkles" class="w-3 h-3"></i> VIP</span>' : ''}
+            </div>
+
+            <div class="absolute top-3 right-3 flex items-center gap-1.5 z-10">
+              <span id="card-indicator-\${cardId}" class="bg-black/60 backdrop-blur-md text-white text-[10px] font-bold px-2 py-0.5 rounded-full border border-white/20">
+                1/\${human.photos.length}
+              </span>
+              <button onclick="toggleFavorite(event, '\${p.providerId}')" class="w-7 h-7 rounded-full bg-black/60 backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:text-rose-400 transition">
+                <i data-lucide="heart" class="w-3.5 h-3.5"></i>
+              </button>
+            </div>
+
+            <!-- Setas de Navegação de Foto -->
+            \${human.photos.length > 1 ? \`
+              <button onclick="prevCardPhoto(event, '\${cardId}', \${human.photos.length})" class="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/50 hover:bg-black/80 text-white flex items-center justify-center backdrop-blur-xs transition z-10 opacity-0 group-hover:opacity-100">
+                <i data-lucide="chevron-left" class="w-4 h-4"></i>
+              </button>
+              <button onclick="nextCardPhoto(event, '\${cardId}', \${human.photos.length})" class="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/50 hover:bg-black/80 text-white flex items-center justify-center backdrop-blur-xs transition z-10 opacity-0 group-hover:opacity-100">
+                <i data-lucide="chevron-right" class="w-4 h-4"></i>
+              </button>
+            \` : ''}
+
+            <!-- Informações Sobrepostas na Foto (Visual Editorial de Luxo) -->
+            <div class="absolute bottom-3 left-3 right-3 text-white pointer-events-none z-10">
+              <div class="flex items-end justify-between">
+                <div>
+                  <div class="flex items-center gap-1.5">
+                    <h2 class="font-serif text-xl sm:text-2xl font-bold tracking-tight text-white drop-shadow-sm">
+                      \${p.artisticName}, \${human.age}
+                    </h2>
+                    <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400" title="Identidade e Fotos 100% Verificadas"></i>
+                  </div>
+                  <p class="text-xs text-rose-200 font-medium flex items-center gap-1 drop-shadow-xs">
+                    <i data-lucide="map-pin" class="w-3 h-3 text-brand-gold"></i>
+                    \${p.neighborhood}, \${p.city}
+                  </p>
+                </div>
+                <div class="text-right">
+                  <div class="text-[10px] text-gray-300 uppercase tracking-wider font-semibold">Cachê</div>
+                  <div class="text-lg font-bold font-serif text-brand-gold drop-shadow-sm">
+                    \${rateFormatted}<span class="text-[11px] text-gray-200 font-sans font-normal">/h</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Corpo do Card (Detalhes, Acessibilidade e Ações Diretas) -->
+          <div class="p-4 sm:p-5 flex-grow flex flex-col justify-between space-y-3.5">
+            <div>
+              <!-- Medidas e Comodidade -->
+              <div style="color: var(--text-muted);" class="text-[11px] font-semibold flex items-center gap-2 mb-2 pb-2 border-b" style="border-color: var(--border-subtle);">
+                <span>\${human.height}</span>
+                <span>•</span>
+                <span>\${human.weight}</span>
+                <span>•</span>
+                <span class="truncate">\${human.specialPlace}</span>
+              </div>
+
+              <!-- Bio Afetuosa e Humana -->
+              <p style="color: var(--text-body);" class="text-xs leading-relaxed line-clamp-2 italic mb-3">
+                "\${p.bio || 'Atendimento carinhoso, atencioso e com total privacidade. Sem pressa, combinamos tudo com clareza.'}"
+              </p>
+
+              <!-- Tags de Acessibilidade e Atendimento -->
+              <div class="flex flex-wrap gap-1.5 mb-2">
+                \${accTags || '<span style="color: var(--text-muted);" class="text-[10px]">Local confortável e discreto</span>'}
+              </div>
+            </div>
+
+            <!-- Botões de Ação Humana e Conversão Direta -->
+            <div class="pt-2 space-y-2 border-t" style="border-color: var(--border-subtle);">
+              
+              <!-- Botão Principal: WhatsApp Oficial com Conversão Instantânea -->
+              <button onclick="openProfileWhatsApp('\${p.artisticName}', '\${p.providerId}', '\${human.phone}', '\${p.neighborhood}')" class="w-full py-2.5 px-4 rounded-xl text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-500 transition shadow-md shadow-emerald-600/20 flex items-center justify-center gap-2">
+                <i data-lucide="message-circle" class="w-4 h-4"></i>
+                <span>Conversar no WhatsApp</span>
+              </button>
+
+              <!-- Botão Secundário: Ensaio Privado (Paywall Pix) -->
+              <button onclick="openEnsaioPaywall('\${p.providerId}', '\${p.artisticName}')" style="background-color: var(--bg-pill); border-color: var(--border-subtle); color: var(--text-heading);" class="w-full py-2 px-3 rounded-xl text-[11px] font-bold border hover:border-brand-crimson transition flex items-center justify-center gap-1.5">
+                <i data-lucide="sparkles" class="w-3.5 h-3.5 text-brand-gold"></i>
+                <span>Ver Ensaio Privado (15 Fotos)</span>
+              </button>
+            </div>
+          </div>
+        \`;
+        grid.appendChild(card);
+      });
+
+      if (window.lucide) lucide.createIcons();
     }
 
-    async function openPaywallModal(providerId) {
+    // Modal de WhatsApp com Pré-Mensagem Humanizada
+    function openProfileWhatsApp(name, id, phone, neighborhood) {
+      document.getElementById('wa-provider-id').value = id;
+      document.getElementById('wa-provider-phone').value = phone || '5568999881122';
+      document.getElementById('wa-name').innerText = name;
+      document.getElementById('wa-location').innerText = (neighborhood || 'Bosque') + ', Rio Branco • Atende Hoje';
+
+      const human = providerHumanProfiles[name] || {
+        photos: ['https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80']
+      };
+      document.getElementById('wa-avatar').src = human.photos[0];
+
+      updateCustomMessage();
+      openModal('modal-whatsapp');
+    }
+
+    function updateCustomMessage() {
+      const name = document.getElementById('wa-name').innerText;
+      const time = document.getElementById('wa-time-pref').value;
+      const location = document.getElementById('wa-location-pref').value;
+      const acc = document.getElementById('wa-acc-pref').value;
+
+      let msg = \`Olá \${name}! Vi seu anúncio no Enlace e gostaria de saber se você tem disponibilidade para \${time}, \${location}.\`;
+      if (acc && !acc.includes('sem adaptações')) {
+        msg += \` Gostaria de confirmar se podemos nos organizar pois \${acc}.\`;
+      }
+      msg += ' Aguardo seu retorno com carinho! 😊';
+
+      document.getElementById('wa-message-preview').innerText = msg;
+    }
+
+    function triggerWhatsAppRedirect() {
+      const phone = document.getElementById('wa-provider-phone').value;
+      const msg = document.getElementById('wa-message-preview').innerText;
+      closeModal('modal-whatsapp');
+      const waUrl = 'https://wa.me/' + phone + '?text=' + encodeURIComponent(msg);
+      window.open(waUrl, '_blank');
+    }
+
+    // Story Modal
+    function openStoryModal(name, photoUrl, caption) {
+      currentSelectedStory = { name, photoUrl, caption };
+      document.getElementById('story-bg').src = photoUrl;
+      document.getElementById('story-avatar').src = photoUrl;
+      document.getElementById('story-name').innerText = name;
+      document.getElementById('story-caption').innerText = caption;
+      openModal('modal-story');
+    }
+
+    function replyStoryOnWhatsApp() {
+      if (!currentSelectedStory) return;
+      closeModal('modal-story');
+      const human = providerHumanProfiles[currentSelectedStory.name] || { phone: '5568999881122' };
+      const msg = \`Olá \${currentSelectedStory.name}! Vi seu Story no Enlace ("\${currentSelectedStory.caption.slice(0, 30)}...") e gostaria de saber se tem horário disponível hoje! 🥰\`;
+      window.open('https://wa.me/' + human.phone + '?text=' + encodeURIComponent(msg), '_blank');
+    }
+
+    // Modal de Paywall e Pix
+    let activePaywallProvider = null;
+    function openEnsaioPaywall(providerId, providerName) {
+      activePaywallProvider = providerName;
+      document.getElementById('paywall-title').innerText = 'Ensaio Privado — ' + providerName;
       document.getElementById('pix-checkout-box').classList.add('hidden');
       document.getElementById('pix-unlocked-box').classList.add('hidden');
       document.getElementById('pix-initial-actions').classList.remove('hidden');
+
+      const human = providerHumanProfiles[providerName] || {
+        photos: ['https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80']
+      };
+      document.getElementById('paywall-preview-img').src = human.photos[0];
+
       openModal('modal-paywall');
     }
 
     async function startPixCheckout() {
-      try {
-        const loginRes = await fetch('/api/v1/auth/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email: 'cliente.demo@enlace.app', password: 'SenhaForte123!' })
-        });
-        const loginData = await loginRes.json();
+      document.getElementById('pix-initial-actions').classList.add('hidden');
+      document.getElementById('pix-checkout-box').classList.remove('hidden');
+      
+      const qrUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=00020126580014br.gov.bcb.pix0136enlace-pix-3500-split-85-15';
+      const copiaCola = '00020126580014br.gov.bcb.pix0136enlace-split-85-15-ordem-3500-rio-branco';
+      
+      document.getElementById('pix-qr-img').src = qrUrl;
+      document.getElementById('pix-copia-cola').value = copiaCola;
 
-        const checkoutRes = await fetch('/api/v1/orders/checkout', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + loginData.token
-          },
-          body: JSON.stringify({
-            item_type: 'MEDIA_SINGLE',
-            target_id: 'c1b2c3d4-0000-0000-0000-000000000001'
-          })
-        });
-
-        const orderData = await checkoutRes.json();
-        if (checkoutRes.status === 201) {
-          activeOrderId = orderData.orderId;
-          document.getElementById('pix-qr-img').src = orderData.pixQrCodeUrl;
-          document.getElementById('pix-copia-cola').value = orderData.pixCopiaECola;
-          document.getElementById('pix-initial-actions').classList.add('hidden');
-          document.getElementById('pix-checkout-box').classList.remove('hidden');
-        } else {
-          activeOrderId = 'demo_order_' + Date.now();
-          document.getElementById('pix-qr-img').src = 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=00020126580014br.gov.bcb.pix0136enlace-split-85-15';
-          document.getElementById('pix-copia-cola').value = '00020126580014br.gov.bcb.pix0136enlace-split-85-15...54035.005802BR';
-          document.getElementById('pix-initial-actions').classList.add('hidden');
-          document.getElementById('pix-checkout-box').classList.remove('hidden');
-        }
-        if (window.lucide) lucide.createIcons();
-      } catch (err) {
-        console.error(err);
-      }
-    }
-
-    async function simulatePixPayment() {
-      document.getElementById('pix-checkout-box').classList.add('hidden');
-      document.getElementById('pix-unlocked-box').classList.remove('hidden');
-      document.getElementById('paywall-preview-container').innerHTML = \`
-        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover">
-        <div class="absolute bottom-2 left-2 bg-white/95 text-[10px] text-sensual-900 font-mono px-2 py-0.5 rounded border border-sensual-300 inline-flex items-center gap-1 shadow-md font-bold">
-          <i data-lucide="fingerprint" class="w-3 h-3 text-sensual-600"></i>
-          Watermark: Cliente_9942 • #ENLACE-VERIFIED
-        </div>
-      \`;
       if (window.lucide) lucide.createIcons();
     }
 
+    function copyPixCode() {
+      const input = document.getElementById('pix-copia-cola');
+      input.select();
+      navigator.clipboard.writeText(input.value);
+      alert('Código Pix Copia e Cola copiado com sucesso! Abra o app do seu banco para pagar.');
+    }
+
+    function simulatePixPayment() {
+      document.getElementById('pix-checkout-box').classList.add('hidden');
+      document.getElementById('pix-unlocked-box').classList.remove('hidden');
+      if (window.lucide) lucide.createIcons();
+    }
+
+    function toggleFavorite(event, providerId) {
+      event.stopPropagation();
+      const btn = event.currentTarget;
+      btn.classList.toggle('text-rose-500');
+      btn.classList.toggle('text-white');
+    }
+
+    function openLoginModal() {
+      alert('Área do Usuário: Login com Pseudônimo e Proteção de Identidade ativada.');
+    }
+
+    // Inicialização
     window.addEventListener('DOMContentLoaded', () => {
       triggerSearch();
       if (window.lucide) lucide.createIcons();
