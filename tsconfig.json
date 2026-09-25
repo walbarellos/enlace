@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "lib": ["ES2022"],
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "paths": {
+      "@identity/*": ["./src/Identity/*"],
+      "@accessibility/*": ["./src/Accessibility/*"],
+      "@discovery/*": ["./src/Discovery/*"],
+      "@requests/*": ["./src/Requests/*"],
+      "@content/*": ["./src/Content/*"],
+      "@commerce/*": ["./src/Commerce/*"],
+      "@trust/*": ["./src/TrustSafety/*"],
+      "@shared/*": ["./src/Shared/*"]
+    }
+  },
+  "include": ["src/**/*"]
+}

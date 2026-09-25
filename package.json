@@ -1,0 +1,40 @@
+{
+  "name": "enlace",
+  "version": "1.0.0",
+  "description": "Plataforma Enlace - Marketplace Adulto Inclusivo, Acessível e Seguro",
+  "type": "module",
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "seed": "tsc && node dist/scripts/seed.js"
+  },
+  "keywords": [
+    "enlace",
+    "marketplace",
+    "accessibility",
+    "modular-monolith",
+    "ddd",
+    "hexagonal"
+  ],
+  "author": "Equipe Enlace",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "^22.0.0",
+    "@types/pg": "^8.11.0",
+    "typescript": "^5.5.0",
+    "vitest": "^2.0.0"
+  },
+  "dependencies": {
+    "@fastify/cors": "^11.3.0",
+    "bcryptjs": "^3.0.3",
+    "fastify": "^5.12.5",
+    "jsonwebtoken": "^9.0.3",
+    "pg": "^8.12.0",
+    "zod": "^3.23.0"
+  }
+}

@@ -1,0 +1,51 @@
+# ============================================================================
+# PLATAFORMA ENLACE — REGRAS DE ALERTA PROMETHEUS (SLOS CRÍTICOS)
+# Arquivo: 12.02 - Regras de Alerta Prometheus SLOs.yaml
+# ============================================================================
+
+groups:
+  - name: enlace_slo_alerts
+    rules:
+      # 1. Violação do SLO de Latência de Busca (NFR-PERF-001: P95 <= 80ms)
+      - alert: SearchLatencyP95Exceeded
+        expr: histogram_quantile(0.95, sum(rate(enlace_search_latency_seconds_bucket[5m])) by (le)) > 0.08
+        for: 3m
+        labels:
+          severity: warning
+          tier: api
+        annotations:
+          summary: "Latência P95 de busca por acessibilidade excedeu 80ms"
+          description: "O P95 das buscas está em {{ $value | humanizeDuration }}, violando o SLO NFR-PERF-001."
+
+      # 2. Violação do SLO de Disponibilidade Global (NFR-AVAIL-001 / NFR-ERR-001)
+      - alert: HighHTTP5xxErrorRate
+        expr: sum(rate(enlace_http_requests_total{status=~"5.."}[5m])) / sum(rate(enlace_http_requests_total[5m])) > 0.0005
+        for: 2m
+        labels:
+          severity: critical
+          tier: edge
+        annotations:
+          summary: "Taxa de erro HTTP 5xx excedeu 0.05%"
+          description: "A proporção de erros 5xx está em {{ $value | humanizePercentage }}, violando NFR-ERR-001."
+
+      # 3. Falha Crítica de Split Financeiro Pix (NFR-FIN-001: Zero Falhas)
+      - alert: PixSplitExecutionFailure
+        expr: increase(enlace_payment_split_failures_total[5m]) > 0
+        for: 0m
+        labels:
+          severity: page
+          tier: payments
+        annotations:
+          summary: "Falha na liquidação do split instantâneo Pix com o gateway"
+          description: "Foram detectadas {{ $value }} falhas de repasse Pix nos últimos 5 minutos."
+
+      # 4. Sobrecarga da Fila de Mídia (Processamento de Vídeo / Esteganografia)
+      - alert: MediaProcessingQueueStalled
+        expr: enlace_media_queue_depth > 100
+        for: 10m
+        labels:
+          severity: warning
+          tier: workers
+        annotations:
+          summary: "Fila de processamento de vídeos acumulada"
+          description: "Existem {{ $value }} mídias na fila do Redis aguardando transcodificação."

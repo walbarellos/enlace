@@ -1,0 +1,35 @@
+services:
+  postgres:
+    image: postgis/postgis:16-3.4
+    container_name: enlace-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: enlace_admin
+      POSTGRES_PASSWORD: enlace_admin_password_dev
+      POSTGRES_DB: enlace_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./03 - BANCO DE DADOS:/docker-entrypoint-initdb.d/scripts:ro
+      - ./scripts/init-db.sh:/docker-entrypoint-initdb.d/init-db.sh:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U enlace_admin -d enlace_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    container_name: enlace-redis
+    restart: always
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  pgdata:
